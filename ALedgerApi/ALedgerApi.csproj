@@ -6,13 +6,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>9534d299-2d6a-455f-bfd2-9fb6a85fc159</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>doc/documentation.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <OpenApiReference Include="..\..\..\..\..\Downloads\swagger.json" CodeGenerator="NSwagCSharp" Namespace="OpenApiClient" ClassName="Client" Link="OpenAPIs\swagger.json" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="AlgorandAuthentication" Version="1.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
     <PackageReference Include="Microsoft.Extensions.ApiDescription.Client" Version="7.0.5">
@@ -28,6 +27,21 @@
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RestDWH\RestDWH.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="doc\documentation.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

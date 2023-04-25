@@ -1,5 +1,8 @@
-﻿namespace ALedgerApi.Model.Comm
+﻿using RestDWH.Attributes;
+
+namespace ALedgerApi.Model.Comm
 {
+    [RestDWHEntity("InvoiceItem")]
     public class InvoiceItem : IEquatable<InvoiceItem?>
     {
         public string InvoiceId { get; set; }

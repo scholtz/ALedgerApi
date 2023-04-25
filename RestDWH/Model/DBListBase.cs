@@ -1,4 +1,4 @@
-﻿namespace ALedgerApi.Model.DB
+﻿namespace RestDWH.Model
 {
     public class DBListBase<TComm, T> where T : DBBase<TComm>
     {

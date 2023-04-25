@@ -1,10 +1,14 @@
-﻿namespace ALedgerApi.Model.Comm
+﻿using RestDWH.Attributes;
+
+namespace ALedgerApi.Model.Comm
 {
+    [RestDWHEntity("Invoice")]
     public class Invoice : IEquatable<Invoice?>
     {
         public string InvoiceNumber { get; set; }
         public long InvoiceNumberNum { get; set; }
         public string InvoiceType { get; set; }
+        public string[] PaymentMethodIds { get; set; } = Array.Empty<string>();
         public string PersonIdIssuer { get; set; }
         public string PersonIdReceiver { get; set; }
         public bool IsDraft = true;

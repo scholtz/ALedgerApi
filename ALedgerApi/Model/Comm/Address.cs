@@ -1,9 +1,26 @@
-﻿namespace ALedgerApi.Model.Comm
+﻿using RestDWH.Attributes;
+
+namespace ALedgerApi.Model.Comm
 {
+    /// <summary>
+    /// Address object
+    /// </summary>
+    [RestDWHEntity("Address")]
     public class Address : IEquatable<Address?>
     {
+        /// <summary>
+        /// Example: Dopravaku 5
+        /// </summary>
         public string Street { get; set; }
+        /// <summary>
+        /// Second line of street
+        /// </summary>
         public string? StreetLine2 { get; set; }
+        /// <summary>
+        /// City
+        /// 
+        /// Example: Prague
+        /// </summary>
         public string City { get; set; }
         public string? State { get; set; }
         public string ZipCode { get; set; }

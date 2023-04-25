@@ -1,11 +1,12 @@
-﻿using ALedgerApi.Model.DB;
-using ALedgerApi.Repository;
+﻿using RestDWH.Model;
+using RestDWH.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Nest;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace ALedgerApi.Controllers
+namespace RestDWH.Controllers
 {
     public class BaseController<TEnt, TDBEnt, TDBEntList, TDBEntLog> : ControllerBase
         where TEnt : class
@@ -29,56 +30,54 @@ namespace ALedgerApi.Controllers
             this.repo = repo;
         }
 
-        public static string Name<T>()
-        {
-            return typeof(T).FullName;
-        }
-
+        [Authorize]
         [HttpGet($"v1/Get[controller]")]
         public Task<TDBEntList> Get(int from = 0, int size = 10, string query = "*")
         {
-            return repo.Get(from, size, query);
+            return repo.Get(from, size, query, User);
         }
 
+        [Authorize]
         [HttpGet("v1/Get[controller]ById/{id}")]
         public Task<TDBEnt?> GetById(string id)
         {
-            return repo.GetById(id);
+            return repo.GetById(id, User);
         }
 
-        [SwaggerOperation("Post")]
+        [Authorize]
         [HttpPost("v1/Post[controller]")]
         public Task<TDBEnt> Post([FromBody] TEnt data)
         {
-            return repo.Post(data);
+            return repo.Post(data, User);
         }
 
-        [SwaggerOperation("Put")]
+        [Authorize]
         [HttpPut("v1/Put[controller]/{id}")]
         public Task<TDBEnt> Put([FromRoute] string id, [FromBody] TEnt data)
         {
-            return repo.Put(id, data);
+            return repo.Put(id, data, User);
         }
 
 
-        [SwaggerOperation("Put")]
+        [Authorize]
         [HttpPut("v1/Upsert[controller]/{id}")]
         public Task<TDBEnt> Upsert([FromRoute] string id, [FromBody] TEnt data)
         {
-            return repo.Upsert(id, data);
+            return repo.Upsert(id, data, User);
         }
 
-        [SwaggerOperation("Patch")]
+        [Authorize]
         [HttpPatch("v1/Patch[controller]/{id}")]
         public Task<TDBEnt> Patch([FromRoute] string id, [FromBody] JsonPatchDocument<TEnt> data)
         {
-            return repo.Patch(id, data);
+            return repo.Patch(id, data, User);
         }
 
+        [Authorize]
         [HttpDelete("v1/Delete[controller]/{id}")]
         public Task<TDBEnt> Delete(string id)
         {
-            return repo.Delete(id);
+            return repo.Delete(id, User);
         }
     }
 }

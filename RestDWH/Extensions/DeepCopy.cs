@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ALedgerApi.Extensions
+namespace RestDWH.Extensions
 {
     public static class ExtensionMethods
     {

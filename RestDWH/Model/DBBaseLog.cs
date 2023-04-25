@@ -1,4 +1,4 @@
-﻿namespace ALedgerApi.Model.DB
+﻿namespace RestDWH.Model
 {
     public class DBBaseLog<T> : DBBase<T>
     {

@@ -1,9 +1,9 @@
-﻿using ALedgerApi.Extensions;
-using ALedgerApi.Model.DB;
+﻿using RestDWH.Extensions;
+using RestDWH.Model;
 using Microsoft.AspNetCore.JsonPatch;
 using Nest;
 
-namespace ALedgerApi.Repository
+namespace RestDWH.Repository
 {
     public class BaseRepository<TEnt, TDBEnt, TDBEntList, TDBEntLog>
         where TEnt : class
@@ -18,7 +18,7 @@ namespace ALedgerApi.Repository
             _elasticClient = elasticClient;
         }
 
-        public async Task<TDBEntList> Get(int from = 0, int size = 10, string query = "*")
+        public async Task<TDBEntList> Get(int from = 0, int size = 10, string query = "*", System.Security.Claims.ClaimsPrincipal? user = null)
         {
 
             var searchResponse = await _elasticClient.SearchAsync<TDBEnt>(s => s
@@ -45,14 +45,14 @@ namespace ALedgerApi.Repository
         }
 
 
-        public async Task<TDBEnt?> GetById(string id)
+        public async Task<TDBEnt?> GetById(string id, System.Security.Claims.ClaimsPrincipal? user = null)
         {
             var searchResponse = await _elasticClient.GetAsync<TDBEnt>(id);//
             if (searchResponse.Source == null) { throw new Exception("Not found"); }
             searchResponse.Source.Id = searchResponse.Id;
             return searchResponse.Source;
         }
-        public async Task<TDBEnt> Post(TEnt person)
+        public async Task<TDBEnt> Post(TEnt person, System.Security.Claims.ClaimsPrincipal? user = null)
         {
             var now = DateTimeOffset.Now;
             var instance = Activator.CreateInstance(typeof(TDBEnt)) as TDBEnt;
@@ -60,7 +60,8 @@ namespace ALedgerApi.Repository
             instance.Created = now;
             instance.Updated = now;
             instance.Data = person;
-            instance.UpdatedBy = "";
+            instance.CreatedBy = user?.Identity?.Name;
+            instance.UpdatedBy = user?.Identity?.Name;
 
             var indexResponse = await _elasticClient.IndexDocumentAsync(instance);
             if (!indexResponse.IsValid) throw new Exception(indexResponse.DebugInformation);
@@ -68,7 +69,7 @@ namespace ALedgerApi.Repository
             searchResponse.Source.Id = indexResponse.Id;
             return searchResponse.Source;
         }
-        public async Task<TDBEnt> Put(string id, TEnt data)
+        public async Task<TDBEnt> Put(string id, TEnt data, System.Security.Claims.ClaimsPrincipal? user = null)
         {
             var searchResponse = await _elasticClient.GetAsync<TDBEnt>(id);
             if (!searchResponse.IsValid)
@@ -85,7 +86,8 @@ namespace ALedgerApi.Repository
             instance.Created = searchResponse.Source.Created;
             instance.Updated = DateTimeOffset.Now;
             instance.Data = data;
-            instance.UpdatedBy = "";
+            instance.CreatedBy = searchResponse.Source.CreatedBy ?? user?.Identity?.Name;
+            instance.UpdatedBy = user?.Identity?.Name;
 
             var instanceLog = Activator.CreateInstance(typeof(TDBEntLog)) as TDBEntLog;
             if (instanceLog == null) throw new Exception("Unable to inicialize TDBEntLog");
@@ -107,7 +109,7 @@ namespace ALedgerApi.Repository
             return finalResponse.Source;
         }
 
-        public async Task<TDBEnt> Upsert(string id, TEnt data)
+        public async Task<TDBEnt> Upsert(string id, TEnt data, System.Security.Claims.ClaimsPrincipal? user = null)
         {
             var searchResponse = await _elasticClient.GetAsync<TDBEnt>(id);
             if (searchResponse.Source != null && data?.Equals(searchResponse.Source.Data) == true)
@@ -121,7 +123,8 @@ namespace ALedgerApi.Repository
             instance.Created = searchResponse.Source?.Created ?? now;
             instance.Updated = now;
             instance.Data = data;
-            instance.UpdatedBy = "";
+            instance.CreatedBy = searchResponse.Source?.CreatedBy ?? user?.Identity?.Name;
+            instance.UpdatedBy = user?.Identity?.Name;
             if (searchResponse.Source == null)
             {
                 // new record
@@ -153,7 +156,7 @@ namespace ALedgerApi.Repository
         }
 
 
-        public async Task<TDBEnt> Patch(string id, JsonPatchDocument<TEnt> data)
+        public async Task<TDBEnt> Patch(string id, JsonPatchDocument<TEnt> data, System.Security.Claims.ClaimsPrincipal? user = null)
         {
             var searchResponse = await _elasticClient.GetAsync<TDBEnt>(id);
             if (!searchResponse.IsValid)
@@ -173,14 +176,16 @@ namespace ALedgerApi.Repository
             instance.Created = searchResponse.Source.Created;
             instance.Updated = DateTimeOffset.Now;
             instance.Data = searchResponse.Source.Data;
-            instance.UpdatedBy = "";
+            instance.CreatedBy = searchResponse.Source?.CreatedBy;
+            instance.UpdatedBy = user?.Identity?.Name;
 
             var instanceLog = Activator.CreateInstance(typeof(TDBEntLog)) as TDBEntLog;
             if (instanceLog == null) throw new Exception("Unable to inicialize TDBEntLog");
             instanceLog.Created = searchResponse.Source.Created;
             instanceLog.Updated = DateTimeOffset.Now;
             instanceLog.Data = orig;
-            instanceLog.UpdatedBy = searchResponse.Source.UpdatedBy;
+            instanceLog.CreatedBy = searchResponse.Source?.CreatedBy;
+            instanceLog.UpdatedBy = searchResponse.Source?.UpdatedBy;
             instanceLog.RefId = searchResponse.Id;
             instanceLog.Version = searchResponse.Version;
 
@@ -194,7 +199,7 @@ namespace ALedgerApi.Repository
             finalResponse.Source.Id = finalResponse.Id;
             return finalResponse.Source;
         }
-        public async Task<TDBEnt> Delete(string id)
+        public async Task<TDBEnt> Delete(string id, System.Security.Claims.ClaimsPrincipal? user = null)
         {
             //var deleteResponse = await _elasticClient.DeleteAsync<DBPerson>(id);
 
@@ -207,9 +212,12 @@ namespace ALedgerApi.Repository
 
             if (instanceLog == null) throw new Exception("Unable to inicialize TDBEntLog");
             instanceLog.Created = searchResponse.Source.Created;
-            instanceLog.Updated = DateTimeOffset.Now;
+            instanceLog.Updated = searchResponse.Source.Updated;
+            instanceLog.Deleted = DateTimeOffset.Now;
             instanceLog.Data = searchResponse.Source.Data;
+            instanceLog.CreatedBy = searchResponse.Source.CreatedBy;
             instanceLog.UpdatedBy = searchResponse.Source.UpdatedBy;
+            instanceLog.DeletedBy = user?.Identity?.Name;
             instanceLog.RefId = searchResponse.Id;
             instanceLog.Version = searchResponse.Version;
 

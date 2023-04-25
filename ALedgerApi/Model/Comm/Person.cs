@@ -1,5 +1,8 @@
-﻿namespace ALedgerApi.Model.Comm
+﻿using RestDWH.Attributes;
+
+namespace ALedgerApi.Model.Comm
 {
+    [RestDWHEntity("Person")]
     public class Person : IEquatable<Person?>
     {
         public string BusinessName { get; set; }

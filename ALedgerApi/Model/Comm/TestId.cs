@@ -1,5 +1,8 @@
-﻿namespace ALedgerApi.Model.Comm
+﻿using RestDWH.Attributes;
+
+namespace ALedgerApi.Model.Comm
 {
+    [RestDWHEntity("TestId")]
     public class TestId
     {
         public Guid Id { get; set; }

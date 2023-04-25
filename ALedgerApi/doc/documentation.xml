@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ALedgerApi</name>
+    </assembly>
+    <members>
+        <member name="T:ALedgerApi.Model.Comm.Address">
+            <summary>
+            Address object
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.Comm.Address.Street">
+            <summary>
+            Example: Dopravaku 5
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.Comm.Address.StreetLine2">
+            <summary>
+            Second line of street
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.Comm.Address.City">
+            <summary>
+            City
+            
+            Example: Prague
+            </summary>
+        </member>
+    </members>
+</doc>

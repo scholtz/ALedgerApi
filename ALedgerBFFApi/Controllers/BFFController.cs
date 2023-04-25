@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace ALedgerApi.Controllers.Data
+namespace ALedgerBFFApi.Controllers
 {
     [Route("v1/[controller]")]
     [ApiController]
@@ -18,6 +18,13 @@ namespace ALedgerApi.Controllers.Data
         public async Task<OpenApiClient.Person> GetPerson()
         {
 
+            var persons = await client.GetPersonAsync(0, 10, "*");
+            return persons.Results.First().Data;
+        }
+
+        [HttpPost("IssueInvoice")]
+        public async Task<OpenApiClient.Person> IssueInvoice([FromBody] Model.NewInvoice newInvoice)
+        {
             var persons = await client.GetPersonAsync(0, 10, "*");
             return persons.Results.First().Data;
         }
