@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALedgerApi", "ALedgerApi\ALedgerApi.csproj", "{9371057D-42A3-4EE2-977A-EEE4A3E7312C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ALedgerApi", "ALedgerApi\ALedgerApi.csproj", "{9371057D-42A3-4EE2-977A-EEE4A3E7312C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ALedgerBFFApi", "ALedgerBFFApi\ALedgerBFFApi.csproj", "{7682929D-ECB4-4C42-924C-906049327D07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{9371057D-42A3-4EE2-977A-EEE4A3E7312C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9371057D-42A3-4EE2-977A-EEE4A3E7312C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9371057D-42A3-4EE2-977A-EEE4A3E7312C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7682929D-ECB4-4C42-924C-906049327D07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7682929D-ECB4-4C42-924C-906049327D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7682929D-ECB4-4C42-924C-906049327D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7682929D-ECB4-4C42-924C-906049327D07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

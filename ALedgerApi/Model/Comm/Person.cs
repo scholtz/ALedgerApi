@@ -1,4 +1,4 @@
-﻿namespace ALedgerApi.Model.Person.Comm
+﻿namespace ALedgerApi.Model.Comm
 {
     public class Person
     {

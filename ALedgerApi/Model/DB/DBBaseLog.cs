@@ -1,6 +1,6 @@
-﻿namespace ALedgerApi.Model.Person.DB
+﻿namespace ALedgerApi.Model.DB
 {
-    public class DBPersonLog : DBPerson
+    public class DBBaseLog<T> : DBBase<T>
     {
         public string RefId { get; set; }
         public long Version { get; set; }

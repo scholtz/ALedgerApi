@@ -1,4 +1,4 @@
-﻿namespace ALedgerApi.Model.Address.Comm
+﻿namespace ALedgerApi.Model.Comm
 {
     public class Address
     {

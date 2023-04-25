@@ -1,4 +1,4 @@
-﻿namespace ALedgerApi.Model.Invoice.Comm
+﻿namespace ALedgerApi.Model.Comm
 {
     public class Invoice
     {
