@@ -45,7 +45,7 @@ namespace ALedgerApi.Repository
         }
 
 
-        public async Task<TDBEnt?> GetPerson(string id)
+        public async Task<TDBEnt?> GetById(string id)
         {
             var searchResponse = await _elasticClient.GetAsync<TDBEnt>(id);//
             if (searchResponse.Source == null) { throw new Exception("Not found"); }
@@ -81,6 +81,7 @@ namespace ALedgerApi.Repository
             }
             var instance = Activator.CreateInstance(typeof(TDBEnt)) as TDBEnt;
             if (instance == null) throw new Exception("Unable to inicialize TDBEnt");
+            instance.Id = id;
             instance.Created = searchResponse.Source.Created;
             instance.Updated = DateTimeOffset.Now;
             instance.Data = data;
@@ -99,6 +100,51 @@ namespace ALedgerApi.Repository
                 r.
                 Index<TDBEntLog>(r => r.Document(instanceLog)).
                 Update<TDBEnt>(r => r.Id(id).Doc(instance)));
+
+            var finalResponse = await _elasticClient.GetAsync<TDBEnt>(id);
+            if (finalResponse == null) throw new Exception($"FATAL Error occured. Failed to update {id} and instance is not available any more");
+            finalResponse.Source.Id = finalResponse.Id;
+            return finalResponse.Source;
+        }
+
+        public async Task<TDBEnt> Upsert(string id, TEnt data)
+        {
+            var searchResponse = await _elasticClient.GetAsync<TDBEnt>(id);
+            if (searchResponse.Source != null && data?.Equals(searchResponse.Source.Data) == true)
+            {
+                return searchResponse.Source;// do not update if the docs are equal
+            }
+            var now = DateTimeOffset.Now;
+            var instance = Activator.CreateInstance(typeof(TDBEnt)) as TDBEnt;
+            if (instance == null) throw new Exception("Unable to inicialize TDBEnt");
+            instance.Id = id;
+            instance.Created = searchResponse.Source?.Created ?? now;
+            instance.Updated = now;
+            instance.Data = data;
+            instance.UpdatedBy = "";
+            if (searchResponse.Source == null)
+            {
+                // new record
+
+                _ = await _elasticClient.IndexDocumentAsync(instance);
+            }
+            else
+            {
+                // update record
+                var instanceLog = Activator.CreateInstance(typeof(TDBEntLog)) as TDBEntLog;
+                if (instanceLog == null) throw new Exception("Unable to inicialize TDBEntLog");
+                instanceLog.Created = searchResponse.Source?.Created ?? now;
+                instanceLog.Updated = now;
+                instanceLog.Data = searchResponse.Source?.Data;
+                instanceLog.UpdatedBy = searchResponse.Source?.UpdatedBy;
+                instanceLog.RefId = searchResponse.Id;
+                instanceLog.Version = searchResponse.Version;
+
+                _ = await _elasticClient.BulkAsync(r =>
+                    r.
+                    Index<TDBEntLog>(r => r.Document(instanceLog)).
+                    Update<TDBEnt>(r => r.Id(id).Doc(instance)));
+            }
 
             var finalResponse = await _elasticClient.GetAsync<TDBEnt>(id);
             if (finalResponse == null) throw new Exception($"FATAL Error occured. Failed to update {id} and instance is not available any more");

@@ -32,7 +32,9 @@ namespace ALedgerApi
                 .DefaultMappingFor<DBBase<InvoiceItem>>(r => r.IndexName("invoiceItem-main"))
                 .DefaultMappingFor<DBBaseLog<InvoiceItem>>(r => r.IndexName("invoiceItem-log"))
                 .DefaultMappingFor<DBBase<Person>>(r => r.IndexName("person2-main"))
-                .DefaultMappingFor<DBBaseLog<Person>>(r => r.IndexName("person2-log"));
+                .DefaultMappingFor<DBBaseLog<Person>>(r => r.IndexName("person2-log"))
+                .DefaultMappingFor<DBBase<TestId>>(r => r.IndexName("testid-main"))
+                .DefaultMappingFor<DBBaseLog<TestId>>(r => r.IndexName("testid-log"));
 
             var client = new ElasticClient(settings);
             builder.Services.AddSingleton<IElasticClient>(client);
@@ -60,6 +62,12 @@ namespace ALedgerApi
                 Model.DB.DBBase<Invoice>,
                 Model.DB.DBListBase<Invoice, Model.DB.DBBase<Invoice>>,
                 DBBaseLog<Invoice>
+            >>();
+            builder.Services.AddSingleton<BaseRepository<
+                TestId,
+                Model.DB.DBBase<TestId>,
+                Model.DB.DBListBase<TestId, Model.DB.DBBase<TestId>>,
+                DBBaseLog<TestId>
             >>();
             var app = builder.Build();
 
@@ -92,6 +100,12 @@ namespace ALedgerApi
                 Model.DB.DBBase<InvoiceItem>,
                 Model.DB.DBListBase<InvoiceItem, Model.DB.DBBase<InvoiceItem>>,
                 DBBaseLog<InvoiceItem>
+            >>(); // init singleton
+            _ = app.Services.GetService<BaseRepository<
+                TestId,
+                Model.DB.DBBase<TestId>,
+                Model.DB.DBListBase<TestId, Model.DB.DBBase<TestId>>,
+                DBBaseLog<TestId>
             >>(); // init singleton
             app.UseAuthorization();
             app.MapControllers();

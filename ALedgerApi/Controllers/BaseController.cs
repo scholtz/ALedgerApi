@@ -41,9 +41,9 @@ namespace ALedgerApi.Controllers
         }
 
         [HttpGet("v1/Get[controller]ById/{id}")]
-        public Task<TDBEnt?> GetPerson(string id)
+        public Task<TDBEnt?> GetById(string id)
         {
-            return repo.GetPerson(id);
+            return repo.GetById(id);
         }
 
         [SwaggerOperation("Post")]
@@ -58,6 +58,14 @@ namespace ALedgerApi.Controllers
         public Task<TDBEnt> Put([FromRoute] string id, [FromBody] TEnt data)
         {
             return repo.Put(id, data);
+        }
+
+
+        [SwaggerOperation("Put")]
+        [HttpPut("v1/Upsert[controller]/{id}")]
+        public Task<TDBEnt> Upsert([FromRoute] string id, [FromBody] TEnt data)
+        {
+            return repo.Upsert(id, data);
         }
 
         [SwaggerOperation("Patch")]

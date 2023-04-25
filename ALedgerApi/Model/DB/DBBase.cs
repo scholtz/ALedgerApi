@@ -2,7 +2,7 @@
 {
     public class DBBase<TComm>
     {
-        public string Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
         public TComm? Data { get; set; } = default;
         public DateTimeOffset Created { get; set; }
         public DateTimeOffset Updated { get; set; }
