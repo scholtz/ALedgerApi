@@ -1,11 +1,12 @@
-﻿using RestDWH.Attributes;
+﻿using ALedgerApi.Events;
+using RestDWH.Attributes;
 
 namespace ALedgerApi.Model.Comm
 {
     /// <summary>
     /// Address object
     /// </summary>
-    [RestDWHEntity("Address")]
+    [RestDWHEntity("Address", typeof(AddressEvents))]
     public class Address : IEquatable<Address?>
     {
         /// <summary>

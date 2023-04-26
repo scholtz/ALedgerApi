@@ -23,6 +23,30 @@ namespace RestDWH.Extensions
 {
     public static class RegisterRepositories
     {
+        public static void RegisterRestDWHEvents(this IServiceCollection services)
+        {
+            var types = from assembly in AppDomain.CurrentDomain.GetAssemblies()
+                        from type in assembly.GetTypes()
+                        where type.IsDefined(typeof(RestDWHEntity))
+                        select type;
+            foreach (var type in types)
+            {
+                RestDWHEntity[] MyAttributes = (RestDWHEntity[])Attribute.GetCustomAttributes(type, typeof(RestDWHEntity));
+                if (MyAttributes.FirstOrDefault()?.Events == null)
+                {
+                    var genericBaseDBBase = typeof(RestDWHEvents<>).MakeGenericType(type);
+                    services.AddSingleton(genericBaseDBBase);
+                }
+                else
+                {
+                    var genericBaseDBBase = typeof(RestDWHEvents<>).MakeGenericType(type);
+                    services.AddSingleton(genericBaseDBBase, MyAttributes.FirstOrDefault().Events);
+                }
+                //var x = new Type[] { typeof(string) };
+            }
+        }
+
+
         public static void RegisterRestDWHRepositories(this IServiceCollection services)
         {
             var types = from assembly in AppDomain.CurrentDomain.GetAssemblies()
@@ -31,12 +55,7 @@ namespace RestDWH.Extensions
                         select type;
             foreach (var type in types)
             {
-                //var x = new Type[] { typeof(string) };
-                var genericBaseDBBase = typeof(DBBase<>).MakeGenericType(type);
-                var genericBaseDBListBase = typeof(DBListBase<,>).MakeGenericType(type, genericBaseDBBase);
-                var genericBaseDBBaseLog = typeof(DBBaseLog<>).MakeGenericType(type);
-                var genericBase = typeof(BaseRepository<,,,>).MakeGenericType(type, genericBaseDBBase, genericBaseDBListBase, genericBaseDBBaseLog);
-
+                var genericBase = typeof(BaseRepository<>).MakeGenericType(type);
                 services.AddSingleton(genericBase);
             }
         }
@@ -48,11 +67,7 @@ namespace RestDWH.Extensions
                         select type;
             foreach (var type in types)
             {
-                //var x = new Type[] { typeof(string) };
-                var genericBaseDBBase = typeof(DBBase<>).MakeGenericType(type);
-                var genericBaseDBListBase = typeof(DBListBase<,>).MakeGenericType(type, genericBaseDBBase);
-                var genericBaseDBBaseLog = typeof(DBBaseLog<>).MakeGenericType(type);
-                var genericBase = typeof(BaseRepository<,,,>).MakeGenericType(type, genericBaseDBBase, genericBaseDBListBase, genericBaseDBBaseLog);
+                var genericBase = typeof(BaseRepository<>).MakeGenericType(type);
 
                 _ = app.Services.GetService(genericBase);
             }
@@ -117,13 +132,10 @@ namespace RestDWH.Controllers.Data
     [Authorize]
     [ApiController]
     public class {name}Controller: BaseController<
-            {type.ToString()},
-            DBBase<{type.ToString()}>,
-            DBListBase<{type.ToString()}, DBBase<{type.ToString()}>>,
-            DBBaseLog<{type.ToString()}>
+            {type.ToString()}
         >
     {{
-        public {name}Controller(BaseRepository<{type.ToString()}, DBBase<{type.ToString()}>, DBListBase<{type.ToString()}, DBBase<{type.ToString()}>>, DBBaseLog<{type.ToString()}>> repo) : base(repo)
+        public {name}Controller(BaseRepository<{type.ToString()}> repo) : base(repo)
         {{
         }}
     }}

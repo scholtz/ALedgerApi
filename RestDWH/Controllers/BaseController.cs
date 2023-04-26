@@ -5,26 +5,18 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Nest;
 using Swashbuckle.AspNetCore.Annotations;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace RestDWH.Controllers
 {
-    public class BaseController<TEnt, TDBEnt, TDBEntList, TDBEntLog> : ControllerBase
+    public class BaseController<TEnt> : ControllerBase
         where TEnt : class
-        where TDBEnt : DBBase<TEnt>
-        where TDBEntList : DBListBase<TEnt, TDBEnt>
-        where TDBEntLog : DBBaseLog<TEnt>
     {
         private readonly BaseRepository<
-            TEnt,
-            TDBEnt,
-            TDBEntList,
-            TDBEntLog
+            TEnt
         > repo;
         public BaseController(BaseRepository<
-            TEnt,
-            TDBEnt,
-            TDBEntList,
-            TDBEntLog
+            TEnt
         > repo)
         {
             this.repo = repo;
@@ -39,28 +31,28 @@ namespace RestDWH.Controllers
         /// <returns></returns>
         [Authorize]
         [HttpGet($"v1/Get[controller]")]
-        public Task<TDBEntList> Get(int from = 0, int size = 10, string query = "*", string sort = "")
+        public Task<DBListBase<TEnt, DBBase<TEnt>>> Get(int from = 0, int size = 10, string query = "*", string sort = "")
         {
             return repo.Get(from, size, query, sort, User);
         }
 
         [Authorize]
         [HttpGet("v1/Get[controller]ById/{id}")]
-        public Task<TDBEnt?> GetById(string id)
+        public Task<DBBase<TEnt>?> GetById(string id)
         {
             return repo.GetById(id, User);
         }
 
         [Authorize]
         [HttpPost("v1/Post[controller]")]
-        public Task<TDBEnt> Post([FromBody] TEnt data)
+        public Task<DBBase<TEnt>> Post([FromBody] TEnt data)
         {
             return repo.Post(data, User);
         }
 
         [Authorize]
         [HttpPut("v1/Put[controller]/{id}")]
-        public Task<TDBEnt> Put([FromRoute] string id, [FromBody] TEnt data)
+        public Task<DBBase<TEnt>> Put([FromRoute] string id, [FromBody] TEnt data)
         {
             return repo.Put(id, data, User);
         }
@@ -68,21 +60,21 @@ namespace RestDWH.Controllers
 
         [Authorize]
         [HttpPut("v1/Upsert[controller]/{id}")]
-        public Task<TDBEnt> Upsert([FromRoute] string id, [FromBody] TEnt data)
+        public Task<DBBase<TEnt>> Upsert([FromRoute] string id, [FromBody] TEnt data)
         {
             return repo.Upsert(id, data, User);
         }
 
         [Authorize]
         [HttpPatch("v1/Patch[controller]/{id}")]
-        public Task<TDBEnt> Patch([FromRoute] string id, [FromBody] JsonPatchDocument<TEnt> data)
+        public Task<DBBase<TEnt>> Patch([FromRoute] string id, [FromBody] JsonPatchDocument<TEnt> data)
         {
             return repo.Patch(id, data, User);
         }
 
         [Authorize]
         [HttpDelete("v1/Delete[controller]/{id}")]
-        public Task<TDBEnt> Delete(string id)
+        public Task<DBBase<TEnt>> Delete(string id)
         {
             return repo.Delete(id, User);
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestDWH.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +11,12 @@ namespace RestDWH.Attributes
     public class RestDWHEntity : System.Attribute
     {
         public string Name { get; set; }
+        public Type? Events { get; set; }
 
-        public RestDWHEntity(string name)
+        public RestDWHEntity(string name, Type? events = null)
         {
             Name = name;
+            Events = events;
         }
     }
 }

@@ -63,6 +63,8 @@ namespace ALedgerApi
             var client = new ElasticClient(settings);
             builder.Services.AddSingleton<IElasticClient>(client);
             builder.Services.RegisterRestDWHRepositories();
+            builder.Services.RegisterRestDWHEvents();
+
             var app = builder.Build();
 
             var resp = client.Ping();
