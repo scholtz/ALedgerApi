@@ -23,6 +23,8 @@ namespace ALedgerApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
+                    Title = "ALedgerApi",
+                    Version = "v1",
                     Description = File.ReadAllText("doc/readme.md")
                 });
                 c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme

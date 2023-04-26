@@ -32,6 +32,7 @@ namespace ALedgerApi.Model.Comm
                    InvoiceNumber == other.InvoiceNumber &&
                    InvoiceNumberNum == other.InvoiceNumberNum &&
                    InvoiceType == other.InvoiceType &&
+                   EqualityComparer<string[]>.Default.Equals(PaymentMethodIds, other.PaymentMethodIds) &&
                    PersonIdIssuer == other.PersonIdIssuer &&
                    PersonIdReceiver == other.PersonIdReceiver &&
                    IsDraft == other.IsDraft &&
@@ -51,6 +52,7 @@ namespace ALedgerApi.Model.Comm
             hash.Add(InvoiceNumber);
             hash.Add(InvoiceNumberNum);
             hash.Add(InvoiceType);
+            hash.Add(PaymentMethodIds);
             hash.Add(PersonIdIssuer);
             hash.Add(PersonIdReceiver);
             hash.Add(IsDraft);

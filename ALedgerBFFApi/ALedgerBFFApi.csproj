@@ -9,32 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="OpenAPIs\swagger.json" ClassName="Client" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="OpenAPIs\swagger1.json" ClassName="Client" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="OpenAPIs\swagger2.json" ClassName="Client" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="OpenAPIs\swagger3.json" ClassName="Client" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="OpenAPIs\swagger4.json" ClassName="Client" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <OpenApiReference Include="OpenAPIs\swagger5.json" CodeGenerator="NSwagCSharp" Namespace="OpenApiClient" ClassName="Client">
+    <OpenApiReference Include="OpenAPIs\swagger.json" CodeGenerator="NSwagCSharp" Namespace="OpenApiClient" ClassName="Client">
       <SourceUri>https://localhost:44375/swagger/v1/swagger.json</SourceUri>
     </OpenApiReference>
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AlgorandAuthentication" Version="1.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
     <PackageReference Include="Microsoft.Extensions.ApiDescription.Client" Version="7.0.5">
       <PrivateAssets>all</PrivateAssets>
@@ -47,6 +28,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.6" />
   </ItemGroup>
 
 </Project>
