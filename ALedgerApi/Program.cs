@@ -65,12 +65,18 @@ namespace ALedgerApi
             builder.Services.RegisterRestDWHRepositories();
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            var resp = client.Ping();
+            if (!resp.IsValid)
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                throw new Exception("Connection to elastic has not been established");
             }
+
+            // Configure the HTTP request pipeline.
+            //if (app.Environment.IsDevelopment())
+            //{
+            app.UseSwagger();
+            app.UseSwaggerUI();
+            //}
             app.PreloadRestDWHRepositories();
 
             app.UseAuthentication();
