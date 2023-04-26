@@ -18,15 +18,41 @@ namespace RestDWH.Repository
             _elasticClient = elasticClient;
         }
 
-        public async Task<TDBEntList> Get(int from = 0, int size = 10, string query = "*", System.Security.Claims.ClaimsPrincipal? user = null)
+        public async Task<TDBEntList> Get(int from = 0, int size = 10, string query = "*", string sort = "", System.Security.Claims.ClaimsPrincipal? user = null)
         {
 
-            var searchResponse = await _elasticClient.SearchAsync<TDBEnt>(s => s
-                //.Index("person-main")
-                .From(from)
-                .Size(size)
-                .QueryOnQueryString(query)
-            );
+            var searchResponse = await _elasticClient.SearchAsync<TDBEnt>(s =>
+            {
+                s = s.From(from);
+                s = s.Size(size);
+                s = s.QueryOnQueryString(query);
+                if (!string.IsNullOrEmpty(sort.Trim()))
+                {
+                    s = s.Sort(sortDescriptor =>
+                    {
+
+                        foreach (var sortItem in sort.Split(","))
+                        {
+                            var sortItemLower = sortItem.ToLower().Trim();
+                            if (string.IsNullOrEmpty(sortItemLower.Trim())) continue;
+                            var dir = sortItemLower.EndsWith(" desc") ? "desc" : sortItemLower.EndsWith(" asc") ? "asc" : "asc";
+                            var strDir = $" {dir}";
+                            var field = (sortItemLower.EndsWith(strDir) ? sortItem.Substring(0, sortItem.Length - strDir.Length) : sortItem).Trim();
+                            if (dir == "asc")
+                            {
+                                sortDescriptor = sortDescriptor.Ascending(field);
+                            }
+                            else
+                            {
+                                sortDescriptor = sortDescriptor.Descending(field);
+                            }
+                        }
+
+                        return sortDescriptor;
+                    });
+                }
+                return s;
+            });
 
             var count = await _elasticClient.CountAsync<TDBEnt>(s => s
                 //.Index("person-main")

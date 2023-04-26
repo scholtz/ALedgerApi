@@ -73,8 +73,8 @@ namespace RestDWH.Extensions
                 var genericBaseDBListBase = typeof(DBListBase<,>).MakeGenericType(type, genericBaseDBBase);
                 var genericBaseDBBaseLog = typeof(DBBaseLog<>).MakeGenericType(type);
 
-                ret = ret.DefaultMappingFor(genericBaseDBBase, r => r.IndexName($"{name}-main"));
-                ret = ret.DefaultMappingFor(genericBaseDBBaseLog, r => r.IndexName($"{name}-log"));
+                ret = ret.DefaultMappingFor(genericBaseDBBase, r => r.IndexName($"restdwh-{name}-main"));
+                ret = ret.DefaultMappingFor(genericBaseDBBaseLog, r => r.IndexName($"restdwh-{name}-log"));
             }
             return ret;
         }
@@ -170,7 +170,7 @@ namespace RestDWH.Controllers.Data
                         Assembly assembly = AssemblyLoadContext.Default.LoadFromStream(ms);
                         //File.WriteAllBytes(assemblyName, ms.ToArray());
                         //var assembly = Assembly.LoadFrom(assemblyName);
-                        ret= ret.AddApplicationPart(assembly);
+                        ret = ret.AddApplicationPart(assembly);
                         //
                     }
                 }
