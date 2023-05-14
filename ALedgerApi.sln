@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ALedgerApi", "ALedgerApi\AL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ALedgerBFFApi", "ALedgerBFFApi\ALedgerBFFApi.csproj", "{7682929D-ECB4-4C42-924C-906049327D07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestDWH", "RestDWH\RestDWH.csproj", "{D4021415-8AEA-4B7D-A9E5-3AA16EA2EF88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestDWH", "..\RestDWH\RestDWH\RestDWH.csproj", "{0A3CBC88-CF81-4325-9A4D-2BA145EB9FB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{7682929D-ECB4-4C42-924C-906049327D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7682929D-ECB4-4C42-924C-906049327D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7682929D-ECB4-4C42-924C-906049327D07}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D4021415-8AEA-4B7D-A9E5-3AA16EA2EF88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D4021415-8AEA-4B7D-A9E5-3AA16EA2EF88}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D4021415-8AEA-4B7D-A9E5-3AA16EA2EF88}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D4021415-8AEA-4B7D-A9E5-3AA16EA2EF88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A3CBC88-CF81-4325-9A4D-2BA145EB9FB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A3CBC88-CF81-4325-9A4D-2BA145EB9FB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A3CBC88-CF81-4325-9A4D-2BA145EB9FB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A3CBC88-CF81-4325-9A4D-2BA145EB9FB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

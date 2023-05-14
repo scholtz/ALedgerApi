@@ -4,22 +4,22 @@
         <name>ALedgerApi</name>
     </assembly>
     <members>
-        <member name="T:ALedgerApi.Model.Comm.Address">
+        <member name="T:ALedgerApi.Model.Address">
             <summary>
             Address object
             </summary>
         </member>
-        <member name="P:ALedgerApi.Model.Comm.Address.Street">
+        <member name="P:ALedgerApi.Model.Address.Street">
             <summary>
             Example: Dopravaku 5
             </summary>
         </member>
-        <member name="P:ALedgerApi.Model.Comm.Address.StreetLine2">
+        <member name="P:ALedgerApi.Model.Address.StreetLine2">
             <summary>
             Second line of street
             </summary>
         </member>
-        <member name="P:ALedgerApi.Model.Comm.Address.City">
+        <member name="P:ALedgerApi.Model.Address.City">
             <summary>
             City
             

@@ -1,7 +1,7 @@
 ﻿using ALedgerApi.Events;
 using RestDWH.Attributes;
 
-namespace ALedgerApi.Model.Comm
+namespace ALedgerApi.Model
 {
     /// <summary>
     /// Address object

@@ -1,6 +1,6 @@
 ﻿using RestDWH.Attributes;
 
-namespace ALedgerApi.Model.Comm
+namespace ALedgerApi.Model
 {
     [RestDWHEntity("Person")]
     public class Person : IEquatable<Person?>
