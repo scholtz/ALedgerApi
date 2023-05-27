@@ -9,8 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <OpenApiReference Include="OpenAPIs\swagger.json" CodeGenerator="NSwagCSharp" Namespace="OpenApiClient" ClassName="Client">
-      <SourceUri>https://localhost:44375/swagger/v1/swagger.json</SourceUri>
+    <None Include="OpenAPIs\swagger.json" ClassName="Client" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <OpenApiReference Include="OpenAPIs\swagger1.json" CodeGenerator="NSwagCSharp" Namespace="OpenApiClient" ClassName="Client">
+      <SourceUri>https://ledger-data-api-dev.s4.a-wallet.net/swagger/v1/swagger.json</SourceUri>
     </OpenApiReference>
   </ItemGroup>
 
