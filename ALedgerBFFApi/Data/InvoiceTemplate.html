@@ -263,33 +263,64 @@
                     </table>
                 </td>
             </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <h2>Summary</h2>
-                    <table>
-
-                        <tr><td width="100%" rowspan="4"></td><th>Net&nbsp;amount</th><td>{{TotalNetAmount}}</td></tr>
-                        <tr><th>Tax&nbsp;amount</th><td>{{Invoice.Data.TotalTaxAmount}}</td></tr>
-                        <tr><th>Gross&nbsp;amount</th><td>{{Invoice.Data.TotalGrossAmount}}</td></tr>
-
-                        {{#if PaymentDue}}
-                        <tr><th>Payment&nbsp;due</th><td>{{dateFormat "dd/MM/yyyy" Invoice.Data.DateDue}}</td></tr>
-                        {{/if}}
-                    </table>
-                </td>
-            </tr>
-
-            {{#if Invoice.Data.NoteAfterItems}}
-            <tr><td colspan="2"><h2>Note</h2>{{Invoice.Data.NoteAfterItems}}</td></tr>
-            {{/if}}
-
-            {{#if Link}}
-            <tr><td colspan="2"><a href="{{Link}}">{{Link}}</a></td></tr>
-            {{/if}}
-
-
         </table>
+        <div class="row">
+
+            <div class="col p-1">
+
+                <div class="card mb-2">
+                    <div class="card-body  p-0">
+                        <div class="my-card-header p-1">
+                            Summary
+                        </div>
+
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Currency</th>
+                                {{#each Invoice.Data.Summary}}
+                                <th class="number">{{Currency}}</th>
+                                {{/each}}
+                            </tr>
+                            <tr>
+                                <th>Rate</th>
+                                {{#each Invoice.Data.Summary}}
+                                <td class="number">{{numberFormat "0.000000" Rate}} {{Currency}}</td>
+                                {{/each}}
+                            </tr>
+                            <tr>
+                                <th>Net amount</th>
+                                {{#each Invoice.Data.Summary}}
+                                <td class="number">{{numberFormat "0.00" NetAmount}} {{Currency}}</td>
+                                {{/each}}
+                            </tr>
+                            <tr>
+                                <th>Tax amount</th>
+                                {{#each Invoice.Data.Summary}}
+                                <td class="number">{{numberFormat "0.00" TaxAmount}} {{Currency}}</td>
+                                {{/each}}
+                            </tr>
+                            <tr>
+                                <th>Gross amount</th>
+                                {{#each Invoice.Data.Summary}}
+                                <td class="number">{{numberFormat "0.00" GrossAmount}} {{Currency}}</td>
+                                {{/each}}
+                            </tr>
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{#if Invoice.Data.NoteAfterItems}}
+        <p><h2>Note</h2>{{Invoice.Data.NoteAfterItems}}</p>
+        {{/if}}
+
+        {{#if Link}}
+        <p><a href="{{Link}}">{{Link}}</a></p>
+        {{/if}}
+
     </div>
 </body>
 </html>
