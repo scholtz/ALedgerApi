@@ -1,5 +1,7 @@
 
+using ALedgerBFFApi.Model.Options;
 using AlgorandAuthentication;
+using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
 
 namespace ALedgerBFFApi
@@ -46,6 +48,8 @@ namespace ALedgerBFFApi
                  o.EmptySuccessOnFailure = algorandAuthenticationOptions.EmptySuccessOnFailure;
                  o.EmptySuccessOnFailure = algorandAuthenticationOptions.EmptySuccessOnFailure;
              });
+
+            builder.Services.Configure<ObjectStorage>(builder.Configuration.GetSection("ObjectStorage"));
 
             var app = builder.Build();
 

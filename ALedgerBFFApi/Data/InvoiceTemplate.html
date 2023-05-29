@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice {{Invoice.Data.InvoiceNumber}}</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .currency {
+            text-align: right;
+        }
+
+        th, td {
+            vertical-align: top;
+        }
+
+        h1, h2, h3, .my-card-header {
+            color: darkblue;
+            font-weight: bold;
+        }
+
+        .my-card-header {
+            border-bottom: 1px solid #ddd;
+            background: #eee;
+        }
+
+            .my-card-header .moreInfo {
+                text-align: right;
+                color: #999;
+                display: inline-block;
+                font-size: 80%;
+            }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="container-fluid">
+
+        <h1>
+            Invoice
+            {{#if Link}}
+            <a href="{{Link}}">{{Invoice.Data.InvoiceNumber}}</a>
+            {{else}}
+            {{Invoice.Data.InvoiceNumber}}
+            {{/if}}
+        </h1>
+        <div class="row">
+            {{#if Issuer}}
+            <div class="col p-1">
+                <div class="card mr-2 mb-2">
+                    <div class="card-body p-0">
+                        <div class="my-card-header p-1">
+                            From
+                        </div>
+                        <div class="p-1">
+                            {{#if Issuer.Data.BusinessName}}
+                            <div>{{Issuer.Data.BusinessName}}</div>
+                            {{/if}}
+                            {{#if Issuer.Data.LastName}}
+                            <div>{{Issuer.Data.FirstName}} {{Issuer.Data.LastName}}</div>
+                            {{/if}}
+
+
+                            {{#if IssuerAddress.Data.Street}}
+                            <div>{{IssuerAddress.Data.Street}}</div>
+                            {{/if}}
+                            {{#if IssuerAddress.Data.StreetLine2}}
+                            <div>{{IssuerAddress.Data.StreetLine2}}</div>
+                            {{/if}}
+                            {{#if IssuerAddress.Data.City}}
+                            <div>{{IssuerAddress.Data.ZipCode}} {{IssuerAddress.Data.City}}</div>
+                            {{/if}}
+                            {{#if IssuerAddress.Data.State}}
+                            <div>{{IssuerAddress.Data.State}}</div>
+                            {{/if}}
+                            {{#if IssuerAddress.Data.Country}}
+                            <div>{{IssuerAddress.Data.Country}} {{#if IssuerAddress.Data.CountryCode}}({{IssuerAddress.Data.CountryCode}}){{/if}}</div>
+                            {{/if}}
+
+                            {{#if Issuer.Data.CompanyId}}
+                            <div>{{Issuer.Data.CompanyId}}</div>
+                            {{/if}}
+                            {{#if Issuer.Data.CompanyTaxId}}
+                            <div>{{Issuer.Data.CompanyTaxId}}</div>
+                            {{/if}}
+                            {{#if Issuer.Data.CompanyVATId}}
+                            <div>{{Issuer.Data.CompanyVATId}}</div>
+                            {{/if}}
+
+                            {{#if Issuer.Data.Email}}
+                            <div>{{Issuer.Data.Email}}</div>
+                            {{/if}}
+
+                            {{#if Issuer.Data.Phone}}
+                            <div>{{Issuer.Data.Phone}}</div>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+            {{#if Receiver}}
+            <div class="col  p-1">
+
+                <div class="card  mr-2 mb-2">
+                    <div class="card-body  p-0">
+                        <div class="my-card-header p-1">
+                            Billed to
+                        </div>
+                        <div class="p-1">
+
+                            {{#if Receiver.Data.BusinessName}}
+                            <div>{{Receiver.Data.BusinessName}}</div>
+                            {{/if}}
+                            {{#if Receiver.Data.LastName}}
+                            <div>{{Receiver.Data.FirstName}} {{Receiver.Data.LastName}}</div>
+                            {{/if}}
+
+
+                            {{#if ReceiverAddress.Data.Street}}
+                            <div>{{ReceiverAddress.Data.Street}}</div>
+                            {{/if}}
+                            {{#if ReceiverAddress.Data.StreetLine2}}
+                            <div>{{ReceiverAddress.Data.StreetLine2}}</div>
+                            {{/if}}
+                            {{#if ReceiverAddress.Data.City}}
+                            <div>{{ReceiverAddress.Data.ZipCode}} {{ReceiverAddress.Data.City}}</div>
+                            {{/if}}
+                            {{#if ReceiverAddress.Data.State}}
+                            <div>{{ReceiverAddress.Data.State}}</div>
+                            {{/if}}
+                            {{#if ReceiverAddress.Data.Country}}
+                            <div>{{ReceiverAddress.Data.Country}} {{#if ReceiverAddress.Data.CountryCode}}({{ReceiverAddress.Data.CountryCode}}){{/if}}</div>
+                            {{/if}}
+
+                            {{#if Receiver.Data.CompanyId}}
+                            <div>{{Receiver.Data.CompanyId}}</div>
+                            {{/if}}
+                            {{#if Receiver.Data.CompanyTaxId}}
+                            <div>{{Receiver.Data.CompanyTaxId}}</div>
+                            {{/if}}
+                            {{#if Receiver.Data.CompanyVATId}}
+                            <div>{{Receiver.Data.CompanyVATId}}</div>
+                            {{/if}}
+
+                            {{#if Receiver.Data.Email}}
+                            <div>{{Receiver.Data.Email}}</div>
+                            {{/if}}
+
+                            {{#if Receiver.Data.Phone}}
+                            <div>{{Receiver.Data.Phone}}</div>
+                            {{/if}}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+            <div class="col p-1">
+
+                <div class="card mb-2">
+                    <div class="card-body p-0">
+                        <div class="my-card-header p-1">
+                            Invoice details
+                        </div>
+                        <div class="p-1">
+
+                            {{#if Invoice.Data.InvoiceNumber}}
+                            <div>Number: {{Invoice.Data.InvoiceNumber}}</div>
+                            {{/if}}
+
+                            {{#if Invoice.Data.DateIssue}}
+                            <div>
+                                Issued on: {{dateFormat "dd/MM/yyyy" Invoice.Data.DateIssue}}
+                            </div>
+                            {{/if}}
+
+                            {{#if Invoice.Data.DateDue}}
+                            <div>Payment due: {{dateFormat "dd/MM/yyyy" Invoice.Data.DateDue}}</div>
+                            {{/if}}
+
+                            {{#if Invoice.Data.DateDelivery}}
+                            <div>Delivery date: {{dateFormat "dd/MM/yyyy" Invoice.Data.DateDelivery}}</div>
+                            {{/if}}
+
+                            {{#if PayQR}}
+                            <div><img src="{{PayQR}}" width="200" height="200" /></div>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col p-1">
+
+                <div class="card mb-2">
+                    <div class="card-body  p-0">
+                        <div class="my-card-header p-1">
+                            <div class="row">
+                                <div class="col">
+                                    Expected payment method
+                                </div>
+                                <div class="col moreInfo">
+                                    Please pay to one of the following payment methods
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-1">
+
+
+                            {{#if Currency}}
+                            <div>Currency: {{Currency}}</div>
+                            {{/if}}
+
+                            {{#if CurrencyTokenId}}
+                            <div>{{CurrencyTokenId}}</div>
+                            {{/if}}
+
+                            {{#if Network}}
+                            <div>Network: {{Network}}</div>
+                            {{/if}}
+
+                            {{#if WalletAddress}}
+                            <div>Please pay to address:</div>
+                            <div>{{WalletAddress}}</div>
+                            {{/if}}
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <table style="width:100%">
+            {{#if Invoice.Data.NoteBeforeItems}}
+            <tr><td colspan="2">{{Invoice.Data.NoteBeforeItems}}</td></tr>
+            {{/if}}
+            <tr>
+                <td colspan="2">
+                    <table width="100%" class="items table">
+
+                        <tr><th>Description</th><th>Qty</th><th>Unit price</th>{{#if hasDiscount}}<th>Discount</th>{{/if}}<th>Tax</th><th>Net Amount</th><th>Gross Amount</th></tr>
+                        {{#each Item}}
+                        <tr><td>{{this.Description}}</td><td>{{this.Qty}}</td><td>{{this.UnitPrice}}</td>{{#if hasDiscount}}<td>{{this.Discount}}</th>{{/if}}<td>{{this.Tax}}</th><td>{{this.NetAmount}}</th><td>{{this.GrossAmount}}</th></tr>
+                        {{/each}}
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <h2>Summary</h2>
+                    <table>
+
+                        <tr><td width="100%" rowspan="4"></td><th>Net&nbsp;amount</th><td>{{TotalNetAmount}}</td></tr>
+                        <tr><th>Tax&nbsp;amount</th><td>{{Invoice.Data.TotalTaxAmount}}</td></tr>
+                        <tr><th>Gross&nbsp;amount</th><td>{{Invoice.Data.TotalGrossAmount}}</td></tr>
+
+                        {{#if PaymentDue}}
+                        <tr><th>Payment&nbsp;due</th><td>{{dateFormat "dd/MM/yyyy" Invoice.Data.DateDue}}</td></tr>
+                        {{/if}}
+                    </table>
+                </td>
+            </tr>
+
+            {{#if Invoice.Data.NoteAfterItems}}
+            <tr><td colspan="2"><h2>Note</h2>{{Invoice.Data.NoteAfterItems}}</td></tr>
+            {{/if}}
+
+            {{#if Link}}
+            <tr><td colspan="2"><a href="{{Link}}">{{Link}}</a></td></tr>
+            {{/if}}
+
+
+        </table>
+    </div>
+</body>
+</html>

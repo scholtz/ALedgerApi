@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ALedgerBFFApi", "ALedgerBFF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestDWH", "..\RestDWH\RestDWH\RestDWH.csproj", "{0A3CBC88-CF81-4325-9A4D-2BA145EB9FB1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestALedgerBFFApi", "TestALedgerBFFApi\TestALedgerBFFApi.csproj", "{1E168F41-3016-4D01-BC48-718205724A73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0A3CBC88-CF81-4325-9A4D-2BA145EB9FB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A3CBC88-CF81-4325-9A4D-2BA145EB9FB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A3CBC88-CF81-4325-9A4D-2BA145EB9FB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E168F41-3016-4D01-BC48-718205724A73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E168F41-3016-4D01-BC48-718205724A73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E168F41-3016-4D01-BC48-718205724A73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E168F41-3016-4D01-BC48-718205724A73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

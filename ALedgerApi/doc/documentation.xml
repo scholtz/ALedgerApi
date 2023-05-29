@@ -26,5 +26,22 @@
             Example: Prague
             </summary>
         </member>
+        <member name="P:ALedgerApi.Model.PaymentMethod.Currency">
+            <summary>
+            Token id or Currency code
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.PaymentMethod.Account">
+            <summary>
+            Account number.
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.PaymentMethod.Network">
+            <summary>
+            Network 
+            
+            ALGO | ETH | Bank SWIFT Code
+            </summary>
+        </member>
     </members>
 </doc>

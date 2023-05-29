@@ -8,7 +8,7 @@ namespace ALedgerApi.Model
         public string InvoiceNumber { get; set; }
         public long InvoiceNumberNum { get; set; }
         public string InvoiceType { get; set; }
-        public string[] PaymentMethodIds { get; set; } = Array.Empty<string>();
+        public PaymentMethod[] PaymentMethods { get; set; } = Array.Empty<PaymentMethod>();
         public string PersonIdIssuer { get; set; }
         public string PersonIdReceiver { get; set; }
         public bool IsDraft = true;
@@ -21,6 +21,7 @@ namespace ALedgerApi.Model
         public decimal TotalTax { get; set; }
         public decimal GrossAmount { get; set; }
 
+        public string Currency { get; set; }
 
     }
 }
