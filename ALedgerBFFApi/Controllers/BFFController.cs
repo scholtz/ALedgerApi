@@ -137,6 +137,27 @@ namespace ALedgerBFFApi.Controllers
                 output.WriteSafeString(time.Value.ToString(format));
             });
 
+            Handlebars.RegisterHelper("numberFormat", (output, context, data) =>
+            {
+                var format = data[0]?.ToString();
+                var value = data[1] as decimal?;
+                if (value.HasValue)
+                {
+                    output.WriteSafeString(value.Value.ToString(format));
+                    return;
+                }
+
+                if (decimal.TryParse(data[1]?.ToString(), out var num))
+                {
+                    output.WriteSafeString(num.ToString(format));
+                    return;
+                }
+
+
+                output.WriteSafeString(0d.ToString(format));
+                return;
+            });
+
             var resultHtml = template(data);
 
             if (objectStorageConfig.CurrentValue.Type != "AWS")

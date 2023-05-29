@@ -3,12 +3,16 @@
 namespace ALedgerApi.Model
 {
     [RestDWHEntity("PaymentMethod")]
-    public class PaymentMethod
+    public class PaymentMethod : IEquatable<PaymentMethod?>
     {
+        /// <summary>
+        /// Token name or Currency code
+        /// </summary>
+        public string Currency { get; set; }
         /// <summary>
         /// Token id or Currency code
         /// </summary>
-        public string Currency { get; set; }
+        public string CurrencyId { get; set; }
         /// <summary>
         /// Account number.
         /// </summary>
@@ -20,5 +24,33 @@ namespace ALedgerApi.Model
         /// </summary>
         public string Network { get; set; }
 
+        public override bool Equals(object? obj)
+        {
+            return Equals(obj as PaymentMethod);
+        }
+
+        public bool Equals(PaymentMethod? other)
+        {
+            return other is not null &&
+                   Currency == other.Currency &&
+                   CurrencyId == other.CurrencyId &&
+                   Account == other.Account &&
+                   Network == other.Network;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Currency, CurrencyId, Account, Network);
+        }
+
+        public static bool operator ==(PaymentMethod? left, PaymentMethod? right)
+        {
+            return EqualityComparer<PaymentMethod>.Default.Equals(left, right);
+        }
+
+        public static bool operator !=(PaymentMethod? left, PaymentMethod? right)
+        {
+            return !(left == right);
+        }
     }
 }
