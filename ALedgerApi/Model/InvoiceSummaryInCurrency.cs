@@ -4,7 +4,7 @@
     {
         public string Currency { get; set; }
         public decimal Rate { get; set; }
-        public decimal RateCurrencies { get; set; }
+        public string RateCurrencies { get; set; }
         public string RateNote { get; set; }
         public decimal NetAmount { get; set; }
         public decimal TaxAmount { get; set; }
