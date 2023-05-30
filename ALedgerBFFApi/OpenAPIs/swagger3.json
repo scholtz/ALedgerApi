@@ -4188,6 +4188,10 @@
             "type": "number",
             "format": "double"
           },
+          "rateCurrencies": {
+            "type": "string",
+            "nullable": true
+          },
           "rateNote": {
             "type": "string",
             "nullable": true
