@@ -28,6 +28,11 @@
         </member>
         <member name="P:ALedgerApi.Model.PaymentMethod.Currency">
             <summary>
+            Token name or Currency code
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.PaymentMethod.CurrencyId">
+            <summary>
             Token id or Currency code
             </summary>
         </member>

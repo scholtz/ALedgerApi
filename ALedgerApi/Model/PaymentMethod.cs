@@ -24,6 +24,11 @@ namespace ALedgerApi.Model
         /// </summary>
         public string Network { get; set; }
 
+        /// <summary>
+        /// Amount on invoice to be paid
+        /// </summary>
+        public decimal GrossAmount { get; set; }
+
         public override bool Equals(object? obj)
         {
             return Equals(obj as PaymentMethod);
