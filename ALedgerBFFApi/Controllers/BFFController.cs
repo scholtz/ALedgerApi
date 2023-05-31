@@ -169,8 +169,10 @@ namespace ALedgerBFFApi.Controllers
             using var memoryStream = new MemoryStream();
             var wProps = new WriterProperties();
             var pdfWriter = new PdfWriter(memoryStream, wProps);
+            
             var pdfDocument = new PdfDocument(pdfWriter);
             pdfDocument.SetDefaultPageSize(PageSize.A4.Rotate());
+            
 
             //document.html
             ConverterProperties converterProperties = new ConverterProperties();
@@ -178,6 +180,7 @@ namespace ALedgerBFFApi.Controllers
             
             var document = iText.Html2pdf.HtmlConverter.ConvertToDocument(resultHtml, pdfDocument, converterProperties);
             addPageNumbers(document);
+            document.SetMargins(0, 0, 0, 0);
             document.Close();
             var uploadTo = $"invoice/{invoice.Data.InvoiceNumber}-{invoiceId}.pdf";
             //uploadTo = Guid.NewGuid().ToString() + ".pdf";
@@ -197,8 +200,7 @@ namespace ALedgerBFFApi.Controllers
             for (int i = 1; i <= totalPages; i++)
             {
                 // Write aligned text to the specified by parameters point
-                doc.ShowTextAligned(new Paragraph(string.Format("Page {0} of {1}", i, totalPages)).AddStyle(small),
-                                559, 806, i, TextAlignment.RIGHT, VerticalAlignment.TOP, 0);
+                doc.ShowTextAligned(new Paragraph(string.Format("Page {0} of {1}", i, totalPages)).AddStyle(small), 806, 559, i, TextAlignment.RIGHT, VerticalAlignment.TOP, 0);
             }
         }
 

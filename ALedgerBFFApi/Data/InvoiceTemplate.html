@@ -7,6 +7,7 @@
         /* General styles */
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
         }
 
         .currency {
@@ -45,6 +46,10 @@
         .number {
             text-align: right;
         }
+        h1{
+            font-size: 110%;
+            font-weight:bold;
+        }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -66,7 +71,7 @@
                 <div class="card mr-2 mb-2">
                     <div class="card-body p-0">
                         <div class="my-card-header p-1">
-                            From
+                            Supplier
                         </div>
                         <div class="p-1">
                             {{#if Issuer.Data.BusinessName}}
@@ -121,7 +126,7 @@
                 <div class="card  mr-2 mb-2">
                     <div class="card-body  p-0">
                         <div class="my-card-header p-1">
-                            Billed to
+                            Billed to client
                         </div>
                         <div class="p-1">
 
@@ -233,15 +238,25 @@
                         </div>
 
                         <table class="table table-striped m-0 p-0">
+                            <tr>
+                                <td>Account</td>
+                                <td>Payment reference</td>
+                                <td>Due date</td>
+                                <td>Total price</td>
+                            </tr>
                             {{#each Invoice.Data.PaymentMethods}}
                             <tr>
-                                <td>Currency: {{this.Currency}}</td>
+                                <td>{{this.Account}} / {{this.Network}}</td>
+                                <td>{{../Invoice.Data.InvoiceNumber}}</td>
+                                <td>{{dateFormat "dd/MM/yyyy" ../Invoice.Data.DateDue}}</td>
                                 <td>
+
+                                    {{numberFormat "0.00" this.Data.GrossAmount}} {{this.Currency}}
                                     {{#if this.CurrencyId}}
                                     ({{this.CurrencyId}})
                                     {{/if}}
+
                                 </td>
-                                <td>{{this.Account}} / {{this.Network}}</td>
                             </tr>
                             {{/each}}
                         </table>
@@ -260,9 +275,27 @@
                 <td colspan="2">
                     <table width="100%" class="items table">
 
-                        <tr><th>Description</th><th class="number">Qty</th><th class="number">Unit price</th>{{#if hasDiscount}}<th class="number">Discount</th>{{/if}}<th class="number">Tax</th><th class="number">Net Amount</th><th class="number">Gross Amount</th></tr>
+                        <tr>
+                            <th>Description</th>
+                            <th class="number">Qty</th>
+                            <th class="number">Unit price</th>
+                            {{#if hasDiscount}}
+                            <th class="number">Discount</th>
+                            {{/if}}
+                            <th class="number">Tax</th>
+                            <th class="number">Net Amount</th>
+                            <th class="number">Gross Amount</th>
+                        </tr>
                         {{#each Items.Results}}
-                        <tr><td>{{this.Data.ItemText}}</td><td class="number">{{this.Data.Quantity}} {{this.Data.Unit}}</td><td class="number">{{numberFormat "0.00" this.Data.UnitPrice}} {{../Invoice.Data.Currency}}/{{this.Data.Unit}}</td>{{#if this.Data.Discount}}<td class="number">{{this.Data.Discount}} %</td>{{/if}}<td class="number">{{this.Data.TaxPercent}} %</td><td class="number">{{numberFormat "0.00" this.Data.NetAmount}} {{../Invoice.Data.Currency}}</td><td class="number">{{numberFormat "0.00" this.Data.GrossAmount}} {{../Invoice.Data.Currency}}</td></tr>
+                        <tr
+                            <td>{{this.Data.ItemText}}</td>
+                            <td class="number">{{this.Data.Quantity}} {{this.Data.Unit}}</td>
+                            <td class="number">{{numberFormat "0.00" this.Data.UnitPrice}} {{../Invoice.Data.Currency}}/{{this.Data.Unit}}</td>
+                            {{#if this.Data.Discount}}<td class="number">{{this.Data.Discount}} %</td>{{/if}}
+                            <td class="number">{{this.Data.TaxPercent}} %</td>
+                            <td class="number">{{numberFormat "0.00" this.Data.NetAmount}} {{../Invoice.Data.Currency}}</td>
+                            <td class="number">{{numberFormat "0.00" this.Data.GrossAmount}} {{../Invoice.Data.Currency}}</td>
+                        </tr>
                         {{/each}}
                     </table>
                 </td>

@@ -60,9 +60,12 @@ namespace ALedgerApi
                  o.EmptySuccessOnFailure = algorandAuthenticationOptions.EmptySuccessOnFailure;
              });
 
+            var elasticConfig = new Model.Config.Elastic();
+            builder.Configuration.GetSection("Elastic").Bind(elasticConfig);
+
             var settings =
-                new ConnectionSettings(new Uri("https://elastic01.s4.a-wallet.net"))
-                .ApiKeyAuthentication(new ApiKeyAuthenticationCredentials("TmVGX3dZWUJTbzM4elNmeGEtYUw6alhITDk1R3pTd1dCbGJsaVpXTDFSdw=="))
+                new ConnectionSettings(new Uri(elasticConfig.Server))
+                .ApiKeyAuthentication(new ApiKeyAuthenticationCredentials(elasticConfig.Token))
                 .ExtendElasticConnectionSettings();
 
             var client = new ElasticClient(settings);
