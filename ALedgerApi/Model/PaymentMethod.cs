@@ -2,6 +2,9 @@
 
 namespace ALedgerApi.Model
 {
+    /// <summary>
+    /// Payment method for user, copied to invoice
+    /// </summary>
     [RestDWHEntity("PaymentMethod")]
     public class PaymentMethod : IEquatable<PaymentMethod?>
     {
@@ -27,7 +30,7 @@ namespace ALedgerApi.Model
         /// <summary>
         /// Amount on invoice to be paid
         /// </summary>
-        public decimal GrossAmount { get; set; }
+        public decimal? GrossAmount { get; set; }
 
         public override bool Equals(object? obj)
         {
@@ -40,12 +43,13 @@ namespace ALedgerApi.Model
                    Currency == other.Currency &&
                    CurrencyId == other.CurrencyId &&
                    Account == other.Account &&
-                   Network == other.Network;
+                   Network == other.Network &&
+                   GrossAmount == other.GrossAmount;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Currency, CurrencyId, Account, Network);
+            return HashCode.Combine(Currency, CurrencyId, Account, Network, GrossAmount);
         }
 
         public static bool operator ==(PaymentMethod? left, PaymentMethod? right)
