@@ -14,6 +14,7 @@ namespace ALedgerApi.Model
         public string Email { get; set; }
         public string? Phone { get; set; }
         public string AddressId { get; set; }
+        public string? SignatureUrl { get; set; }
 
         public override bool Equals(object? obj)
         {
@@ -31,7 +32,8 @@ namespace ALedgerApi.Model
                    LastName == other.LastName &&
                    Email == other.Email &&
                    Phone == other.Phone &&
-                   AddressId == other.AddressId;
+                   AddressId == other.AddressId &&
+                   SignatureUrl == other.SignatureUrl;
         }
 
         public override int GetHashCode()
@@ -46,6 +48,7 @@ namespace ALedgerApi.Model
             hash.Add(Email);
             hash.Add(Phone);
             hash.Add(AddressId);
+            hash.Add(SignatureUrl);
             return hash.ToHashCode();
         }
 
