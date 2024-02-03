@@ -26,17 +26,12 @@ namespace ALedgerBFFApi.Controllers
         private readonly HttpClient httpClient = new HttpClient();
         private readonly IOptionsMonitor<ObjectStorage> objectStorageConfig;
         private readonly ILogger<BFFController> logger;
-        public BFFController(ILogger<BFFController> logger, IOptionsMonitor<ObjectStorage> objectStorageConfig) : base()
+        public BFFController(ILogger<BFFController> logger, IOptionsMonitor<ObjectStorage> objectStorageConfig, IOptionsMonitor<BFF> bffConfig) : base()
         {
             this.logger = logger;
             this.objectStorageConfig = objectStorageConfig;
-            client = new OpenApiClient.Client("https://ledger-data-api-dev.s4.a-wallet.net", httpClient);
+            client = new OpenApiClient.Client(bffConfig.CurrentValue.DataServer, httpClient);
 
-            var authHeader = Request?.Headers?.Authorization.ToString()?.Replace("SigTx ", "");
-            if (!string.IsNullOrEmpty(authHeader))
-            {
-                httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("SigTx", authHeader);
-            }
         }
 
 
@@ -73,7 +68,10 @@ namespace ALedgerBFFApi.Controllers
                 invoice = await client.GetInvoiceByIdAsync(invoiceId);
             }
             catch (Exception ex) { logger.LogError(ex, "Unable to load invoice"); }
-
+            if(invoice?.Data.InvoiceNumber == null)
+            {
+                throw new Exception("Invoice not found");
+            }
             OpenApiClient.PersonDBBase? issuer = null;
             try
             {
@@ -126,7 +124,11 @@ namespace ALedgerBFFApi.Controllers
                 IssuerAddress = issuerAddress,
                 Receiver = receiver,
                 ReceiverAddress = receiverAddress,
-                Items = items
+                Items = items,
+                HasManyPaymentMethods = invoice.Data.PaymentMethods.Count > 1,
+                HasAnyRate = invoice.Data.Summary.FirstOrDefault(s=>s.Rate > 0) != null,
+                HasAnyRateNotes = invoice.Data.Summary.FirstOrDefault(s => !string.IsNullOrEmpty(s.RateNote)) != null,
+                Link = "https://ledger.a-wallet.net/invoice/"+invoice.Id
             };
 
             Handlebars.RegisterHelper("dateFormat", (output, context, data) =>
@@ -172,20 +174,26 @@ namespace ALedgerBFFApi.Controllers
             
             var pdfDocument = new PdfDocument(pdfWriter);
             pdfDocument.SetDefaultPageSize(PageSize.A4.Rotate());
-            
 
             //document.html
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetImmediateFlush(false);
             
             var document = iText.Html2pdf.HtmlConverter.ConvertToDocument(resultHtml, pdfDocument, converterProperties);
-            addPageNumbers(document);
-            document.SetMargins(0, 0, 0, 0);
             document.Close();
+
+            using var memoryStream2 = new MemoryStream();
+            PdfDocument pdfDoc = new PdfDocument(new PdfReader(new MemoryStream(memoryStream.ToArray())), new PdfWriter(memoryStream2));
+            Document doc2 = new Document(pdfDoc);
+
+            addPageNumbers(doc2);
+
+            doc2.Close();
+
             var uploadTo = $"invoice/{invoice.Data.InvoiceNumber}-{invoiceId}.pdf";
             //uploadTo = Guid.NewGuid().ToString() + ".pdf";
 
-            var ok = await objectStorageConfig.CurrentValue.Upload(uploadTo, memoryStream.ToArray());
+            var ok = await objectStorageConfig.CurrentValue.Upload(uploadTo, memoryStream2.ToArray());
             if (!ok) throw new Exception("Error occured while processing pdf upload to storage");
 
 
@@ -201,6 +209,8 @@ namespace ALedgerBFFApi.Controllers
             {
                 // Write aligned text to the specified by parameters point
                 doc.ShowTextAligned(new Paragraph(string.Format("Page {0} of {1}", i, totalPages)).AddStyle(small), 806, 559, i, TextAlignment.RIGHT, VerticalAlignment.TOP, 0);
+                //doc.ShowTextAligned(new Paragraph(string.Format("Page {0} of {1}", i, totalPages)).AddStyle(small), 100, 100, i, TextAlignment.LEFT, VerticalAlignment.TOP, 0);
+
             }
         }
 
