@@ -4266,6 +4266,11 @@
           "network": {
             "type": "string",
             "nullable": true
+          },
+          "grossAmount": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -4369,6 +4374,10 @@
             "nullable": true
           },
           "addressId": {
+            "type": "string",
+            "nullable": true
+          },
+          "signatureUrl": {
             "type": "string",
             "nullable": true
           }

@@ -27,22 +27,28 @@ namespace TestALedgerBFFApi
                 Type = "FILE",
                 Bucket = "Data",
             });
+            IOptionsMonitor<BFF> mockOptionsBFF = GetOptionsMonitor(new BFF()
+            {
+                DataServer = "https://ledger-data-api.h2.scholtz.sk",
+            });
 
-            controller = new BFFController(logger.Object, mockOptions);
+            controller = new BFFController(logger.Object, mockOptions, mockOptionsBFF);
 
             var mockContext = new Mock<HttpContext>();
             var mockRequest = new Mock<HttpRequest>();
             mockContext.SetupGet(x => x.Request).Returns(mockRequest.Object);
-            mockRequest.Setup(x => x.Headers.Authorization).Returns("SigTx gqNzaWfEQHOzlUxzrk/3BWvhUKFiKo1AoUCfa4cDLwD7qvtJ6VMGmXfMwhDGeFU0F48weKAyBM5UORoi0vS7wMgd/73cHAejdHhuiaNmZWXNA+iiZnbOAcVMFqNnZW6sdGVzdG5ldC12MS4womdoxCBIY7UYpLPITsgQ8i1PEIHLD3HwWaesIN7GL39w5Qk6IqJsds4BxU/+pG5vdGXEDUFMZWRnZXIjYXJjMTSjcmN2xCCQjuXPPHXM7wbxO69McY2dwOQYXR1N+0dfAE3yvdjPoqNzbmTEIJCO5c88dczvBvE7r0xxjZ3A5BhdHU37R18ATfK92M+ipHR5cGWjcGF5");
+            var prodAuth = "";
+            var testAuth = "SigTx gqNzaWfEQHOzlUxzrk/3BWvhUKFiKo1AoUCfa4cDLwD7qvtJ6VMGmXfMwhDGeFU0F48weKAyBM5UORoi0vS7wMgd/73cHAejdHhuiaNmZWXNA+iiZnbOAcVMFqNnZW6sdGVzdG5ldC12MS4womdoxCBIY7UYpLPITsgQ8i1PEIHLD3HwWaesIN7GL39w5Qk6IqJsds4BxU/+pG5vdGXEDUFMZWRnZXIjYXJjMTSjcmN2xCCQjuXPPHXM7wbxO69McY2dwOQYXR1N+0dfAE3yvdjPoqNzbmTEIJCO5c88dczvBvE7r0xxjZ3A5BhdHU37R18ATfK92M+ipHR5cGWjcGF5";
+            mockRequest.Setup(x => x.Headers.Authorization).Returns(prodAuth);
 
             controller.ControllerContext = new ControllerContext()
             {
                 HttpContext = mockContext.Object
             };
         }
-        private IOptionsMonitor<ObjectStorage> GetOptionsMonitor(ObjectStorage appConfig)
+        private IOptionsMonitor<T> GetOptionsMonitor<T>(T appConfig)
         {
-            var optionsMonitorMock = new Mock<IOptionsMonitor<ObjectStorage>>();
+            var optionsMonitorMock = new Mock<IOptionsMonitor<T>>();
             optionsMonitorMock.Setup(o => o.CurrentValue).Returns(appConfig);
             return optionsMonitorMock.Object;
         }
@@ -50,7 +56,9 @@ namespace TestALedgerBFFApi
         [Test]
         public async Task TestIssueInvoice()
         {
-            var invoice = await controller.PDF("bc896441-6f46-4e6c-af3a-b8661efd10bb");
+            var prodInvoice = "";
+            var testInvoice = "b7f2620c-5613-4177-9614-5d44a7c70d12";
+            var invoice = await controller.PDF(prodInvoice);
             Assert.IsNotNull(invoice);
         }
     }

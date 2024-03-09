@@ -26,6 +26,11 @@
             Example: Prague
             </summary>
         </member>
+        <member name="P:ALedgerApi.Model.Invoice.InvoiceType">
+            <summary>
+            issued | received
+            </summary>
+        </member>
         <member name="T:ALedgerApi.Model.PaymentMethod">
             <summary>
             Payment method for user, copied to invoice

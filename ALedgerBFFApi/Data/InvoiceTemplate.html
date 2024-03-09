@@ -46,9 +46,38 @@
         .number {
             text-align: right;
         }
-        h1{
+
+        h1 {
             font-size: 110%;
-            font-weight:bold;
+            font-weight: bold;
+        }
+
+        .smalltext {
+            font-size: 70%
+        }
+
+        .important {
+            font-size: 100%;
+            font-weight: bold
+        }
+
+        .lastItem {
+            text-align: right
+        }
+
+        .middle {
+            text-align: center;
+        }
+
+        .signature {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
+        h1 a {
+            text-decoration: none;
+            color: darkblue
         }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -57,7 +86,7 @@
 <body>
     <div class="container-fluid">
 
-        <h1 class="m-0 p-0">
+        <h1 class="m-2 p-0">
             Invoice
             {{#if Link}}
             <a href="{{Link}}">{{Invoice.Data.InvoiceNumber}}</a>
@@ -77,44 +106,49 @@
                             {{#if Issuer.Data.BusinessName}}
                             <div>{{Issuer.Data.BusinessName}}</div>
                             {{/if}}
-                            {{#if Issuer.Data.LastName}}
-                            <div>{{Issuer.Data.FirstName}} {{Issuer.Data.LastName}}</div>
-                            {{/if}}
+                            <div class="row">
+                                <div class="col smalltext">
 
+                                    {{#if Issuer.Data.LastName}}
+                                    <div><b>{{Issuer.Data.FirstName}} {{Issuer.Data.LastName}}</b></div>
+                                    {{/if}}
 
-                            {{#if IssuerAddress.Data.Street}}
-                            <div>{{IssuerAddress.Data.Street}}</div>
-                            {{/if}}
-                            {{#if IssuerAddress.Data.StreetLine2}}
-                            <div>{{IssuerAddress.Data.StreetLine2}}</div>
-                            {{/if}}
-                            {{#if IssuerAddress.Data.City}}
-                            <div>{{IssuerAddress.Data.ZipCode}} {{IssuerAddress.Data.City}}</div>
-                            {{/if}}
-                            {{#if IssuerAddress.Data.State}}
-                            <div>{{IssuerAddress.Data.State}}</div>
-                            {{/if}}
-                            {{#if IssuerAddress.Data.Country}}
-                            <div>{{IssuerAddress.Data.Country}} {{#if IssuerAddress.Data.CountryCode}}({{IssuerAddress.Data.CountryCode}}){{/if}}</div>
-                            {{/if}}
-
-                            {{#if Issuer.Data.CompanyId}}
-                            <div>{{Issuer.Data.CompanyId}}</div>
-                            {{/if}}
-                            {{#if Issuer.Data.CompanyTaxId}}
-                            <div>{{Issuer.Data.CompanyTaxId}}</div>
-                            {{/if}}
-                            {{#if Issuer.Data.CompanyVATId}}
-                            <div>{{Issuer.Data.CompanyVATId}}</div>
-                            {{/if}}
-
-                            {{#if Issuer.Data.Email}}
-                            <div>{{Issuer.Data.Email}}</div>
-                            {{/if}}
-
-                            {{#if Issuer.Data.Phone}}
-                            <div>{{Issuer.Data.Phone}}</div>
-                            {{/if}}
+                                    {{#if IssuerAddress.Data.Street}}
+                                    <div>{{IssuerAddress.Data.Street}}</div>
+                                    {{/if}}
+                                    {{#if IssuerAddress.Data.StreetLine2}}
+                                    <div>{{IssuerAddress.Data.StreetLine2}}</div>
+                                    {{/if}}
+                                    {{#if IssuerAddress.Data.City}}
+                                    <div>{{IssuerAddress.Data.ZipCode}} {{IssuerAddress.Data.City}}</div>
+                                    {{/if}}
+                                    {{#if IssuerAddress.Data.State}}
+                                    <div>{{IssuerAddress.Data.State}}</div>
+                                    {{/if}}
+                                    {{#if IssuerAddress.Data.Country}}
+                                    <div>{{IssuerAddress.Data.Country}} {{#if IssuerAddress.Data.CountryCode}}({{IssuerAddress.Data.CountryCode}}){{/if}}</div>
+                                    {{/if}}
+                                </div>
+                                <div class="col smalltext">
+                                    <table>
+                                        {{#if Issuer.Data.CompanyId}}
+                                        <tr><td>Company&nbsp;ID:</td><td>{{Issuer.Data.CompanyId}}</td></tr>
+                                        {{/if}}
+                                        {{#if Issuer.Data.CompanyTaxId}}
+                                        <tr><td>Tax&nbsp;ID:</td><td>{{Issuer.Data.CompanyTaxId}}</td></tr>
+                                        {{/if}}
+                                        {{#if Issuer.Data.CompanyVATId}}
+                                        <tr><td>VAT&nbsp;ID:</td><td>{{Issuer.Data.CompanyVATId}}</td></tr>
+                                        {{/if}}
+                                        {{#if Issuer.Data.Email}}
+                                        <tr><td>Email:</td><td>{{Issuer.Data.Email}}</td></tr>
+                                        {{/if}}
+                                        {{#if Issuer.Data.Phone}}
+                                        <tr><td>Phone:</td><td>{{Issuer.Data.Phone}}</td></tr>
+                                        {{/if}}
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -129,49 +163,52 @@
                             Billed to client
                         </div>
                         <div class="p-1">
-
                             {{#if Receiver.Data.BusinessName}}
                             <div>{{Receiver.Data.BusinessName}}</div>
                             {{/if}}
-                            {{#if Receiver.Data.LastName}}
-                            <div>{{Receiver.Data.FirstName}} {{Receiver.Data.LastName}}</div>
-                            {{/if}}
+                            <div class="row">
+                                <div class="col smalltext">
 
+                                    {{#if Receiver.Data.LastName}}
+                                    <div><b>{{Receiver.Data.FirstName}} {{Receiver.Data.LastName}}</b></div>
+                                    {{/if}}
 
-                            {{#if ReceiverAddress.Data.Street}}
-                            <div>{{ReceiverAddress.Data.Street}}</div>
-                            {{/if}}
-                            {{#if ReceiverAddress.Data.StreetLine2}}
-                            <div>{{ReceiverAddress.Data.StreetLine2}}</div>
-                            {{/if}}
-                            {{#if ReceiverAddress.Data.City}}
-                            <div>{{ReceiverAddress.Data.ZipCode}} {{ReceiverAddress.Data.City}}</div>
-                            {{/if}}
-                            {{#if ReceiverAddress.Data.State}}
-                            <div>{{ReceiverAddress.Data.State}}</div>
-                            {{/if}}
-                            {{#if ReceiverAddress.Data.Country}}
-                            <div>{{ReceiverAddress.Data.Country}} {{#if ReceiverAddress.Data.CountryCode}}({{ReceiverAddress.Data.CountryCode}}){{/if}}</div>
-                            {{/if}}
-
-                            {{#if Receiver.Data.CompanyId}}
-                            <div>{{Receiver.Data.CompanyId}}</div>
-                            {{/if}}
-                            {{#if Receiver.Data.CompanyTaxId}}
-                            <div>{{Receiver.Data.CompanyTaxId}}</div>
-                            {{/if}}
-                            {{#if Receiver.Data.CompanyVATId}}
-                            <div>{{Receiver.Data.CompanyVATId}}</div>
-                            {{/if}}
-
-                            {{#if Receiver.Data.Email}}
-                            <div>{{Receiver.Data.Email}}</div>
-                            {{/if}}
-
-                            {{#if Receiver.Data.Phone}}
-                            <div>{{Receiver.Data.Phone}}</div>
-                            {{/if}}
-
+                                    {{#if ReceiverAddress.Data.Street}}
+                                    <div>{{ReceiverAddress.Data.Street}}</div>
+                                    {{/if}}
+                                    {{#if ReceiverAddress.Data.StreetLine2}}
+                                    <div>{{ReceiverAddress.Data.StreetLine2}}</div>
+                                    {{/if}}
+                                    {{#if ReceiverAddress.Data.City}}
+                                    <div>{{ReceiverAddress.Data.ZipCode}} {{ReceiverAddress.Data.City}}</div>
+                                    {{/if}}
+                                    {{#if ReceiverAddress.Data.State}}
+                                    <div>{{ReceiverAddress.Data.State}}</div>
+                                    {{/if}}
+                                    {{#if ReceiverAddress.Data.Country}}
+                                    <div>{{ReceiverAddress.Data.Country}} {{#if ReceiverAddress.Data.CountryCode}}({{ReceiverAddress.Data.CountryCode}}){{/if}}</div>
+                                    {{/if}}
+                                </div>
+                                <div class="col smalltext">
+                                    <table>
+                                        {{#if Receiver.Data.CompanyId}}
+                                        <tr><td>Company&nbsp;ID:</td><td>{{Receiver.Data.CompanyId}}</td></tr>
+                                        {{/if}}
+                                        {{#if Receiver.Data.CompanyTaxId}}
+                                        <tr><td>Tax&nbsp;ID:</td><td>{{Receiver.Data.CompanyTaxId}}</td></tr>
+                                        {{/if}}
+                                        {{#if Receiver.Data.CompanyVATId}}
+                                        <tr><td>VAT&nbsp;ID:</td><td>{{Receiver.Data.CompanyVATId}}</td></tr>
+                                        {{/if}}
+                                        {{#if Receiver.Data.Email}}
+                                        <tr><td>Email:</td><td>{{Receiver.Data.Email}}</td></tr>
+                                        {{/if}}
+                                        {{#if Receiver.Data.Phone}}
+                                        <tr><td>Phone:</td><td>{{Receiver.Data.Phone}}</td></tr>
+                                        {{/if}}
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -184,7 +221,11 @@
                         <div class="my-card-header p-1">
                             Invoice details
                         </div>
-                        <div class="p-1">
+                        <div class="p-1 smalltext">
+
+                            {{#if Link}}
+                            <a class="btn btn-primary btn-xs my-1 py-0 px-2 float-end" href="{{Link}}">Check status</a>
+                            {{/if}}
 
                             {{#if Invoice.Data.InvoiceNumber}}
                             <div>Number: {{Invoice.Data.InvoiceNumber}}</div>
@@ -212,9 +253,12 @@
                             <div><img src="{{PayQR}}" width="200" height="200" /></div>
                             {{/if}}
 
-                            {{#if Link}}
-                            <div><a href="{{Link}}">{{Link}}</a></div>
+                            {{#if Invoice.Id}}
+                            <div>
+                                UUID: {{Invoice.Id}}
+                            </div>
                             {{/if}}
+
                         </div>
                     </div>
                 </div>
@@ -231,27 +275,29 @@
                                 <div class="col">
                                     Expected payment method
                                 </div>
+                                {{#if HasManyPaymentMethods}}
                                 <div class="col moreInfo">
                                     Please pay to one of the following payment methods
                                 </div>
+                                {{/if}}
                             </div>
                         </div>
 
-                        <table class="table table-striped m-0 p-0">
+                        <table class="m-0 p-0 bg-primary text-light" style="width:100%">
                             <tr>
-                                <td>Account</td>
-                                <td>Payment reference</td>
-                                <td>Due date</td>
-                                <td>Total price</td>
+                                <td class="p-2">Account</td>
+                                <td class="middle p-2">Payment reference</td>
+                                <td class="middle p-2">Due date</td>
+                                <td class="lastItem p-2">Total price</td>
                             </tr>
                             {{#each Invoice.Data.PaymentMethods}}
                             <tr>
-                                <td>{{this.Account}} / {{this.Network}}</td>
-                                <td>{{../Invoice.Data.InvoiceNumber}}</td>
-                                <td>{{dateFormat "dd/MM/yyyy" ../Invoice.Data.DateDue}}</td>
-                                <td>
+                                <td class="important p-2">{{this.Account}} / {{this.Network}}</td>
+                                <td class="important middle p-2">{{../Invoice.Data.InvoiceNumber}}</td>
+                                <td class="important middle p-2">{{dateFormat "dd/MM/yyyy" ../Invoice.Data.DateDue}}</td>
+                                <td class="important lastItem p-2">
 
-                                    {{numberFormat "0.00" this.Data.GrossAmount}} {{this.Currency}}
+                                    {{numberFormat "N2" this.GrossAmount}} {{this.Currency}}
                                     {{#if this.CurrencyId}}
                                     ({{this.CurrencyId}})
                                     {{/if}}
@@ -290,11 +336,11 @@
                         <tr
                             <td>{{this.Data.ItemText}}</td>
                             <td class="number">{{this.Data.Quantity}} {{this.Data.Unit}}</td>
-                            <td class="number">{{numberFormat "0.00" this.Data.UnitPrice}} {{../Invoice.Data.Currency}}/{{this.Data.Unit}}</td>
+                            <td class="number">{{numberFormat "N2" this.Data.UnitPrice}} {{../Invoice.Data.Currency}}/{{this.Data.Unit}}</td>
                             {{#if this.Data.Discount}}<td class="number">{{this.Data.Discount}} %</td>{{/if}}
                             <td class="number">{{this.Data.TaxPercent}} %</td>
-                            <td class="number">{{numberFormat "0.00" this.Data.NetAmount}} {{../Invoice.Data.Currency}}</td>
-                            <td class="number">{{numberFormat "0.00" this.Data.GrossAmount}} {{../Invoice.Data.Currency}}</td>
+                            <td class="number">{{numberFormat "N2" this.Data.NetAmount}} {{../Invoice.Data.Currency}}</td>
+                            <td class="number">{{numberFormat "N2" this.Data.GrossAmount}} {{../Invoice.Data.Currency}}</td>
                         </tr>
                         {{/each}}
                     </table>
@@ -304,45 +350,47 @@
         <div class="row">
             <div class="col p-1">
 
-                <div class="card mb-2">
+                <div class="card mb-2  ">
                     <div class="card-body  p-0">
                         <div class="my-card-header p-1">
                             Summary
                         </div>
 
-                        <table class="table table-striped  m-0 p-0">
+                        <table class="table table-striped  m-0 p-0 smalltext">
                             <tr>
                                 <th>Currency</th>
                                 {{#each Invoice.Data.Summary}}
                                 <th class="number">{{Currency}}</th>
                                 {{/each}}
                             </tr>
+                            {{#if HasAnyRate}}
                             <tr>
                                 <th>Rate</th>
                                 {{#each Invoice.Data.Summary}}
                                 <td class="number">
                                     {{#if RateCurrencies}}
-                                    {{numberFormat "0.000000" Rate}} {{RateCurrencies}}
+                                    {{numberFormat "N8" Rate}} {{RateCurrencies}}
                                     {{/if}}
                                 </td>
                                 {{/each}}
                             </tr>
+                            {{/if}}
                             <tr>
                                 <th>Net amount</th>
                                 {{#each Invoice.Data.Summary}}
-                                <td class="number">{{numberFormat "0.00" NetAmount}} {{Currency}}</td>
+                                <td class="number">{{numberFormat "N2" NetAmount}} {{Currency}}</td>
                                 {{/each}}
                             </tr>
                             <tr>
                                 <th>Tax amount</th>
                                 {{#each Invoice.Data.Summary}}
-                                <td class="number">{{numberFormat "0.00" TaxAmount}} {{Currency}}</td>
+                                <td class="number">{{numberFormat "N2" TaxAmount}} {{Currency}}</td>
                                 {{/each}}
                             </tr>
                             <tr>
                                 <th>Gross amount</th>
                                 {{#each Invoice.Data.Summary}}
-                                <td class="number">{{numberFormat "0.00" GrossAmount}} {{Currency}}</td>
+                                <td class="number">{{numberFormat "N2" GrossAmount}} {{Currency}}</td>
                                 {{/each}}
                             </tr>
                         </table>
@@ -354,16 +402,25 @@
 
             <div class="col p-1">
                 {{#if Invoice.Data.NoteAfterItems}}
-                <p><h2>Notes</h2>{{Invoice.Data.NoteAfterItems}}</p>
+                <h2 class="smalltext">Notes</h2>
+                <p class="smalltext">
+                    {{Invoice.Data.NoteAfterItems}}
+                </p>
                 {{/if}}
 
+                {{#if HasAnyRateNotes}}
+                <h2 class="smalltext">Summary Notes</h2>
                 {{#each Invoice.Data.Summary}}
-                <div>
+                <div class="smalltext">
                     {{#if RateNote}}
                     {{RateCurrencies}} - {{RateNote}}
                     {{/if}}
                 </div>
                 {{/each}}
+                {{/if}}
+                {{#if Issuer.Data.SignatureUrl}}
+                <img class="signature" src="{{Issuer.Data.SignatureUrl}}" width="100" />
+                {{/if}}
 
             </div>
         </div>

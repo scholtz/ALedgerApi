@@ -50,6 +50,7 @@ namespace ALedgerBFFApi
              });
 
             builder.Services.Configure<ObjectStorage>(builder.Configuration.GetSection("ObjectStorage"));
+            builder.Services.Configure<BFF>(builder.Configuration.GetSection("BFF"));
 
             var app = builder.Build();
 

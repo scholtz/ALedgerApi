@@ -8,6 +8,9 @@ namespace ALedgerApi.Model
         public bool IsDraft = true;
         public string InvoiceNumber { get; set; }
         public long InvoiceNumberNum { get; set; }
+        /// <summary>
+        /// issued | received
+        /// </summary>
         public string InvoiceType { get; set; }
         public PaymentMethod[] PaymentMethods { get; set; } = Array.Empty<PaymentMethod>();
         public InvoiceSummaryInCurrency[] Summary { get; set; } = Array.Empty<InvoiceSummaryInCurrency>();
