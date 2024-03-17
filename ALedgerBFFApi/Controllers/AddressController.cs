@@ -12,7 +12,9 @@ using iText.Layout.Properties;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace ALedgerBFFApi.Controllers
@@ -35,7 +37,7 @@ namespace ALedgerBFFApi.Controllers
         }
 
         [HttpPost]
-        public async Task<OpenApiClient.Address> NewAddress([FromBody] Model.NewAddress address)
+        public async Task<ActionResult<OpenApiClient.AddressDBBase>> NewAddress([FromBody] Model.NewAddress address)
         {
             httpClient.PassHeaders(Request);
             var dbAddress = new OpenApiClient.Address
@@ -48,8 +50,64 @@ namespace ALedgerBFFApi.Controllers
                 StreetLine2 = address.StreetLine2,
                 ZipCode = address.ZipCode              
             };
-            var result = await client.PostAddressAsync(dbAddress);
-            return result.Data;
+            var result = await client.AddressPostAsync(dbAddress);
+            return result;
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<OpenApiClient.Address>> PatchAddress(string id, [FromBody] Model.NewAddress address)
+        {
+            httpClient.PassHeaders(Request);
+            var dbAddress = await client.AddressGetByIdAsync(id);
+            if (dbAddress == null || dbAddress.Data == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var operations = await ConvertRecord2Patch(dbAddress.Data, address);                
+                var result = await client.AddressPatchAsync(id, operations);
+                return result.Data;
+            }
+        }
+
+        private async Task<List<OpenApiClient.AddressOperation>> ConvertRecord2Patch(OpenApiClient.Address original, Model.NewAddress address)
+        {
+            try
+            {
+                var retOperations = new List<OpenApiClient.AddressOperation>(); 
+                foreach (PropertyInfo propertyInfoOriginal in original.GetType().GetProperties())
+                {
+                    var origValue = JsonConvert.SerializeObject(propertyInfoOriginal.GetValue(original));
+                    var propertyInfo = address.GetType().GetProperty(propertyInfoOriginal.Name);
+                    if (propertyInfo == null) 
+                    {
+                        logger.LogError("Property name does not exist");
+                        continue;
+                    }
+                    var updatedValue = JsonConvert.SerializeObject(propertyInfo?.GetValue(address));
+                    if (
+                        origValue == null && updatedValue != null ||
+                        updatedValue == null && origValue != null ||
+                        (origValue != null && !origValue.Equals(updatedValue)))
+                    {
+                        var op = new OpenApiClient.AddressOperation()
+                        {
+                            Op = "replace",
+                            //OperationType = 
+                            Path = propertyInfo.Name,
+                            Value = propertyInfo.GetValue(address)
+                        };
+                        retOperations.Add(op);
+                    }
+                }
+
+                return retOperations;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

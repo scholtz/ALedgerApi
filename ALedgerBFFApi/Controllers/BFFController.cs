@@ -44,15 +44,15 @@ namespace ALedgerBFFApi.Controllers
         public async Task<OpenApiClient.Person> GetPerson()
         {
             httpClient.PassHeaders(Request);
-            var persons = await client.GetPersonAsync(0, 10, "*", "");
+            var persons = await client.PersonGetAsync(0, 10, "*", "");
             return persons.Results.First().Data;
         }
         [HttpPost("IssueInvoice")]
         public async Task<OpenApiClient.Person> IssueInvoice([FromBody] Model.NewInvoice newInvoice)
         {
             httpClient.PassHeaders(Request);
-            var issuer = await client.GetPersonByIdAsync(newInvoice.PersonIdIssuer);
-            var receiver = await client.GetPersonByIdAsync(newInvoice.PersonIdReceiver);
+            var issuer = await client.PersonGetByIdAsync(newInvoice.PersonIdIssuer);
+            var receiver = await client.PersonGetByIdAsync(newInvoice.PersonIdReceiver);
             var newDBInvoice = new OpenApiClient.Invoice();
             newDBInvoice.NoteBeforeItems = newInvoice.NoteBeforeItems;
             return receiver.Data;
@@ -65,7 +65,7 @@ namespace ALedgerBFFApi.Controllers
             OpenApiClient.InvoiceDBBase? invoice = null;
             try
             {
-                invoice = await client.GetInvoiceByIdAsync(invoiceId);
+                invoice = await client.InvoiceGetByIdAsync(invoiceId);
             }
             catch (Exception ex) { logger.LogError(ex, "Unable to load invoice"); }
             if(invoice?.Data.InvoiceNumber == null)
@@ -76,7 +76,7 @@ namespace ALedgerBFFApi.Controllers
             try
             {
                 if (invoice?.Data?.PersonIdIssuer == null) throw new Exception("Invoice does not have issuer");
-                issuer = await client.GetPersonByIdAsync(invoice.Data.PersonIdIssuer);
+                issuer = await client.PersonGetByIdAsync(invoice.Data.PersonIdIssuer);
             }
             catch (Exception ex) { logger.LogError(ex, "Unable to load issuer"); }
 
@@ -85,7 +85,7 @@ namespace ALedgerBFFApi.Controllers
             try
             {
                 if (invoice?.Data?.PersonIdReceiver == null) throw new Exception("Invoice does not have receiver");
-                receiver = await client.GetPersonByIdAsync(invoice.Data.PersonIdReceiver);
+                receiver = await client.PersonGetByIdAsync(invoice.Data.PersonIdReceiver);
             }
             catch (Exception ex) { logger.LogError(ex, "Unable to load receiver"); }
 
@@ -94,7 +94,7 @@ namespace ALedgerBFFApi.Controllers
             try
             {
                 if (string.IsNullOrEmpty(issuer?.Data?.AddressId)) throw new Exception("Issuer does not have address");
-                issuerAddress = await client.GetAddressByIdAsync(issuer.Data.AddressId);
+                issuerAddress = await client.AddressGetByIdAsync(issuer.Data.AddressId);
             }
             catch (Exception ex) { logger.LogError(ex, "Unable to load issuer address"); }
 
@@ -102,7 +102,7 @@ namespace ALedgerBFFApi.Controllers
             try
             {
                 if (string.IsNullOrEmpty(receiver?.Data?.AddressId)) throw new Exception("Receiver does not have address");
-                receiverAddress = await client.GetAddressByIdAsync(receiver.Data.AddressId);
+                receiverAddress = await client.AddressGetByIdAsync(receiver.Data.AddressId);
             }
             catch (Exception ex) { logger.LogError(ex, "Unable to load receiver address"); }
 
@@ -110,7 +110,7 @@ namespace ALedgerBFFApi.Controllers
             OpenApiClient.InvoiceItemInvoiceItemDBBaseDBListBase? items = null;
             try
             {
-                items = await client.GetInvoiceitemAsync(0, 100, invoiceId, "");
+                items = await client.InvoiceItemGetAsync(0, 100, invoiceId, "");
             }
             catch (Exception ex) { logger.LogError(ex, "Unable to load receiver"); }
 

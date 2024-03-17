@@ -1,12 +1,15 @@
 
-using RestDWH.Model;
-using RestDWH.Repository;
-using RestDWH.Extensions;
+using RestDWH.Base.Model;
+using RestDWH.Base.Repository;
+using RestDWH.Base.Extensions;
 using AlgorandAuthentication;
 using Elasticsearch.Net;
 using Microsoft.OpenApi.Models;
 using Nest;
 using Microsoft.Extensions.DependencyInjection;
+using RestDWH.Elastic.Extensions;
+using RestDWH.Elastic.Repository;
+using RestDWH.Base.Extensios;
 
 namespace ALedgerApi
 {
@@ -16,7 +19,7 @@ namespace ALedgerApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers().AddNewtonsoftJson().CreateAPIControllers();
+            builder.Services.AddControllers().AddNewtonsoftJson();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {
@@ -70,8 +73,21 @@ namespace ALedgerApi
 
             var client = new ElasticClient(settings);
             builder.Services.AddSingleton<IElasticClient>(client);
-            builder.Services.RegisterRestDWHRepositories();
-            builder.Services.RegisterRestDWHEvents();
+            //Address
+            builder.Services.AddSingleton<IDWHRepository<Model.Address>, RestDWHElasticSearchRepository<Model.Address>>();
+            builder.Services.AddSingleton<RestDWHEvents<Model.Address>>();
+            //Person
+            builder.Services.AddSingleton<IDWHRepository<Model.Person>, RestDWHElasticSearchRepository<Model.Person>>();
+            builder.Services.AddSingleton<RestDWHEvents<Model.Person>>();
+            //Invoice
+            builder.Services.AddSingleton<IDWHRepository<Model.Invoice>, RestDWHElasticSearchRepository<Model.Invoice>>();
+            builder.Services.AddSingleton<RestDWHEvents<Model.Invoice>>();
+            //InvoiceItem
+            builder.Services.AddSingleton<IDWHRepository<Model.InvoiceItem>, RestDWHElasticSearchRepository<Model.InvoiceItem>>();
+            builder.Services.AddSingleton<RestDWHEvents<Model.InvoiceItem>>();
+            //PaymentMethod
+            builder.Services.AddSingleton<IDWHRepository<Model.PaymentMethod>, RestDWHElasticSearchRepository<Model.PaymentMethod>>();
+            builder.Services.AddSingleton<RestDWHEvents<Model.PaymentMethod>>();
 
             var app = builder.Build();
 
@@ -86,11 +102,25 @@ namespace ALedgerApi
             //{
             app.UseSwagger();
             app.UseSwaggerUI();
-            //}
-            app.PreloadRestDWHRepositories();
 
             app.UseAuthentication();
             app.UseAuthorization();
+            //}
+            var serviceAddress = app.Services.GetService<IDWHRepository<Model.Address>>();
+            app.MapEndpoints<Model.Address>(serviceAddress);
+
+            var servicePerson = app.Services.GetService<IDWHRepository<Model.Person>>();
+            app.MapEndpoints<Model.Person>(servicePerson);
+
+            var serviceInvoice = app.Services.GetService<IDWHRepository<Model.Invoice>>();
+            app.MapEndpoints<Model.Invoice>(serviceInvoice);
+
+            var serviceInvoiceItem = app.Services.GetService<IDWHRepository<Model.InvoiceItem>>();
+            app.MapEndpoints<Model.InvoiceItem>(serviceInvoiceItem);
+
+            var servicePaymentMethod = app.Services.GetService<IDWHRepository<Model.PaymentMethod>>();
+            app.MapEndpoints<Model.PaymentMethod>(servicePaymentMethod);
+
             app.MapControllers();
 
             app.Run();

@@ -1,5 +1,5 @@
 ﻿using ALedgerApi.Model;
-using RestDWH.Model;
+using RestDWH.Base.Model;
 using System.Security.Claims;
 
 namespace ALedgerApi.Events
