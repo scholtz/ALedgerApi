@@ -1,5 +1,5 @@
 ﻿using ALedgerApi.Events;
-using RestDWH.Attributes;
+using RestDWH.Base.Attributes;
 
 namespace ALedgerApi.Model
 {

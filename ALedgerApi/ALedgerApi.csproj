@@ -26,7 +26,6 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="RestDWH" Version="1.2023.5.14" />
 		<PackageReference Include="RestDWH.Base" Version="2.2023.10.29" />
 		<PackageReference Include="RestDWH.ElasticSearch" Version="2.2023.10.29" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />

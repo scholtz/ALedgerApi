@@ -1,8 +1,9 @@
-﻿using RestDWH.Attributes;
+﻿using ALedgerApi.Events;
+using RestDWH.Base.Attributes;
 
 namespace ALedgerApi.Model
 {
-    [RestDWHEntity("Invoice")]
+    [RestDWHEntity("Invoice", endpointGet: "invoice", endpointUpsert: "invoice", endpointPatch: "invoice", endpointPost: "invoice", endpointGetById: "invoice/{id}", endpointDelete: "invoice")]
     public class Invoice
     {
         public bool IsDraft = true;
