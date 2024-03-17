@@ -50,6 +50,7 @@ namespace ALedgerBFFApi.Controllers
                 StreetLine2 = address.StreetLine2,
                 ZipCode = address.ZipCode              
             };
+
             var result = await client.AddressPostAsync(dbAddress);
             return result;
         }
