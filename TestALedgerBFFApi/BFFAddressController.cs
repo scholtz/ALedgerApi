@@ -94,5 +94,92 @@ namespace TestALedgerBFFApi
             Assert.IsNotNull(result?.Value);
             Assert.AreEqual(result?.Value?.City, "Brno");
         }
+
+        [Test]
+        public async Task AddressDelete()
+        {
+            var newAddress = new NewAddress
+            {
+                City = "Praha",
+                Country = "Èeská republika",
+                CountryCode = "CZ",
+                State = "CZ",
+                Street = "Ulice 11",
+                StreetLine2 = "Ulice 22",
+                ZipCode = "11100"
+            };
+            var address = await controller.NewAddress(newAddress);
+            Assert.IsNotNull(address);
+            Assert.IsNotNull(address.Value);
+            var addressDelete = await controller.DeleteAddress(address.Value.Id);
+            Assert.IsNotNull(address);
+            Assert.IsNotNull(addressDelete?.Value);
+            try
+            {
+                var addressGet = await controller.GetAddress(address.Value.Id);
+                Assert.IsNull(addressGet);
+            }
+            catch (OpenApiClient.ApiException ex)
+            {
+                Assert.AreEqual(ex?.StatusCode, 204);
+            }
+        }
+
+        [Test]
+        public async Task AddressGetById()
+        {
+            var newAddress = new NewAddress
+            {
+                City = "Praha",
+                Country = "Èeská republika",
+                CountryCode = "CZ",
+                State = "CZ",
+                Street = "Ulice 11",
+                StreetLine2 = "Ulice 22",
+                ZipCode = "11100"
+            };
+            var address = await controller.NewAddress(newAddress);
+            Assert.IsNotNull(address);
+            Assert.IsNotNull(address.Value);
+            var addressGet = await controller.GetAddress(address.Value.Id);
+            Assert.IsNotNull(addressGet);
+        }
+
+        [Test]
+        public async Task AddressGet()
+        {
+            var newAddress1 = new NewAddress
+            {
+                City = "Praha",
+                Country = "Èeská republika",
+                CountryCode = "CZ",
+                State = "CZ",
+                Street = "Ulice 11",
+                StreetLine2 = "Ulice 22",
+                ZipCode = "11100"
+            };
+            var address1 = await controller.NewAddress(newAddress1);
+            Assert.IsNotNull(address1);
+            Assert.IsNotNull(address1.Value);
+
+            var newAddress2 = new NewAddress
+            {
+                City = "Praha",
+                Country = "Èeská republika",
+                CountryCode = "CZ",
+                State = "CZ",
+                Street = "Ulice 11",
+                StreetLine2 = "Ulice 22",
+                ZipCode = "11100"
+            };
+            var address2 = await controller.NewAddress(newAddress2);
+            Assert.IsNotNull(address2);
+            Assert.IsNotNull(address2.Value);
+
+            var addressGet = await controller.GetAddresses(0, 2, null, null);
+            Assert.IsNotNull(addressGet);
+            Assert.IsNotNull(addressGet.Value);
+            Assert.AreEqual(addressGet.Value.Count(), 2);
+        }
     }
 }
