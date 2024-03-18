@@ -33,7 +33,6 @@ namespace ALedgerBFFApi.Controllers
             this.logger = logger;
             this.objectStorageConfig = objectStorageConfig;
             client = new OpenApiClient.Client(bffConfig.CurrentValue.DataServer, httpClient);
-
         }
 
         [HttpPost]
@@ -70,6 +69,45 @@ namespace ALedgerBFFApi.Controllers
                 var result = await client.AddressPatchAsync(id, operations);
                 return result.Data;
             }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<OpenApiClient.Address>> DeleteAddress(string id)
+        {
+            httpClient.PassHeaders(Request);
+            var dbAddress = await client.AddressGetByIdAsync(id);
+            if (dbAddress == null || dbAddress.Data == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var result = await client.AddressDeleteAsync(id);
+                return result.Data;
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<OpenApiClient.Address>> GetAddress(string id)
+        {
+            httpClient.PassHeaders(Request);
+            var dbAddress = await client.AddressGetByIdAsync(id);
+            if (dbAddress == null || dbAddress.Data == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return dbAddress.Data;
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<OpenApiClient.AddressDBBase>>> GetAddresses([FromQuery] int? offset, [FromQuery] int? limit, [FromQuery] string query, [FromQuery] string sort)
+        {
+            httpClient.PassHeaders(Request);
+            var addressList = await client.AddressGetAsync(offset, limit, query, sort);
+            return addressList.Results.ToList();
         }
 
         private async Task<List<OpenApiClient.AddressOperation>> ConvertRecord2Patch(OpenApiClient.Address original, Model.NewAddress address)
