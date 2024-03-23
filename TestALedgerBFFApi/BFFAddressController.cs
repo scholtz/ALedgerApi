@@ -62,7 +62,7 @@ namespace TestALedgerBFFApi
             var newAddress = new NewAddress
             {
                 City = "Praha",
-                Country = "»esk· republika",
+                Country = "√àesk√° republika",
                 CountryCode = "CZ",
                 State = "CZ",
                 Street = "Ulice 11",
@@ -79,7 +79,7 @@ namespace TestALedgerBFFApi
             var newAddress = new NewAddress
             {
                 City = "Praha",
-                Country = "»esk· republika",
+                Country = "√àesk√° republika",
                 CountryCode = "CZ",
                 State = "CZ",
                 Street = "Ulice 11",
@@ -101,7 +101,7 @@ namespace TestALedgerBFFApi
             var newAddress = new NewAddress
             {
                 City = "Praha",
-                Country = "»esk· republika",
+                Country = "√àesk√° republika",
                 CountryCode = "CZ",
                 State = "CZ",
                 Street = "Ulice 11",
@@ -131,7 +131,7 @@ namespace TestALedgerBFFApi
             var newAddress = new NewAddress
             {
                 City = "Praha",
-                Country = "»esk· republika",
+                Country = "√àesk√° republika",
                 CountryCode = "CZ",
                 State = "CZ",
                 Street = "Ulice 11",
@@ -151,7 +151,7 @@ namespace TestALedgerBFFApi
             var newAddress1 = new NewAddress
             {
                 City = "Praha",
-                Country = "»esk· republika",
+                Country = "√àesk√° republika",
                 CountryCode = "CZ",
                 State = "CZ",
                 Street = "Ulice 11",
@@ -165,7 +165,7 @@ namespace TestALedgerBFFApi
             var newAddress2 = new NewAddress
             {
                 City = "Praha",
-                Country = "»esk· republika",
+                Country = "√àesk√° republika",
                 CountryCode = "CZ",
                 State = "CZ",
                 Street = "Ulice 11",
