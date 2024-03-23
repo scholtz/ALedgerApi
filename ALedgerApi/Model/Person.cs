@@ -2,7 +2,7 @@
 
 namespace ALedgerApi.Model
 {
-    [RestDWHEntity("Person", endpointGet: "person", endpointUpsert: "person", endpointPatch: "person", endpointPost: "person", endpointGetById: "person/{id}")]
+    [RestDWHEntity("Person", endpointGet: "person", endpointUpsert: "person", endpointPatch: "person", endpointPost: "person", endpointGetById: "person/{id}", endpointDelete: "person")]
     public class Person : IEquatable<Person?>
     {
         public string BusinessName { get; set; }
