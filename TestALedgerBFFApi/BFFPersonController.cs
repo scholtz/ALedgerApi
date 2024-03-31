@@ -197,7 +197,7 @@ namespace TestALedgerBFFApi
             Assert.IsNotNull(person2);
             Assert.IsNotNull(person2.Value);
 
-            var personGet = await controller.GetPersones(0, 2, null, null);
+            var personGet = await controller.GetPersons(0, 2, null, null);
             Assert.IsNotNull(personGet);
             Assert.IsNotNull(personGet.Value);
             Assert.AreEqual(personGet.Value.Count(), 2);

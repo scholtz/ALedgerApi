@@ -15,7 +15,7 @@ namespace ALedgerApi.Model
         public string InvoiceType { get; set; }
         public PaymentMethod[] PaymentMethods { get; set; } = Array.Empty<PaymentMethod>();
         public InvoiceSummaryInCurrency[] Summary { get; set; } = Array.Empty<InvoiceSummaryInCurrency>();
-        
+        public InvoiceItem[] Items { get; set; } = Array.Empty<InvoiceItem>();
         public string PersonIdIssuer { get; set; }
         public string PersonIdReceiver { get; set; }
         public DateTimeOffset? DateIssue { get; set; }

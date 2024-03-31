@@ -108,11 +108,23 @@ namespace ALedgerBFFApi.Controllers
 
 
             OpenApiClient.InvoiceItemInvoiceItemDBBaseDBListBase? items = null;
-            try
+
+            if (invoice?.Data?.Items != null)
             {
-                items = await client.InvoiceItemGetAsync(0, 100, invoiceId, "");
+                items = new OpenApiClient.InvoiceItemInvoiceItemDBBaseDBListBase();
+                items.Results = invoice.Data.Items.Select(i => new OpenApiClient.InvoiceItemDBBase
+                {
+                    Data = i
+                }).ToList();
             }
-            catch (Exception ex) { logger.LogError(ex, "Unable to load receiver"); }
+            else
+            {
+                try
+                {
+                    items = await client.InvoiceItemGetAsync(0, 100, invoiceId, "");
+                }
+                catch (Exception ex) { logger.LogError(ex, "Unable to load receiver"); }
+            }
 
             string source = System.IO.File.ReadAllText("Data/InvoiceTemplate.html");
             var template = Handlebars.Compile(source);
