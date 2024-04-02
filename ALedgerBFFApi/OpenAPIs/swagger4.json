@@ -1679,6 +1679,13 @@
             },
             "nullable": true
           },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InvoiceItem"
+            },
+            "nullable": true
+          },
           "personIdIssuer": {
             "type": "string",
             "nullable": true
@@ -1783,10 +1790,6 @@
       "InvoiceItem": {
         "type": "object",
         "properties": {
-          "invoiceId": {
-            "type": "string",
-            "nullable": true
-          },
           "itemText": {
             "type": "string",
             "nullable": true

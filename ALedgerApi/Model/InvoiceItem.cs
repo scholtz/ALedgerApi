@@ -5,7 +5,6 @@ namespace ALedgerApi.Model
     [RestDWHEntity("InvoiceItem", endpointGet: "invoice-item", endpointUpsert: "invoice-item", endpointPatch: "invoice-item", endpointPost: "invoice-item", endpointGetById: "invoice-item/{id}", endpointDelete: "invoice-item")]
     public class InvoiceItem : IEquatable<InvoiceItem?>
     {
-        public string InvoiceId { get; set; }
         public string ItemText { get; set; }
         public decimal UnitPrice { get; set; }
         public string Unit { get; set; }
@@ -23,7 +22,6 @@ namespace ALedgerApi.Model
         public bool Equals(InvoiceItem? other)
         {
             return other is not null &&
-                   InvoiceId == other.InvoiceId &&
                    ItemText == other.ItemText &&
                    UnitPrice == other.UnitPrice &&
                    Discount == other.Discount &&
@@ -35,7 +33,7 @@ namespace ALedgerApi.Model
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(InvoiceId, ItemText, UnitPrice, Discount, Quantity, TaxPercent, NetAmount, GrossAmount);
+            return HashCode.Combine(ItemText, UnitPrice, Discount, Quantity, TaxPercent, NetAmount, GrossAmount);
         }
 
         public static bool operator ==(InvoiceItem? left, InvoiceItem? right)

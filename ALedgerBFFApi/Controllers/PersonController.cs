@@ -1,4 +1,4 @@
-﻿using ALedgerBFFApi.Extension;
+using ALedgerBFFApi.Extension;
 using ALedgerBFFApi.Model.Options;
 using Amazon.S3;
 using Amazon.S3.Model;
@@ -106,14 +106,14 @@ namespace ALedgerBFFApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<OpenApiClient.PersonDBBase>>> GetPersones([FromQuery] int? offset, [FromQuery] int? limit, [FromQuery] string query, [FromQuery] string sort)
+        public async Task<ActionResult<IEnumerable<OpenApiClient.PersonDBBase>>> GetPersons([FromQuery] int? offset, [FromQuery] int? limit, [FromQuery] string query, [FromQuery] string sort)
         {
             httpClient.PassHeaders(Request);
-            var addressList = await client.PersonGetAsync(offset, limit, query, sort);
-            return addressList.Results.ToList();
+            var personList = await client.PersonGetAsync(offset, limit, query, sort);
+            return personList.Results.ToList();
         }
 
-        private async Task<List<OpenApiClient.PersonOperation>> ConvertRecord2Patch(OpenApiClient.Person original, Model.NewPerson address)
+        private async Task<List<OpenApiClient.PersonOperation>> ConvertRecord2Patch(OpenApiClient.Person original, Model.NewPerson person)
         {
             try
             {
@@ -121,13 +121,13 @@ namespace ALedgerBFFApi.Controllers
                 foreach (PropertyInfo propertyInfoOriginal in original.GetType().GetProperties())
                 {
                     var origValue = JsonConvert.SerializeObject(propertyInfoOriginal.GetValue(original));
-                    var propertyInfo = address.GetType().GetProperty(propertyInfoOriginal.Name);
+                    var propertyInfo = person.GetType().GetProperty(propertyInfoOriginal.Name);
                     if (propertyInfo == null) 
                     {
                         logger.LogError("Property name does not exist");
                         continue;
                     }
-                    var updatedValue = JsonConvert.SerializeObject(propertyInfo?.GetValue(address));
+                    var updatedValue = JsonConvert.SerializeObject(propertyInfo?.GetValue(person))
                     if (
                         origValue == null && updatedValue != null ||
                         updatedValue == null && origValue != null ||
@@ -138,7 +138,7 @@ namespace ALedgerBFFApi.Controllers
                             Op = "replace",
                             //OperationType = 
                             Path = propertyInfo.Name,
-                            Value = propertyInfo.GetValue(address)
+                            Value = propertyInfo.GetValue(person)
                         };
                         retOperations.Add(op);
                     }

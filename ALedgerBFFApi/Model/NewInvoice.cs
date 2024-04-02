@@ -12,5 +12,13 @@
         public DateTimeOffset? DateDelivery { get; set; }
         public string NoteBeforeItems { get; set; }
         public string NoteAfterItems { get; set; }
+
+        public string Currency { get; set; }
+        public DateTimeOffset? DateDue { get; set; }
+        public DateTimeOffset? DateIssue { get; set; }
+        public string InvoiceNumber { get; set; }
+        public long InvoiceNumberNum { get; set; }
+        public PaymentMethod[] PaymentMethods { get; set; }
+        public InvoiceSummaryInCurrency[] Summary { get; set; }
     }
 }
