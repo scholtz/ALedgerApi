@@ -127,7 +127,7 @@ namespace ALedgerBFFApi.Controllers
                         logger.LogError("Property name does not exist");
                         continue;
                     }
-                    var updatedValue = JsonConvert.SerializeObject(propertyInfo?.GetValue(person))
+                    var updatedValue = JsonConvert.SerializeObject(propertyInfo?.GetValue(person));
                     if (
                         origValue == null && updatedValue != null ||
                         updatedValue == null && origValue != null ||
