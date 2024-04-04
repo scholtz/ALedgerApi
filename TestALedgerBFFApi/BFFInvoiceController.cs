@@ -393,7 +393,7 @@ namespace TestALedgerBFFApi
                 DateDelivery = DateTimeOffset.Now,
                 DateDue = DateTimeOffset.Now,
                 DateIssue = DateTimeOffset.Now,
-                InvoiceNumber = "00000000001",
+                InvoiceNumber = "00000000002",
                 InvoiceNumberNum = 1,
                 InvoiceType = "SELL",
                 IsDraft = true,
