@@ -1,6 +1,6 @@
 ﻿namespace ALedgerBFFApi.Model
 {
-    public class PaymentMethod
+    public class BFFPaymentMethod
     {
         /// <summary>
         /// Token name or Currency code

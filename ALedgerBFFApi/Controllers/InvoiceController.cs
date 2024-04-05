@@ -35,7 +35,7 @@ namespace ALedgerBFFApi.Controllers
             client = new OpenApiClient.Client(bffConfig.CurrentValue.DataServer, httpClient);
         }
 
-        [HttpPost]
+        [HttpPost("invoice")]
         public async Task<ActionResult<OpenApiClient.InvoiceDBBase>> NewInvoice([FromBody] Model.NewInvoice invoice)
         {
             httpClient.PassHeaders(Request);
@@ -88,7 +88,7 @@ namespace ALedgerBFFApi.Controllers
             return result;
         }
 
-        [HttpPatch("{id}")]
+        [HttpPatch("invoice/{id}")]
         public async Task<ActionResult<OpenApiClient.Invoice>> PatchInvoice(string id, [FromBody] Model.NewInvoice invoice)
         {
             httpClient.PassHeaders(Request);
@@ -105,7 +105,7 @@ namespace ALedgerBFFApi.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("invoice/{id}")]
         public async Task<ActionResult<OpenApiClient.Invoice>> DeleteInvoice(string id)
         {
             httpClient.PassHeaders(Request);
@@ -121,7 +121,7 @@ namespace ALedgerBFFApi.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("invoice/{id}")]
         public async Task<ActionResult<OpenApiClient.Invoice>> GetInvoice(string id)
         {
             httpClient.PassHeaders(Request);
@@ -136,8 +136,8 @@ namespace ALedgerBFFApi.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<OpenApiClient.InvoiceDBBase>>> GetInvoices([FromQuery] int? offset, [FromQuery] int? limit, [FromQuery] string query, [FromQuery] string sort)
+        [HttpGet("invoice")]
+        public async Task<ActionResult<IEnumerable<OpenApiClient.InvoiceDBBase>>> GetInvoices([FromQuery] int? offset, [FromQuery] int? limit, [FromQuery] string? query = null, [FromQuery] string? sort = null)
         {
             httpClient.PassHeaders(Request);
             var addressList = await client.InvoiceGetAsync(offset, limit, query, sort);

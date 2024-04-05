@@ -1,6 +1,6 @@
 ﻿namespace ALedgerBFFApi.Model
 {
-    public class InvoiceItem
+    public class BFFInvoiceItem
     {
         public string ItemText { get; set; } = string.Empty;
         public double UnitPrice { get; set; } = 0;

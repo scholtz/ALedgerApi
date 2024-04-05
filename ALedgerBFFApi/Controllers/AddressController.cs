@@ -35,7 +35,7 @@ namespace ALedgerBFFApi.Controllers
             client = new OpenApiClient.Client(bffConfig.CurrentValue.DataServer, httpClient);
         }
 
-        [HttpPost]
+        [HttpPost("address")]
         public async Task<ActionResult<OpenApiClient.AddressDBBase>> NewAddress([FromBody] Model.NewAddress address)
         {
             httpClient.PassHeaders(Request);
@@ -54,7 +54,7 @@ namespace ALedgerBFFApi.Controllers
             return result;
         }
 
-        [HttpPatch("{id}")]
+        [HttpPatch("address/{id}")]
         public async Task<ActionResult<OpenApiClient.Address>> PatchAddress(string id, [FromBody] Model.NewAddress address)
         {
             httpClient.PassHeaders(Request);
@@ -71,7 +71,7 @@ namespace ALedgerBFFApi.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("address/{id}")]
         public async Task<ActionResult<OpenApiClient.Address>> DeleteAddress(string id)
         {
             httpClient.PassHeaders(Request);
@@ -87,7 +87,7 @@ namespace ALedgerBFFApi.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("address/{id}")]
         public async Task<ActionResult<OpenApiClient.Address>> GetAddress(string id)
         {
             httpClient.PassHeaders(Request);
@@ -102,7 +102,7 @@ namespace ALedgerBFFApi.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("address")]
         public async Task<ActionResult<IEnumerable<OpenApiClient.AddressDBBase>>> GetAddresses([FromQuery] int? offset, [FromQuery] int? limit, [FromQuery] string query, [FromQuery] string sort)
         {
             httpClient.PassHeaders(Request);

@@ -1,6 +1,6 @@
 ﻿namespace ALedgerBFFApi.Model
 {
-    public class InvoiceSummaryInCurrency
+    public class BFFInvoiceSummaryInCurrency
     {
         public string Currency { get; set; }
         public double Rate { get; set; }

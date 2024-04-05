@@ -70,9 +70,9 @@ namespace TestALedgerBFFApi
                 InvoiceNumberNum = 1,
                 InvoiceType = "SELL",
                 IsDraft = true,
-                Items = new List<InvoiceItem> 
+                Items = new List<BFFInvoiceItem> 
                 {  
-                  new InvoiceItem
+                  new BFFInvoiceItem
                   {
                              Discount = 0,
                              GrossAmount = 0,
@@ -87,9 +87,9 @@ namespace TestALedgerBFFApi
                 NoteAfterItems = string.Empty,
                 NoteBeforeItems = string.Empty,
                 PayableInDays = 0,
-                PaymentMethods = new List<PaymentMethod>
+                PaymentMethods = new List<BFFPaymentMethod>
                 {
-                    new PaymentMethod
+                    new BFFPaymentMethod
                     {
                         Account = "678678678",
                         Currency = "USD",
@@ -100,9 +100,9 @@ namespace TestALedgerBFFApi
                 }.ToArray(),
                 PersonIdIssuer = string.Empty,
                 PersonIdReceiver = string.Empty,
-                Summary = new List<InvoiceSummaryInCurrency>
+                Summary = new List<BFFInvoiceSummaryInCurrency>
                 {
-                    new InvoiceSummaryInCurrency
+                    new BFFInvoiceSummaryInCurrency
                     {
                         Currency = "USD",
                         GrossAmount= 0,
@@ -132,9 +132,9 @@ namespace TestALedgerBFFApi
                 InvoiceNumberNum = 1,
                 InvoiceType = "SELL",
                 IsDraft = true,
-                Items = new List<InvoiceItem>
+                Items = new List<BFFInvoiceItem>
                 {
-                  new InvoiceItem
+                  new BFFInvoiceItem
                   {
                              Discount = 0,
                              GrossAmount = 0,
@@ -149,9 +149,9 @@ namespace TestALedgerBFFApi
                 NoteAfterItems = string.Empty,
                 NoteBeforeItems = string.Empty,
                 PayableInDays = 0,
-                PaymentMethods = new List<PaymentMethod>
+                PaymentMethods = new List<BFFPaymentMethod>
                 {
-                    new PaymentMethod
+                    new BFFPaymentMethod
                     {
                         Account = "678678678",
                         Currency = "USD",
@@ -162,9 +162,9 @@ namespace TestALedgerBFFApi
                 }.ToArray(),
                 PersonIdIssuer = string.Empty,
                 PersonIdReceiver = string.Empty,
-                Summary = new List<InvoiceSummaryInCurrency>
+                Summary = new List<BFFInvoiceSummaryInCurrency>
                 {
-                    new InvoiceSummaryInCurrency
+                    new BFFInvoiceSummaryInCurrency
                     {
                         Currency = "USD",
                         GrossAmount= 0,
@@ -201,9 +201,9 @@ namespace TestALedgerBFFApi
                 InvoiceNumberNum = 1,
                 InvoiceType = "SELL",
                 IsDraft = true,
-                Items = new List<InvoiceItem>
+                Items = new List<BFFInvoiceItem>
                 {
-                  new InvoiceItem
+                  new BFFInvoiceItem
                   {
                              Discount = 0,
                              GrossAmount = 0,
@@ -218,9 +218,9 @@ namespace TestALedgerBFFApi
                 NoteAfterItems = string.Empty,
                 NoteBeforeItems = string.Empty,
                 PayableInDays = 0,
-                PaymentMethods = new List<PaymentMethod>
+                PaymentMethods = new List<BFFPaymentMethod>
                 {
-                    new PaymentMethod
+                    new BFFPaymentMethod
                     {
                         Account = "678678678",
                         Currency = "USD",
@@ -231,9 +231,9 @@ namespace TestALedgerBFFApi
                 }.ToArray(),
                 PersonIdIssuer = string.Empty,
                 PersonIdReceiver = string.Empty,
-                Summary = new List<InvoiceSummaryInCurrency>
+                Summary = new List<BFFInvoiceSummaryInCurrency>
                 {
-                    new InvoiceSummaryInCurrency
+                    new BFFInvoiceSummaryInCurrency
                     {
                         Currency = "USD",
                         GrossAmount= 0,
@@ -275,9 +275,9 @@ namespace TestALedgerBFFApi
                 InvoiceNumberNum = 1,
                 InvoiceType = "SELL",
                 IsDraft = true,
-                Items = new List<InvoiceItem>
+                Items = new List<BFFInvoiceItem>
                 {
-                  new InvoiceItem
+                  new BFFInvoiceItem
                   {
                              Discount = 0,
                              GrossAmount = 0,
@@ -292,9 +292,9 @@ namespace TestALedgerBFFApi
                 NoteAfterItems = string.Empty,
                 NoteBeforeItems = string.Empty,
                 PayableInDays = 0,
-                PaymentMethods = new List<PaymentMethod>
+                PaymentMethods = new List<BFFPaymentMethod>
                 {
-                    new PaymentMethod
+                    new BFFPaymentMethod
                     {
                         Account = "678678678",
                         Currency = "USD",
@@ -305,9 +305,9 @@ namespace TestALedgerBFFApi
                 }.ToArray(),
                 PersonIdIssuer = string.Empty,
                 PersonIdReceiver = string.Empty,
-                Summary = new List<InvoiceSummaryInCurrency>
+                Summary = new List<BFFInvoiceSummaryInCurrency>
                 {
-                    new InvoiceSummaryInCurrency
+                    new BFFInvoiceSummaryInCurrency
                     {
                         Currency = "USD",
                         GrossAmount= 0,
@@ -339,9 +339,9 @@ namespace TestALedgerBFFApi
                 InvoiceNumberNum = 1,
                 InvoiceType = "SELL",
                 IsDraft = true,
-                Items = new List<InvoiceItem>
+                Items = new List<BFFInvoiceItem>
                 {
-                  new InvoiceItem
+                  new BFFInvoiceItem
                   {
                              Discount = 0,
                              GrossAmount = 0,
@@ -356,9 +356,9 @@ namespace TestALedgerBFFApi
                 NoteAfterItems = string.Empty,
                 NoteBeforeItems = string.Empty,
                 PayableInDays = 0,
-                PaymentMethods = new List<PaymentMethod>
+                PaymentMethods = new List<BFFPaymentMethod>
                 {
-                    new PaymentMethod
+                    new BFFPaymentMethod
                     {
                         Account = "678678678",
                         Currency = "USD",
@@ -369,9 +369,9 @@ namespace TestALedgerBFFApi
                 }.ToArray(),
                 PersonIdIssuer = string.Empty,
                 PersonIdReceiver = string.Empty,
-                Summary = new List<InvoiceSummaryInCurrency>
+                Summary = new List<BFFInvoiceSummaryInCurrency>
                 {
-                    new InvoiceSummaryInCurrency
+                    new BFFInvoiceSummaryInCurrency
                     {
                         Currency = "USD",
                         GrossAmount= 0,
@@ -397,9 +397,9 @@ namespace TestALedgerBFFApi
                 InvoiceNumberNum = 1,
                 InvoiceType = "SELL",
                 IsDraft = true,
-                Items = new List<InvoiceItem>
+                Items = new List<BFFInvoiceItem>
                 {
-                  new InvoiceItem
+                  new BFFInvoiceItem
                   {
                              Discount = 0,
                              GrossAmount = 0,
@@ -414,9 +414,9 @@ namespace TestALedgerBFFApi
                 NoteAfterItems = string.Empty,
                 NoteBeforeItems = string.Empty,
                 PayableInDays = 0,
-                PaymentMethods = new List<PaymentMethod>
+                PaymentMethods = new List<BFFPaymentMethod>
                 {
-                    new PaymentMethod
+                    new BFFPaymentMethod
                     {
                         Account = "678678678",
                         Currency = "USD",
@@ -427,9 +427,9 @@ namespace TestALedgerBFFApi
                 }.ToArray(),
                 PersonIdIssuer = string.Empty,
                 PersonIdReceiver = string.Empty,
-                Summary = new List<InvoiceSummaryInCurrency>
+                Summary = new List<BFFInvoiceSummaryInCurrency>
                 {
-                    new InvoiceSummaryInCurrency
+                    new BFFInvoiceSummaryInCurrency
                     {
                         Currency = "USD",
                         GrossAmount= 0,
