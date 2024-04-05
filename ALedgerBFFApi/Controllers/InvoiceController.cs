@@ -137,7 +137,7 @@ namespace ALedgerBFFApi.Controllers
         }
 
         [HttpGet("invoice")]
-        public async Task<ActionResult<IEnumerable<OpenApiClient.InvoiceDBBase>>> GetInvoices([FromQuery] int? offset, [FromQuery] int? limit, [FromQuery] string? query = null, [FromQuery] string? sort = null)
+        public async Task<ActionResult<IEnumerable<OpenApiClient.InvoiceDBBase>>> GetInvoices([FromQuery] int? offset = 0, [FromQuery] int? limit = 10, [FromQuery] string? query = null, [FromQuery] string? sort = null)
         {
             httpClient.PassHeaders(Request);
             var addressList = await client.InvoiceGetAsync(offset, limit, query, sort);
