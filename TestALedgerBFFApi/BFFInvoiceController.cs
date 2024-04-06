@@ -255,7 +255,7 @@ namespace TestALedgerBFFApi
             {
                 var invoiceGet = await controller.GetInvoice(invoice.Value.Id);
                 Assert.IsNull(invoiceGet);
-            }
+        }
             catch (OpenApiClient.ApiException ex)
             {
                 Assert.AreEqual(ex?.StatusCode, 204);
