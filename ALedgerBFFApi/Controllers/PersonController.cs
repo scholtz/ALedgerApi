@@ -35,7 +35,7 @@ namespace ALedgerBFFApi.Controllers
             client = new OpenApiClient.Client(bffConfig.CurrentValue.DataServer, httpClient);
         }
 
-        [HttpPost]
+        [HttpPost("person")]
         public async Task<ActionResult<OpenApiClient.PersonDBBase>> NewPerson([FromBody] Model.NewPerson person)
         {
             httpClient.PassHeaders(Request);
@@ -57,7 +57,7 @@ namespace ALedgerBFFApi.Controllers
             return result;
         }
 
-        [HttpPatch("{id}")]
+        [HttpPatch("person/{id}")]
         public async Task<ActionResult<OpenApiClient.Person>> PatchPerson(string id, [FromBody] Model.NewPerson person)
         {
             httpClient.PassHeaders(Request);
@@ -74,7 +74,7 @@ namespace ALedgerBFFApi.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("person/{id}")]
         public async Task<ActionResult<OpenApiClient.Person>> DeletePerson(string id)
         {
             httpClient.PassHeaders(Request);
@@ -90,7 +90,7 @@ namespace ALedgerBFFApi.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("person/{id}")]
         public async Task<ActionResult<OpenApiClient.Person>> GetPerson(string id)
         {
             httpClient.PassHeaders(Request);
@@ -105,15 +105,15 @@ namespace ALedgerBFFApi.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("person")]
         public async Task<ActionResult<IEnumerable<OpenApiClient.PersonDBBase>>> GetPersons([FromQuery] int? offset, [FromQuery] int? limit, [FromQuery] string query, [FromQuery] string sort)
         {
             httpClient.PassHeaders(Request);
-            var personList = await client.PersonGetAsync(offset, limit, query, sort);
-            return personList.Results.ToList();
+            var addressList = await client.PersonGetAsync(offset, limit, query, sort);
+            return addressList.Results.ToList();
         }
 
-        private async Task<List<OpenApiClient.PersonOperation>> ConvertRecord2Patch(OpenApiClient.Person original, Model.NewPerson person)
+        private async Task<List<OpenApiClient.PersonOperation>> ConvertRecord2Patch(OpenApiClient.Person original, Model.NewPerson address)
         {
             try
             {
@@ -121,13 +121,13 @@ namespace ALedgerBFFApi.Controllers
                 foreach (PropertyInfo propertyInfoOriginal in original.GetType().GetProperties())
                 {
                     var origValue = JsonConvert.SerializeObject(propertyInfoOriginal.GetValue(original));
-                    var propertyInfo = person.GetType().GetProperty(propertyInfoOriginal.Name);
+                    var propertyInfo = address.GetType().GetProperty(propertyInfoOriginal.Name);
                     if (propertyInfo == null) 
                     {
                         logger.LogError("Property name does not exist");
                         continue;
                     }
-                    var updatedValue = JsonConvert.SerializeObject(propertyInfo?.GetValue(person));
+                    var updatedValue = JsonConvert.SerializeObject(propertyInfo?.GetValue(address));
                     if (
                         origValue == null && updatedValue != null ||
                         updatedValue == null && origValue != null ||
@@ -138,7 +138,7 @@ namespace ALedgerBFFApi.Controllers
                             Op = "replace",
                             //OperationType = 
                             Path = propertyInfo.Name,
-                            Value = propertyInfo.GetValue(person)
+                            Value = propertyInfo.GetValue(address)
                         };
                         retOperations.Add(op);
                     }

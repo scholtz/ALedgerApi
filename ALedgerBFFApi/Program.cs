@@ -30,6 +30,23 @@ namespace ALedgerBFFApi
             });
             builder.Services.AddProblemDetails();
 
+            // Add CORS policy
+            var corsConfig = builder.Configuration.GetSection("Cors").AsEnumerable().Select(k => k.Value).Where(k => !string.IsNullOrEmpty(k)).ToArray();
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                builder =>
+                {
+                    builder.WithOrigins(corsConfig)
+                                        .SetIsOriginAllowedToAllowWildcardSubdomains()
+                                        .AllowAnyMethod()
+                                        .AllowAnyHeader()
+                                        .AllowCredentials()
+                                        .WithExposedHeaders("rowcount", "rowstate");
+                });
+            });
+
             var algorandAuthenticationOptions = new AlgorandAuthenticationOptions();
             builder.Configuration.GetSection("AlgorandAuthentication").Bind(algorandAuthenticationOptions);
 
@@ -54,11 +71,10 @@ namespace ALedgerBFFApi
 
             var app = builder.Build();
 
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+
+            app.UseSwagger();
+            app.UseSwaggerUI();
+            app.UseCors();
 
             app.UseHttpsRedirection();
 
