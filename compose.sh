@@ -12,16 +12,34 @@ echo "docker build -t \"scholtz2/a-ledger-data-api:$ver-beta\" -f compose ../"
 docker build -t "scholtz2/a-ledger-data-api:$ver-beta" -f ALedgerApi/Dockerfile  . || error_code=$?
 if [ "$error_code" != "" ]; then
 echo "$error_code";
-    echo "failed to build";
-	exit 1;
+  echo "failed to build";
+  exit 1;
 fi
 
 docker push "scholtz2/a-ledger-data-api:$ver-beta"  || error_code=$?
 
 if [ "$error_code" != "" ]; then
 echo "$error_code";
-    echo "failed to push";
-	exit 1;
+  echo "failed to push";
+  exit 1;
 fi
 
 echo "Image: scholtz2/a-ledger-data-api:$ver-beta"
+
+
+docker build -t "scholtz2/a-ledger-data-bff:$ver-beta" -f ALedgerBFFApi/Dockerfile  . || error_code=$?
+if [ "$error_code" != "" ]; then
+echo "$error_code";
+  echo "failed to build";
+  exit 1;
+fi
+
+docker push "scholtz2/a-ledger-data-bff:$ver-beta"  || error_code=$?
+
+if [ "$error_code" != "" ]; then
+echo "$error_code";
+  echo "failed to push";
+  exit 1;
+fi
+
+echo "Image: scholtz2/a-ledger-data-bff:$ver-beta"
