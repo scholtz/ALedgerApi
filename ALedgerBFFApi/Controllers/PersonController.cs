@@ -20,7 +20,7 @@ using System.Text;
 namespace ALedgerBFFApi.Controllers
 {
     [Authorize]
-    [Route("v1/[controller]")]
+    [Route("v1")]
     [ApiController]
     public class PersonController : Controller
     {

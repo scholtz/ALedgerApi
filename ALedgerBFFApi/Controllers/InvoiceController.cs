@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using RestSharp.Serializers;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -20,7 +21,7 @@ using System.Text;
 namespace ALedgerBFFApi.Controllers
 {
     [Authorize]
-    [Route("v1/[controller]")]
+    [Route("v1")]
     [ApiController]
     public class InvoiceController : Controller
     {
@@ -140,8 +141,16 @@ namespace ALedgerBFFApi.Controllers
         public async Task<ActionResult<IEnumerable<OpenApiClient.InvoiceDBBase>>> GetInvoices([FromQuery] int? offset = 0, [FromQuery] int? limit = 10, [FromQuery] string? query = null, [FromQuery] string? sort = null)
         {
             httpClient.PassHeaders(Request);
-            var addressList = await client.InvoiceGetAsync(offset, limit, query, sort);
-            return addressList.Results.ToList();
+            //var queryJson = new
+            //{
+            //    query = new
+            //    {
+            //        match_all = new { }
+            //    }
+            //};
+            //string inputJson = JsonConvert.SerializeObject(queryJson);
+            var invoiceList = await client.InvoiceGetAsync(offset, limit, query, sort);
+            return invoiceList.Results.ToList();
         }
 
         private async Task<List<OpenApiClient.InvoiceOperation>> ConvertRecord2Patch(OpenApiClient.Invoice original, Model.NewInvoice invoice)

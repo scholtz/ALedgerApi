@@ -17,6 +17,12 @@ namespace ALedgerBFFApi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "ALedgerBFFApi",
+                    Version = "v1",
+                    Description = File.ReadAllText("doc/readme.md")
+                });
                 c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
                     Description = "ARC-0014 Algorand authentication transaction",
