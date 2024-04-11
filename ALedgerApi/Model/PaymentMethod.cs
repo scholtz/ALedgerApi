@@ -1,11 +1,21 @@
 ﻿using RestDWH.Base.Attributes;
+using RestDWH.Elastic.Attributes.Endpoints;
+using RestDWHBase.Attributes.Endpoints;
 
 namespace ALedgerApi.Model
 {
+    [RestDWHEndpointGet]
+    [RestDWHEndpointGetById]
+    [RestDWHEndpointUpsert]
+    [RestDWHEndpointPatch]
+    [RestDWHEndpointDelete]
+    [RestDWHEndpointProperties]
+    [RestDWHEndpointElasticQuery]
+    [RestDWHEndpointElasticPropertiesQuery]
     /// <summary>
     /// Payment method for user, copied to invoice
     /// </summary>
-    [RestDWHEntity("PaymentMethod")]
+    [RestDWHEntity("PaymentMethod", apiName: "payment-method")]
     public class PaymentMethod : IEquatable<PaymentMethod?>
     {
         /// <summary>

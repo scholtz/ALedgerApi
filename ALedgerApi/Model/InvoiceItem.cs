@@ -1,8 +1,18 @@
 ﻿using RestDWH.Base.Attributes;
+using RestDWH.Elastic.Attributes.Endpoints;
+using RestDWHBase.Attributes.Endpoints;
 
 namespace ALedgerApi.Model
 {
-    [RestDWHEntity("InvoiceItem", endpointGet: "invoice-item", endpointUpsert: "invoice-item", endpointPatch: "invoice-item", endpointPost: "invoice-item", endpointGetById: "invoice-item/{id}", endpointDelete: "invoice-item")]
+    [RestDWHEndpointGet]
+    [RestDWHEndpointGetById]
+    [RestDWHEndpointUpsert]
+    [RestDWHEndpointPatch]
+    [RestDWHEndpointDelete]
+    [RestDWHEndpointProperties]
+    [RestDWHEndpointElasticQuery]
+    [RestDWHEndpointElasticPropertiesQuery]
+    [RestDWHEntity("InvoiceItem", apiName: "invoice-item")]
     public class InvoiceItem : IEquatable<InvoiceItem?>
     {
         public string ItemText { get; set; }

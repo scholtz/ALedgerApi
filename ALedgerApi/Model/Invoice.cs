@@ -1,9 +1,20 @@
 ﻿using ALedgerApi.Events;
 using RestDWH.Base.Attributes;
+using RestDWH.Elastic.Attributes.Endpoints;
+using RestDWHBase.Attributes.Endpoints;
 
 namespace ALedgerApi.Model
 {
-    [RestDWHEntity("Invoice", endpointGet: "invoice", endpointUpsert: "invoice", endpointPatch: "invoice", endpointPost: "invoice", endpointGetById: "invoice/{id}", endpointDelete: "invoice")]
+    
+    [RestDWHEndpointGet]
+    [RestDWHEndpointGetById]
+    [RestDWHEndpointUpsert]
+    [RestDWHEndpointPatch]
+    [RestDWHEndpointDelete]
+    [RestDWHEndpointProperties]
+    [RestDWHEndpointElasticQuery]
+    [RestDWHEndpointElasticPropertiesQuery]
+    [RestDWHEntity("Invoice", apiName: "invoice")]
     public class Invoice
     {
         public bool IsDraft = true;

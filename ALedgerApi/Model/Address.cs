@@ -1,12 +1,22 @@
 ﻿using ALedgerApi.Events;
 using RestDWH.Base.Attributes;
+using RestDWH.Elastic.Attributes.Endpoints;
+using RestDWHBase.Attributes.Endpoints;
 
 namespace ALedgerApi.Model
 {
     /// <summary>
     /// Address object
     /// </summary>
-    [RestDWHEntity("Address", typeof(AddressEvents), endpointGet: "address", endpointUpsert:"address", endpointPatch:"address", endpointPost:"address", endpointGetById:"address/{id}", endpointDelete:"address")]
+    [RestDWHEndpointGet]
+    [RestDWHEndpointGetById]
+    [RestDWHEndpointUpsert]
+    [RestDWHEndpointPatch]
+    [RestDWHEndpointDelete]
+    [RestDWHEndpointProperties]
+    [RestDWHEndpointElasticQuery]
+    [RestDWHEndpointElasticPropertiesQuery]
+    [RestDWHEntity("Address", typeof(AddressEvents), apiName: "address")]
     public class Address : IEquatable<Address?>
     {
         /// <summary>

@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RestDWH.Elastic.Extensions;
 using RestDWH.Elastic.Repository;
 using RestDWH.Base.Extensios;
+using RestDWHElastic.Repository;
 
 namespace ALedgerApi
 {
@@ -76,18 +77,28 @@ namespace ALedgerApi
             //Address
             builder.Services.AddSingleton<IDWHRepository<Model.Address>, RestDWHElasticSearchRepository<Model.Address>>();
             builder.Services.AddSingleton<RestDWHEvents<Model.Address>>();
+            builder.Services.AddSingleton<IElasticDWHRepository<Model.Address>, RestDWHElasticSearchRepositoryExtended<Model.Address>>();
+            builder.Services.AddSingleton<RestDWHElasticSearchRepositoryExtended<Model.Address>>();
             //Person
             builder.Services.AddSingleton<IDWHRepository<Model.Person>, RestDWHElasticSearchRepository<Model.Person>>();
             builder.Services.AddSingleton<RestDWHEvents<Model.Person>>();
+            builder.Services.AddSingleton<IElasticDWHRepository<Model.Person>, RestDWHElasticSearchRepositoryExtended<Model.Person>>();
+            builder.Services.AddSingleton<RestDWHElasticSearchRepositoryExtended<Model.Person>>();
             //Invoice
             builder.Services.AddSingleton<IDWHRepository<Model.Invoice>, RestDWHElasticSearchRepository<Model.Invoice>>();
             builder.Services.AddSingleton<RestDWHEvents<Model.Invoice>>();
+            builder.Services.AddSingleton<IElasticDWHRepository<Model.Invoice>, RestDWHElasticSearchRepositoryExtended<Model.Invoice>>();
+            builder.Services.AddSingleton<RestDWHElasticSearchRepositoryExtended<Model.Invoice>>();
             //InvoiceItem
             builder.Services.AddSingleton<IDWHRepository<Model.InvoiceItem>, RestDWHElasticSearchRepository<Model.InvoiceItem>>();
             builder.Services.AddSingleton<RestDWHEvents<Model.InvoiceItem>>();
+            builder.Services.AddSingleton<IElasticDWHRepository<Model.InvoiceItem>, RestDWHElasticSearchRepositoryExtended<Model.InvoiceItem>>();
+            builder.Services.AddSingleton<RestDWHElasticSearchRepositoryExtended<Model.InvoiceItem>>();
             //PaymentMethod
             builder.Services.AddSingleton<IDWHRepository<Model.PaymentMethod>, RestDWHElasticSearchRepository<Model.PaymentMethod>>();
             builder.Services.AddSingleton<RestDWHEvents<Model.PaymentMethod>>();
+            builder.Services.AddSingleton<IElasticDWHRepository<Model.PaymentMethod>, RestDWHElasticSearchRepositoryExtended<Model.PaymentMethod>>();
+            builder.Services.AddSingleton<RestDWHElasticSearchRepositoryExtended<Model.PaymentMethod>>();
 
             var app = builder.Build();
 
@@ -108,18 +119,28 @@ namespace ALedgerApi
             //}
             var serviceAddress = app.Services.GetService<IDWHRepository<Model.Address>>();
             app.MapEndpoints<Model.Address>(serviceAddress);
+            var serviceAddressExtended = app.Services.GetService<IElasticDWHRepository<Model.Address>>();
+            app.MapElasticEndpoints<Model.Address>(serviceAddressExtended);
 
             var servicePerson = app.Services.GetService<IDWHRepository<Model.Person>>();
             app.MapEndpoints<Model.Person>(servicePerson);
+            var servicePersonExtended = app.Services.GetService<IElasticDWHRepository<Model.Person>>();
+            app.MapElasticEndpoints<Model.Person>(servicePersonExtended);
 
             var serviceInvoice = app.Services.GetService<IDWHRepository<Model.Invoice>>();
             app.MapEndpoints<Model.Invoice>(serviceInvoice);
+            var serviceInvoiceExtended = app.Services.GetService<IElasticDWHRepository<Model.Invoice>>();
+            app.MapElasticEndpoints<Model.Invoice>(serviceInvoiceExtended);
 
             var serviceInvoiceItem = app.Services.GetService<IDWHRepository<Model.InvoiceItem>>();
             app.MapEndpoints<Model.InvoiceItem>(serviceInvoiceItem);
+            var serviceInvoiceItemExtended = app.Services.GetService<IElasticDWHRepository<Model.InvoiceItem>>();
+            app.MapElasticEndpoints<Model.InvoiceItem>(serviceInvoiceItemExtended);
 
             var servicePaymentMethod = app.Services.GetService<IDWHRepository<Model.PaymentMethod>>();
             app.MapEndpoints<Model.PaymentMethod>(servicePaymentMethod);
+            var servicePaymentMethodExtended = app.Services.GetService<IElasticDWHRepository<Model.PaymentMethod>>();
+            app.MapElasticEndpoints<Model.PaymentMethod>(servicePaymentMethodExtended);
 
             app.MapControllers();
 

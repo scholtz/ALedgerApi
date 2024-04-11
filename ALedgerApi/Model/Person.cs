@@ -1,8 +1,18 @@
 ﻿using RestDWH.Base.Attributes;
+using RestDWH.Elastic.Attributes.Endpoints;
+using RestDWHBase.Attributes.Endpoints;
 
 namespace ALedgerApi.Model
 {
-    [RestDWHEntity("Person", endpointGet: "person", endpointUpsert: "person", endpointPatch: "person", endpointPost: "person", endpointGetById: "person/{id}", endpointDelete: "person")]
+    [RestDWHEndpointGet]
+    [RestDWHEndpointGetById]
+    [RestDWHEndpointUpsert]
+    [RestDWHEndpointPatch]
+    [RestDWHEndpointDelete]
+    [RestDWHEndpointProperties]
+    [RestDWHEndpointElasticQuery]
+    [RestDWHEndpointElasticPropertiesQuery]
+    [RestDWHEntity("Person", apiName: "person")]
     public class Person : IEquatable<Person?>
     {
         public string BusinessName { get; set; }

@@ -1,8 +1,19 @@
 ﻿using RestDWH.Base.Attributes;
+using RestDWH.Elastic.Attributes.Endpoints;
+using RestDWHBase.Attributes.Endpoints;
 
 namespace ALedgerApi.Model
 {
-    [RestDWHEntity("User2Person", endpointGet: "user2Person", endpointUpsert: "user2Person", endpointPatch: "user2Person", endpointPost: "user2Person", endpointGetById: "user2Person/{id}", endpointDelete: "user2Person")]
+    [RestDWHEndpointGet]
+    [RestDWHEndpointGetById]
+    [RestDWHEndpointUpsert]
+    [RestDWHEndpointPatch]
+    [RestDWHEndpointDelete]
+    [RestDWHEndpointProperties]
+    [RestDWHEndpointElasticQuery]
+    [RestDWHEndpointElasticPropertiesQuery]
+
+    [RestDWHEntity("User2Person", apiName: "user-2-person")]
     public class User2Person
     {
         public string UserId { get; set; }
