@@ -11,6 +11,7 @@ namespace ALedgerApi.Model
     [RestDWHEndpointDelete]
     [RestDWHEndpointProperties]
     [RestDWHEndpointElasticQuery]
+    [RestDWHEndpointPost]
     [RestDWHEndpointElasticPropertiesQuery]
 
     [RestDWHEntity("User2Person", apiName: "user-2-person")]

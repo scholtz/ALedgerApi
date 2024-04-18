@@ -2,11 +2,11 @@
   "openapi": "3.0.1",
   "info": {
     "title": "ALedgerApi",
-    "description": "## ALedgerApi documentation\r\n\r\nAuthentication is using Algorand ARC14 standard.\r\n\r\nExample testnet auth without validity check\r\n\r\n```\r\nSigTx gqNzaWfEQHOzlUxzrk/3BWvhUKFiKo1AoUCfa4cDLwD7qvtJ6VMGmXfMwhDGeFU0F48weKAyBM5UORoi0vS7wMgd/73cHAejdHhuiaNmZWXNA+iiZnbOAcVMFqNnZW6sdGVzdG5ldC12MS4womdoxCBIY7UYpLPITsgQ8i1PEIHLD3HwWaesIN7GL39w5Qk6IqJsds4BxU/+pG5vdGXEDUFMZWRnZXIjYXJjMTSjcmN2xCCQjuXPPHXM7wbxO69McY2dwOQYXR1N+0dfAE3yvdjPoqNzbmTEIJCO5c88dczvBvE7r0xxjZ3A5BhdHU37R18ATfK92M+ipHR5cGWjcGF5\r\n```\r\n\r\n## Rest DWH\r\n\r\nData management is done using Rest DWH : https://www.nuget.org/packages/RestDWH",
+    "description": "## ALedgerApi documentation\r\n\r\nAuthentication is using Algorand ARC14 standard.\r\n\r\nExample testnet auth without validity check\r\n\r\n```\r\nSigTx gqNzaWfEQFjSeOHx3n/9Zp52VDcN4Qu+rBWz4thcWYG9dl21C0yd0bkBNaLOc9US9NptCuM50E6juX2xe7DARBewbhAcMAijdHhuiaNmZWXNA+iiZnbOAlEc16NnZW6sdGVzdG5ldC12MS4womdoxCBIY7UYpLPITsgQ8i1PEIHLD3HwWaesIN7GL39w5Qk6IqJsds4CUSC/pG5vdGXEFkJpYXRlY0FjY291bnRpbmcjQVJDMTSjcmN2xCB57A2sF+bF3WK1mt9cRThlADlMeEdTmlEo6qhAfVAyC6NzbmTEIHnsDawX5sXdYrWa31xFOGUAOUx4R1OaUSjqqEB9UDILpHR5cGWjcGF5\r\n```\r\n\r\n## Rest DWH\r\n\r\nData management is done using Rest DWH : https://www.nuget.org/packages/RestDWH",
     "version": "v1"
   },
   "paths": {
-    "/address": {
+    "/v1/address": {
       "get": {
         "tags": [
           "ALedgerApi"
@@ -86,6 +86,9 @@
           },
           {
             "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
           }
         ]
       },
@@ -138,11 +141,14 @@
           },
           {
             "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
           }
         ]
       }
     },
-    "/address/{id}": {
+    "/v1/address/{id}": {
       "get": {
         "tags": [
           "ALedgerApi"
@@ -197,6 +203,9 @@
           },
           {
             "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
           }
         ]
       },
@@ -204,12 +213,11 @@
         "tags": [
           "ALedgerApi"
         ],
-        "operationId": "AddressUpsert",
+        "operationId": "AddressPut",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "The  ID.",
             "required": true,
             "style": "simple",
             "schema": {
@@ -256,6 +264,9 @@
           }
         },
         "security": [
+          {
+            "oauth2": [ ]
+          },
           {
             "oauth2": [ ]
           },
@@ -328,6 +339,9 @@
           },
           {
             "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
           }
         ]
       },
@@ -382,11 +396,263 @@
           },
           {
             "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
           }
         ]
       }
     },
-    "/person": {
+    "/v1/address/properties/{propertyId}": {
+      "get": {
+        "tags": [
+          "ALedgerApi"
+        ],
+        "operationId": "AddressGetProperty",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "description": "The property to get disctinct value from. Example: id",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The offset. Default is 0.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The limit. Default is 10.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "The lucane query. Default is *.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortType",
+            "in": "query",
+            "description": "The sort type. Allowed options for sortType is CountAscending|CountDescending|KeyAscending|KeyDescending|Ascending:[otherProperty]|Descending:[otherProperty]",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/address/query": {
+      "post": {
+        "tags": [
+          "ALedgerApi"
+        ],
+        "operationId": "AddressElasticQuery",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressAddressDBBaseDBListBase"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/address/properties/query": {
+      "post": {
+        "tags": [
+          "ALedgerApi"
+        ],
+        "operationId": "AddressElasticPropertiesQuery",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "The elastic query",
+            "required": true,
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "attribute",
+            "in": "query",
+            "description": "Aggregated attribute",
+            "required": true,
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset. Default 0",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit. Default 10",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/person": {
       "get": {
         "tags": [
           "ALedgerApi"
@@ -466,6 +732,9 @@
           },
           {
             "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
           }
         ]
       },
@@ -518,11 +787,14 @@
           },
           {
             "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
           }
         ]
       }
     },
-    "/person/{id}": {
+    "/v1/person/{id}": {
       "get": {
         "tags": [
           "ALedgerApi"
@@ -577,6 +849,9 @@
           },
           {
             "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
           }
         ]
       },
@@ -584,12 +859,11 @@
         "tags": [
           "ALedgerApi"
         ],
-        "operationId": "PersonUpsert",
+        "operationId": "PersonPut",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "The  ID.",
             "required": true,
             "style": "simple",
             "schema": {
@@ -636,6 +910,9 @@
           }
         },
         "security": [
+          {
+            "oauth2": [ ]
+          },
           {
             "oauth2": [ ]
           },
@@ -708,6 +985,9 @@
           },
           {
             "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
           }
         ]
       },
@@ -762,11 +1042,263 @@
           },
           {
             "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
           }
         ]
       }
     },
-    "/invoice": {
+    "/v1/person/properties/{propertyId}": {
+      "get": {
+        "tags": [
+          "ALedgerApi"
+        ],
+        "operationId": "PersonGetProperty",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "description": "The property to get disctinct value from. Example: id",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The offset. Default is 0.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The limit. Default is 10.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "The lucane query. Default is *.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortType",
+            "in": "query",
+            "description": "The sort type. Allowed options for sortType is CountAscending|CountDescending|KeyAscending|KeyDescending|Ascending:[otherProperty]|Descending:[otherProperty]",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/person/query": {
+      "post": {
+        "tags": [
+          "ALedgerApi"
+        ],
+        "operationId": "PersonElasticQuery",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonPersonDBBaseDBListBase"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/person/properties/query": {
+      "post": {
+        "tags": [
+          "ALedgerApi"
+        ],
+        "operationId": "PersonElasticPropertiesQuery",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "The elastic query",
+            "required": true,
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "attribute",
+            "in": "query",
+            "description": "Aggregated attribute",
+            "required": true,
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset. Default 0",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit. Default 10",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/invoice": {
       "get": {
         "tags": [
           "ALedgerApi"
@@ -846,6 +1378,9 @@
           },
           {
             "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
           }
         ]
       },
@@ -898,11 +1433,14 @@
           },
           {
             "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
           }
         ]
       }
     },
-    "/invoice/{id}": {
+    "/v1/invoice/{id}": {
       "get": {
         "tags": [
           "ALedgerApi"
@@ -957,6 +1495,9 @@
           },
           {
             "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
           }
         ]
       },
@@ -964,12 +1505,11 @@
         "tags": [
           "ALedgerApi"
         ],
-        "operationId": "InvoiceUpsert",
+        "operationId": "InvoicePut",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "The  ID.",
             "required": true,
             "style": "simple",
             "schema": {
@@ -1016,6 +1556,9 @@
           }
         },
         "security": [
+          {
+            "oauth2": [ ]
+          },
           {
             "oauth2": [ ]
           },
@@ -1088,6 +1631,9 @@
           },
           {
             "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
           }
         ]
       },
@@ -1142,11 +1688,263 @@
           },
           {
             "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
           }
         ]
       }
     },
-    "/invoice-item": {
+    "/v1/invoice/properties/{propertyId}": {
+      "get": {
+        "tags": [
+          "ALedgerApi"
+        ],
+        "operationId": "InvoiceGetProperty",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "description": "The property to get disctinct value from. Example: id",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The offset. Default is 0.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The limit. Default is 10.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "The lucane query. Default is *.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortType",
+            "in": "query",
+            "description": "The sort type. Allowed options for sortType is CountAscending|CountDescending|KeyAscending|KeyDescending|Ascending:[otherProperty]|Descending:[otherProperty]",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/invoice/query": {
+      "post": {
+        "tags": [
+          "ALedgerApi"
+        ],
+        "operationId": "InvoiceElasticQuery",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceInvoiceDBBaseDBListBase"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/invoice/properties/query": {
+      "post": {
+        "tags": [
+          "ALedgerApi"
+        ],
+        "operationId": "InvoiceElasticPropertiesQuery",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "The elastic query",
+            "required": true,
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "attribute",
+            "in": "query",
+            "description": "Aggregated attribute",
+            "required": true,
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset. Default 0",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit. Default 10",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/invoice-item": {
       "get": {
         "tags": [
           "ALedgerApi"
@@ -1226,6 +2024,9 @@
           },
           {
             "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
           }
         ]
       },
@@ -1278,11 +2079,14 @@
           },
           {
             "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
           }
         ]
       }
     },
-    "/invoice-item/{id}": {
+    "/v1/invoice-item/{id}": {
       "get": {
         "tags": [
           "ALedgerApi"
@@ -1337,6 +2141,9 @@
           },
           {
             "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
           }
         ]
       },
@@ -1344,12 +2151,11 @@
         "tags": [
           "ALedgerApi"
         ],
-        "operationId": "InvoiceItemUpsert",
+        "operationId": "InvoiceItemPut",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "The  ID.",
             "required": true,
             "style": "simple",
             "schema": {
@@ -1396,6 +2202,9 @@
           }
         },
         "security": [
+          {
+            "oauth2": [ ]
+          },
           {
             "oauth2": [ ]
           },
@@ -1468,6 +2277,9 @@
           },
           {
             "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
           }
         ]
       },
@@ -1517,6 +2329,904 @@
           }
         },
         "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/invoice-item/properties/{propertyId}": {
+      "get": {
+        "tags": [
+          "ALedgerApi"
+        ],
+        "operationId": "InvoiceItemGetProperty",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "description": "The property to get disctinct value from. Example: id",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The offset. Default is 0.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The limit. Default is 10.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "The lucane query. Default is *.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortType",
+            "in": "query",
+            "description": "The sort type. Allowed options for sortType is CountAscending|CountDescending|KeyAscending|KeyDescending|Ascending:[otherProperty]|Descending:[otherProperty]",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/invoice-item/query": {
+      "post": {
+        "tags": [
+          "ALedgerApi"
+        ],
+        "operationId": "InvoiceItemElasticQuery",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceItemInvoiceItemDBBaseDBListBase"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/invoice-item/properties/query": {
+      "post": {
+        "tags": [
+          "ALedgerApi"
+        ],
+        "operationId": "InvoiceItemElasticPropertiesQuery",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "The elastic query",
+            "required": true,
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "attribute",
+            "in": "query",
+            "description": "Aggregated attribute",
+            "required": true,
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset. Default 0",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit. Default 10",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/payment-method": {
+      "get": {
+        "tags": [
+          "ALedgerApi"
+        ],
+        "operationId": "PaymentMethodGet",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The offset. Default is 0.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The limit. Default is 10.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "The lucane query. Default is *.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "The sort. Default is empty. Example: 'id.keyword asc,updated desc'.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentMethodPaymentMethodDBBaseDBListBase"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "ALedgerApi"
+        ],
+        "operationId": "PaymentMethodPost",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentMethod"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentMethodDBBase"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/payment-method/{id}": {
+      "get": {
+        "tags": [
+          "ALedgerApi"
+        ],
+        "operationId": "PaymentMethodGetById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The  ID",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentMethodDBBase"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "ALedgerApi"
+        ],
+        "operationId": "PaymentMethodPut",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentMethod"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentMethodDBBase"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "ALedgerApi"
+        ],
+        "operationId": "PaymentMethodPatch",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The  ID.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PaymentMethodOperation"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentMethodDBBase"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "ALedgerApi"
+        ],
+        "operationId": "PaymentMethodDelete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The  ID.",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentMethodDBBase"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/payment-method/properties/{propertyId}": {
+      "get": {
+        "tags": [
+          "ALedgerApi"
+        ],
+        "operationId": "PaymentMethodGetProperty",
+        "parameters": [
+          {
+            "name": "propertyId",
+            "in": "path",
+            "description": "The property to get disctinct value from. Example: id",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "The offset. Default is 0.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The limit. Default is 10.",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "The lucane query. Default is *.",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortType",
+            "in": "query",
+            "description": "The sort type. Allowed options for sortType is CountAscending|CountDescending|KeyAscending|KeyDescending|Ascending:[otherProperty]|Descending:[otherProperty]",
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/payment-method/query": {
+      "post": {
+        "tags": [
+          "ALedgerApi"
+        ],
+        "operationId": "PaymentMethodElasticQuery",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentMethodPaymentMethodDBBaseDBListBase"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          },
+          {
+            "oauth2": [ ]
+          }
+        ]
+      }
+    },
+    "/v1/payment-method/properties/query": {
+      "post": {
+        "tags": [
+          "ALedgerApi"
+        ],
+        "operationId": "PaymentMethodElasticPropertiesQuery",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "The elastic query",
+            "required": true,
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "attribute",
+            "in": "query",
+            "description": "Aggregated attribute",
+            "required": true,
+            "style": "form",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset. Default 0",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit. Default 10",
+            "style": "form",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          },
           {
             "oauth2": [ ]
           },
@@ -2005,6 +3715,93 @@
           "grossAmount": {
             "type": "number",
             "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentMethodDBBase": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/PaymentMethod"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deleted": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBy": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentMethodOperation": {
+        "type": "object",
+        "properties": {
+          "operationType": {
+            "$ref": "#/components/schemas/OperationType"
+          },
+          "path": {
+            "type": "string",
+            "nullable": true
+          },
+          "op": {
+            "type": "string",
+            "nullable": true
+          },
+          "from": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentMethodPaymentMethodDBBaseDBListBase": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentMethodDBBase"
+            },
             "nullable": true
           }
         },

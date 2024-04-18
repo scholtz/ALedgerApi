@@ -16,6 +16,7 @@ namespace ALedgerApi.Model
     [RestDWHEndpointProperties]
     [RestDWHEndpointElasticQuery]
     [RestDWHEndpointElasticPropertiesQuery]
+    [RestDWHEndpointPost]
     [RestDWHEntity("Address", typeof(AddressEvents), apiName: "address")]
     public class Address : IEquatable<Address?>
     {

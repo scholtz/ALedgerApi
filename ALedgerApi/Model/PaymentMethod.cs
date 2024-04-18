@@ -11,6 +11,7 @@ namespace ALedgerApi.Model
     [RestDWHEndpointDelete]
     [RestDWHEndpointProperties]
     [RestDWHEndpointElasticQuery]
+    [RestDWHEndpointPost]
     [RestDWHEndpointElasticPropertiesQuery]
     /// <summary>
     /// Payment method for user, copied to invoice

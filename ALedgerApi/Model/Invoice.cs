@@ -14,6 +14,7 @@ namespace ALedgerApi.Model
     [RestDWHEndpointProperties]
     [RestDWHEndpointElasticQuery]
     [RestDWHEndpointElasticPropertiesQuery]
+    [RestDWHEndpointPost]
     [RestDWHEntity("Invoice", apiName: "invoice")]
     public class Invoice
     {
