@@ -64,13 +64,16 @@ namespace ALedgerApi
                  o.EmptySuccessOnFailure = algorandAuthenticationOptions.EmptySuccessOnFailure;
              });
 
-            var elasticConfig = new Model.Config.Elastic();
+            var elasticConfig = new RestDWH.Elastic.Model.Config.Elastic();
             builder.Configuration.GetSection("Elastic").Bind(elasticConfig);
 
+            builder.Services.Configure<RestDWH.Elastic.Model.Config.Elastic>(builder.Configuration.GetSection("Elastic"));
+
             var settings =
-                new ConnectionSettings(new Uri(elasticConfig.Server))
-                .ApiKeyAuthentication(new ApiKeyAuthenticationCredentials(elasticConfig.Token))
-                .ExtendElasticConnectionSettings();
+                new ConnectionSettings(new Uri(elasticConfig.Host))
+                .ApiKeyAuthentication(new ApiKeyAuthenticationCredentials(elasticConfig.ApiKey))
+                .ExtendElasticConnectionSettings(elasticConfig)
+                .EnableApiVersioningHeader();
 
             var client = new ElasticClient(settings);
             builder.Services.AddSingleton<IElasticClient>(client);
