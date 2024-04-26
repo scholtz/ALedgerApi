@@ -10,7 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using RestDWH.Elastic.Extensions;
 using RestDWH.Elastic.Repository;
 using RestDWH.Base.Extensios;
-using RestDWHElastic.Repository;
 
 namespace ALedgerApi
 {
@@ -66,11 +65,15 @@ namespace ALedgerApi
 
             var elasticConfig = new Model.Config.Elastic();
             builder.Configuration.GetSection("Elastic").Bind(elasticConfig);
-
+            var config2 = new RestDWH.Elastic.Model.Config.Elastic()
+            {
+                ApiKey = elasticConfig.Token,
+                Host = elasticConfig.Server
+            };
             var settings =
                 new ConnectionSettings(new Uri(elasticConfig.Server))
                 .ApiKeyAuthentication(new ApiKeyAuthenticationCredentials(elasticConfig.Token))
-                .ExtendElasticConnectionSettings();
+                .ExtendElasticConnectionSettings(config2);
 
             var client = new ElasticClient(settings);
             builder.Services.AddSingleton<IElasticClient>(client);
