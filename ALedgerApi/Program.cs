@@ -63,7 +63,7 @@ namespace ALedgerApi
                  o.EmptySuccessOnFailure = algorandAuthenticationOptions.EmptySuccessOnFailure;
              });
 
-            var elasticConfig = new RestDWH.Elastic.Model.Config.Elastic();
+            var elasticConfig = new ALedgerApi.Model.Config.Elastic();
             builder.Configuration.GetSection("Elastic").Bind(elasticConfig);
             var config2 = new RestDWH.Elastic.Model.Config.Elastic()
             {
