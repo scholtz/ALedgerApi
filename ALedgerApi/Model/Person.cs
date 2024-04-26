@@ -12,6 +12,7 @@ namespace ALedgerApi.Model
     [RestDWHEndpointProperties]
     [RestDWHEndpointElasticQuery]
     [RestDWHEndpointElasticPropertiesQuery]
+    [RestDWHEndpointPost]
     [RestDWHEntity("Person", apiName: "person")]
     public class Person : IEquatable<Person?>
     {

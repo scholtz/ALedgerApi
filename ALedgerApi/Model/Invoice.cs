@@ -14,7 +14,8 @@ namespace ALedgerApi.Model
     [RestDWHEndpointProperties]
     [RestDWHEndpointElasticQuery]
     [RestDWHEndpointElasticPropertiesQuery]
-    [RestDWHEntity("Invoice", apiName: "invoice")]
+    [RestDWHEndpointPost]
+    [RestDWHEntity("Invoice", typeof(InvoiceEvents), apiName: "invoice")]
     public class Invoice
     {
         public bool IsDraft = true;

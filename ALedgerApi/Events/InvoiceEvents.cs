@@ -1,0 +1,15 @@
+﻿using ALedgerApi.Model;
+using RestDWH.Base.Model;
+using System.Security.Claims;
+
+namespace ALedgerApi.Events
+{
+    public class InvoiceEvents : RestDWHEvents<Invoice>
+    {
+        public override async Task<(int from, int size, string query, string sort)> BeforeGetAsync(int from = 0, int size = 10, string query = "", string sort = "", ClaimsPrincipal? user = null, IServiceProvider? serviceProvider = null)
+        {
+            //check bff pasword
+            return (from, size, query, sort);
+        }
+    }
+}

@@ -41,7 +41,7 @@ namespace TestALedgerBFFApi
             var mockRequest = new Mock<HttpRequest>();
             mockContext.SetupGet(x => x.Request).Returns(mockRequest.Object);
             var prodAuth = "";
-            var testAuth = "SigTx gqNzaWfEQHOzlUxzrk/3BWvhUKFiKo1AoUCfa4cDLwD7qvtJ6VMGmXfMwhDGeFU0F48weKAyBM5UORoi0vS7wMgd/73cHAejdHhuiaNmZWXNA+iiZnbOAcVMFqNnZW6sdGVzdG5ldC12MS4womdoxCBIY7UYpLPITsgQ8i1PEIHLD3HwWaesIN7GL39w5Qk6IqJsds4BxU/+pG5vdGXEDUFMZWRnZXIjYXJjMTSjcmN2xCCQjuXPPHXM7wbxO69McY2dwOQYXR1N+0dfAE3yvdjPoqNzbmTEIJCO5c88dczvBvE7r0xxjZ3A5BhdHU37R18ATfK92M+ipHR5cGWjcGF5";
+            var testAuth = "SigTx gqNzaWfEQFjSeOHx3n/9Zp52VDcN4Qu+rBWz4thcWYG9dl21C0yd0bkBNaLOc9US9NptCuM50E6juX2xe7DARBewbhAcMAijdHhuiaNmZWXNA+iiZnbOAlEc16NnZW6sdGVzdG5ldC12MS4womdoxCBIY7UYpLPITsgQ8i1PEIHLD3HwWaesIN7GL39w5Qk6IqJsds4CUSC/pG5vdGXEFkJpYXRlY0FjY291bnRpbmcjQVJDMTSjcmN2xCB57A2sF+bF3WK1mt9cRThlADlMeEdTmlEo6qhAfVAyC6NzbmTEIHnsDawX5sXdYrWa31xFOGUAOUx4R1OaUSjqqEB9UDILpHR5cGWjcGF5";
             mockRequest.Setup(x => x.Headers.Authorization).Returns(testAuth);
 
             controller.ControllerContext = new ControllerContext()

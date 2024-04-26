@@ -12,6 +12,7 @@ namespace ALedgerApi.Model
     [RestDWHEndpointProperties]
     [RestDWHEndpointElasticQuery]
     [RestDWHEndpointElasticPropertiesQuery]
+    [RestDWHEndpointPost]
     [RestDWHEntity("InvoiceItem", apiName: "invoice-item")]
     public class InvoiceItem : IEquatable<InvoiceItem?>
     {
