@@ -103,7 +103,7 @@ namespace ALedgerBFFApi.Controllers
         }
 
         [HttpGet("address")]
-        public async Task<ActionResult<IEnumerable<OpenApiClient.AddressDBBase>>> GetAddresses([FromQuery] int? offset, [FromQuery] int? limit, [FromQuery] string query, [FromQuery] string sort)
+        public async Task<ActionResult<IEnumerable<OpenApiClient.AddressDBBase>>> GetAddresses([FromQuery] int? offset = 0, [FromQuery] int? limit=1000, [FromQuery] string query = "*", [FromQuery] string sort = "updated")
         {
             httpClient.PassHeaders(Request);
             var addressList = await client.AddressGetAsync(offset, limit, query, sort);

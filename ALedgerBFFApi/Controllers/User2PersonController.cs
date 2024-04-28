@@ -74,7 +74,7 @@ namespace ALedgerBFFApi.Controllers
             }
         }
 
-        [HttpDelete("person/{id}")]
+        [HttpDelete("user2person/person/{id}")]
         public async Task<ActionResult<OpenApiClient.Person>> DeletePerson(string id)
         {
             httpClient.PassHeaders(Request);
@@ -90,7 +90,7 @@ namespace ALedgerBFFApi.Controllers
             }
         }
 
-        [HttpGet("person/{id}")]
+        [HttpGet("user2person/person/{id}")]
         public async Task<ActionResult<OpenApiClient.Person>> GetPerson(string id)
         {
             httpClient.PassHeaders(Request);
@@ -105,7 +105,7 @@ namespace ALedgerBFFApi.Controllers
             }
         }
 
-        [HttpGet("person")]
+        [HttpGet("user2person/person")]
         public async Task<ActionResult<IEnumerable<OpenApiClient.PersonDBBase>>> GetPersons([FromQuery] int? offset, [FromQuery] int? limit, [FromQuery] string query, [FromQuery] string sort)
         {
             httpClient.PassHeaders(Request);

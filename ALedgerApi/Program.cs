@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RestDWH.Elastic.Extensions;
 using RestDWH.Elastic.Repository;
 using RestDWH.Base.Extensios;
+using RestDWH.Elastic.Model;
 
 namespace ALedgerApi
 {
@@ -79,27 +80,27 @@ namespace ALedgerApi
             builder.Services.AddSingleton<IElasticClient>(client);
             //Address
             builder.Services.AddSingleton<IDWHRepository<Model.Address>, RestDWHElasticSearchRepository<Model.Address>>();
-            builder.Services.AddSingleton<RestDWHEvents<Model.Address>>();
+            builder.Services.AddSingleton<RestDWHEventsElastic<Model.Address>>();
             builder.Services.AddSingleton<IElasticDWHRepository<Model.Address>, RestDWHElasticSearchRepositoryExtended<Model.Address>>();
             builder.Services.AddSingleton<RestDWHElasticSearchRepositoryExtended<Model.Address>>();
             //Person
             builder.Services.AddSingleton<IDWHRepository<Model.Person>, RestDWHElasticSearchRepository<Model.Person>>();
-            builder.Services.AddSingleton<RestDWHEvents<Model.Person>>();
+            builder.Services.AddSingleton<RestDWHEventsElastic<Model.Person>>();
             builder.Services.AddSingleton<IElasticDWHRepository<Model.Person>, RestDWHElasticSearchRepositoryExtended<Model.Person>>();
             builder.Services.AddSingleton<RestDWHElasticSearchRepositoryExtended<Model.Person>>();
             //Invoice
             builder.Services.AddSingleton<IDWHRepository<Model.Invoice>, RestDWHElasticSearchRepository<Model.Invoice>>();
-            builder.Services.AddSingleton<RestDWHEvents<Model.Invoice>>();
+            builder.Services.AddSingleton<RestDWHEventsElastic<Model.Invoice>>();
             builder.Services.AddSingleton<IElasticDWHRepository<Model.Invoice>, RestDWHElasticSearchRepositoryExtended<Model.Invoice>>();
             builder.Services.AddSingleton<RestDWHElasticSearchRepositoryExtended<Model.Invoice>>();
             //InvoiceItem
             builder.Services.AddSingleton<IDWHRepository<Model.InvoiceItem>, RestDWHElasticSearchRepository<Model.InvoiceItem>>();
-            builder.Services.AddSingleton<RestDWHEvents<Model.InvoiceItem>>();
+            builder.Services.AddSingleton<RestDWHEventsElastic<Model.InvoiceItem>>();
             builder.Services.AddSingleton<IElasticDWHRepository<Model.InvoiceItem>, RestDWHElasticSearchRepositoryExtended<Model.InvoiceItem>>();
             builder.Services.AddSingleton<RestDWHElasticSearchRepositoryExtended<Model.InvoiceItem>>();
             //PaymentMethod
             builder.Services.AddSingleton<IDWHRepository<Model.PaymentMethod>, RestDWHElasticSearchRepository<Model.PaymentMethod>>();
-            builder.Services.AddSingleton<RestDWHEvents<Model.PaymentMethod>>();
+            builder.Services.AddSingleton<RestDWHEventsElastic<Model.PaymentMethod>>();
             builder.Services.AddSingleton<IElasticDWHRepository<Model.PaymentMethod>, RestDWHElasticSearchRepositoryExtended<Model.PaymentMethod>>();
             builder.Services.AddSingleton<RestDWHElasticSearchRepositoryExtended<Model.PaymentMethod>>();
 

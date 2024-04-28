@@ -6,7 +6,8 @@ namespace ALedgerApi.Model
 {
     [RestDWHEndpointGet]
     [RestDWHEndpointGetById]
-    [RestDWHEndpointUpsert]
+    [RestDWHEndpointPut]
+    //[RestDWHEndpointUpsert]
     [RestDWHEndpointPatch]
     [RestDWHEndpointDelete]
     [RestDWHEndpointProperties]

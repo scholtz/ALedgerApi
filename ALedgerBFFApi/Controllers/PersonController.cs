@@ -52,8 +52,28 @@ namespace ALedgerBFFApi.Controllers
                 Phone = person.Phone,
                 SignatureUrl = person.SignatureUrl
             };
-
             var result = await client.PersonPostAsync(dbPerson);
+            return result;
+        }
+
+        [HttpPut("person/{id}")]
+        public async Task<ActionResult<OpenApiClient.PersonDBBase>> PutPerson(string id, [FromBody] Model.NewPerson person)
+        {
+            httpClient.PassHeaders(Request);
+            var dbPerson = new OpenApiClient.Person
+            {
+                AddressId = person.AddressId,
+                BusinessName = person.BusinessName,
+                CompanyId = person.CompanyId,
+                CompanyTaxId = person.CompanyTaxId,
+                CompanyVATId = person.CompanyVATId,
+                Email = person.Email,
+                FirstName = person.FirstName,
+                LastName = person.LastName,
+                Phone = person.Phone,
+                SignatureUrl = person.SignatureUrl
+            };
+            var result = await client.PersonPutAsync(id, dbPerson);
             return result;
         }
 
@@ -106,7 +126,7 @@ namespace ALedgerBFFApi.Controllers
         }
 
         [HttpGet("person")]
-        public async Task<ActionResult<IEnumerable<OpenApiClient.PersonDBBase>>> GetPersons([FromQuery] int? offset, [FromQuery] int? limit, [FromQuery] string query, [FromQuery] string sort)
+        public async Task<ActionResult<IEnumerable<OpenApiClient.PersonDBBase>>> GetPersons([FromQuery] int? offset = 0, [FromQuery] int? limit = 1000, [FromQuery] string query = "*", [FromQuery] string sort = "updated")
         {
             httpClient.PassHeaders(Request);
             var addressList = await client.PersonGetAsync(offset, limit, query, sort);
