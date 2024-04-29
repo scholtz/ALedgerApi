@@ -1,4 +1,5 @@
-﻿using RestDWH.Base.Attributes;
+﻿using ALedgerApi.Events;
+using RestDWH.Base.Attributes;
 using RestDWH.Elastic.Attributes.Endpoints;
 using RestDWHBase.Attributes.Endpoints;
 
@@ -14,7 +15,7 @@ namespace ALedgerApi.Model
     [RestDWHEndpointPost]
     [RestDWHEndpointElasticPropertiesQuery]
 
-    [RestDWHEntity("User2Person", apiName: "user-2-person")]
+    [RestDWHEntity("User2Person", typeof(User2PersonEvents), apiName: "user-2-person")]
     public class User2Person
     {
         public string UserId { get; set; }

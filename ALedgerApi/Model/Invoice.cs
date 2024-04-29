@@ -4,8 +4,7 @@ using RestDWH.Elastic.Attributes.Endpoints;
 using RestDWHBase.Attributes.Endpoints;
 
 namespace ALedgerApi.Model
-{
-    
+{    
     [RestDWHEndpointGet]
     [RestDWHEndpointGetById]
     [RestDWHEndpointUpsert]

@@ -31,6 +31,11 @@
             issued | received
             </summary>
         </member>
+        <member name="T:ALedgerApi.Model.PaymentMethod">
+            <summary>
+            Payment method for user, copied to invoice
+            </summary>
+        </member>
         <member name="P:ALedgerApi.Model.PaymentMethod.Currency">
             <summary>
             Token name or Currency code

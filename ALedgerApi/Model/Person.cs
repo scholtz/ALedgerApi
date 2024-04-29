@@ -1,4 +1,5 @@
-﻿using RestDWH.Base.Attributes;
+﻿using ALedgerApi.Events;
+using RestDWH.Base.Attributes;
 using RestDWH.Elastic.Attributes.Endpoints;
 using RestDWHBase.Attributes.Endpoints;
 
@@ -14,7 +15,7 @@ namespace ALedgerApi.Model
     [RestDWHEndpointElasticQuery]
     [RestDWHEndpointElasticPropertiesQuery]
     [RestDWHEndpointPost]
-    [RestDWHEntity("Person", apiName: "person")]
+    [RestDWHEntity("Person", typeof(PersonEvents), apiName: "person")]
     public class Person : IEquatable<Person?>
     {
         public string BusinessName { get; set; }

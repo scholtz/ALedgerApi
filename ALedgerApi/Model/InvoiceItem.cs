@@ -1,4 +1,5 @@
-﻿using RestDWH.Base.Attributes;
+﻿using ALedgerApi.Events;
+using RestDWH.Base.Attributes;
 using RestDWH.Elastic.Attributes.Endpoints;
 using RestDWHBase.Attributes.Endpoints;
 
@@ -13,7 +14,7 @@ namespace ALedgerApi.Model
     [RestDWHEndpointElasticQuery]
     [RestDWHEndpointElasticPropertiesQuery]
     [RestDWHEndpointPost]
-    [RestDWHEntity("InvoiceItem", apiName: "invoice-item")]
+    [RestDWHEntity("InvoiceItem", typeof(InvoiceItemEvents), apiName: "invoice-item")]
     public class InvoiceItem : IEquatable<InvoiceItem?>
     {
         public string ItemText { get; set; }

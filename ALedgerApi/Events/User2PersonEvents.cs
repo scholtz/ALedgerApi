@@ -1,15 +1,13 @@
 ﻿using ALedgerApi.Model;
-using Elasticsearch.Net;
 using Newtonsoft.Json;
 using RestDWH.Base.Model;
 using RestDWH.Elastic.Model;
 using System.Security.Claims;
-using System.Security.Cryptography.X509Certificates;
 
 namespace ALedgerApi.Events
 {
-    public class PersonEvents : RestDWHEventsElastic<Person>
-    {       
+    public class User2PersonEvents : RestDWHEventsElastic<User2Person>
+    {
         public override async Task<string> BeforeQueryAsync(string query = "", ClaimsPrincipal? user = null, IServiceProvider? serviceProvider = null)
         {
             if (user == null)
