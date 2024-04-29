@@ -26,6 +26,7 @@ namespace ALedgerApi.Model
         public string Email { get; set; }
         public string? Phone { get; set; }
         public string AddressId { get; set; }
+        public Address Address { get; set; } = new Address();
         public string? SignatureUrl { get; set; }
 
         public override bool Equals(object? obj)

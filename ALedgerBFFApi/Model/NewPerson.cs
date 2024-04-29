@@ -11,6 +11,7 @@
 		public string Email { get; set; }
 		public string? Phone { get; set; }
 		public string AddressId { get; set; }
-		public string? SignatureUrl { get; set; }
+        public BFFAddress Address { get; set; }
+        public string? SignatureUrl { get; set; }
 	}
 }

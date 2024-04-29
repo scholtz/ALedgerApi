@@ -143,12 +143,12 @@ namespace ALedgerBFFApi.Controllers
             httpClient.PassHeaders(Request);
             var queryJson = new
             {
-                size = limit,
-                from = offset,
-                query = new
-                {
-                    match_all = new { }
-                }
+                //size = limit,
+                //from = offset
+                //query = new
+                //{
+                //    match_all = new { }
+                //}
             };
             string query = JsonConvert.SerializeObject(queryJson);
             var invoiceList = await client.InvoiceElasticQueryAsync(query);

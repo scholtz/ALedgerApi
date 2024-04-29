@@ -91,21 +91,36 @@ namespace ALedgerBFFApi.Controllers
 
 
             OpenApiClient.AddressDBBase? issuerAddress = null;
-            try
+            if (issuer?.Data?.Address != null)
             {
-                if (string.IsNullOrEmpty(issuer?.Data?.AddressId)) throw new Exception("Issuer does not have address");
-                issuerAddress = await client.AddressGetByIdAsync(issuer.Data.AddressId);
+                issuerAddress = new OpenApiClient.AddressDBBase();
+                issuerAddress.Data = issuer?.Data?.Address;
             }
-            catch (Exception ex) { logger.LogError(ex, "Unable to load issuer address"); }
+            else
+            {
+                try
+                {
+                    if (string.IsNullOrEmpty(issuer?.Data?.AddressId)) throw new Exception("Issuer does not have address");
+                    issuerAddress = await client.AddressGetByIdAsync(issuer.Data.AddressId);
+                }
+                catch (Exception ex) { logger.LogError(ex, "Unable to load issuer address"); }
+            }
 
             OpenApiClient.AddressDBBase? receiverAddress = null;
-            try
+            if (receiver?.Data?.Address != null)
             {
-                if (string.IsNullOrEmpty(receiver?.Data?.AddressId)) throw new Exception("Receiver does not have address");
-                receiverAddress = await client.AddressGetByIdAsync(receiver.Data.AddressId);
+                receiverAddress = new OpenApiClient.AddressDBBase();
+                receiverAddress.Data = receiver?.Data?.Address;
             }
-            catch (Exception ex) { logger.LogError(ex, "Unable to load receiver address"); }
-
+            else
+            {
+                try
+                {
+                    if (string.IsNullOrEmpty(receiver?.Data?.AddressId)) throw new Exception("Receiver does not have address");
+                    receiverAddress = await client.AddressGetByIdAsync(receiver.Data.AddressId);
+                }
+                catch (Exception ex) { logger.LogError(ex, "Unable to load receiver address"); }
+            }
 
             OpenApiClient.InvoiceItemInvoiceItemDBBaseDBListBase? items = null;
 

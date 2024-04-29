@@ -50,8 +50,21 @@ namespace ALedgerBFFApi.Controllers
                 FirstName = person.FirstName,
                 LastName = person.LastName,
                 Phone = person.Phone,
-                SignatureUrl = person.SignatureUrl
+                SignatureUrl = person.SignatureUrl,
             };
+            if (person.Address != null)
+            {
+                dbPerson.Address = new OpenApiClient.Address
+                {
+                    City = person.Address.City,
+                    Country = person.Address.Country,
+                    CountryCode = person.Address.CountryCode,
+                    State = person.Address.State,
+                    Street = person.Address.Street,
+                    StreetLine2 = person.Address.StreetLine2,
+                    ZipCode = person.Address.ZipCode
+                };
+            }
             var result = await client.PersonPostAsync(dbPerson);
             return result;
         }
@@ -73,6 +86,19 @@ namespace ALedgerBFFApi.Controllers
                 Phone = person.Phone,
                 SignatureUrl = person.SignatureUrl
             };
+            if (person.Address != null)
+            {
+                dbPerson.Address = new OpenApiClient.Address
+                {
+                    City = person.Address.City,
+                    Country = person.Address.Country,
+                    CountryCode = person.Address.CountryCode,
+                    State = person.Address.State,
+                    Street = person.Address.Street,
+                    StreetLine2 = person.Address.StreetLine2,
+                    ZipCode = person.Address.ZipCode                    
+                };
+            }
             var result = await client.PersonPutAsync(id, dbPerson);
             return result;
         }

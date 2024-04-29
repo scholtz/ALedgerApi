@@ -1,6 +1,6 @@
 ﻿namespace ALedgerBFFApi.Model
 {
-    public class NewAddress
+    public class BFFAddress
     {
         public string Street { get; set; }
         public string? StreetLine2 { get; set; }

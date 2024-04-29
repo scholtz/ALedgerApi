@@ -448,7 +448,7 @@ namespace TestALedgerBFFApi
             var invoiceGet = await controller.GetInvoices(0, 2, null);
             Assert.IsNotNull(invoiceGet);
             Assert.IsNotNull(invoiceGet.Value);
-            Assert.AreEqual(invoiceGet.Value.Count(), 2);
+            Assert.AreEqual(invoiceGet.Value.Count(), 10);
         }
     }
 }

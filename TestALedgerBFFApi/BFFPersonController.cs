@@ -71,7 +71,17 @@ namespace TestALedgerBFFApi
                 FirstName = "First",
                 LastName = "Last",
                 Phone = "00000000",
-                SignatureUrl = "www.TEST.com"             
+                SignatureUrl = "www.TEST.com",
+                Address = new BFFAddress
+                {
+                    City = "Praha",
+                    Country = "?eská republika",
+                    CountryCode = "CZ",
+                    State = "CZ",
+                    Street = "Ulice 11",
+                    StreetLine2 = "Ulice 22",
+                    ZipCode = "11100"
+                }
             };
             var person = await controller.NewPerson(newPerson);
             Assert.IsNotNull(person);
@@ -91,7 +101,17 @@ namespace TestALedgerBFFApi
                 FirstName = "First",
                 LastName = "Last",
                 Phone = "00000000",
-                SignatureUrl = "www.TEST.com"
+                SignatureUrl = "www.TEST.com",
+                Address = new BFFAddress
+                {
+                    City = "Praha",
+                    Country = "?eská republika",
+                    CountryCode = "CZ",
+                    State = "CZ",
+                    Street = "Ulice 11",
+                    StreetLine2 = "Ulice 22",
+                    ZipCode = "11100"
+                }
             };
             var person = await controller.NewPerson(newPerson);
             Assert.IsNotNull(person);
@@ -118,7 +138,17 @@ namespace TestALedgerBFFApi
                 FirstName = "First",
                 LastName = "Last",
                 Phone = "00000000",
-                SignatureUrl = "www.TEST.com"
+                SignatureUrl = "www.TEST.com",
+                Address = new BFFAddress
+                {
+                    City = "Praha",
+                    Country = "?eská republika",
+                    CountryCode = "CZ",
+                    State = "CZ",
+                    Street = "Ulice 11",
+                    StreetLine2 = "Ulice 22",
+                    ZipCode = "11100"
+                }
             };
             var person = await controller.NewPerson(newPerson);
             Assert.IsNotNull(person);
@@ -151,7 +181,17 @@ namespace TestALedgerBFFApi
                 FirstName = "First",
                 LastName = "Last",
                 Phone = "00000000",
-                SignatureUrl = "www.TEST.com"
+                SignatureUrl = "www.TEST.com",
+                Address = new BFFAddress
+                {
+                    City = "Praha",
+                    Country = "?eská republika",
+                    CountryCode = "CZ",
+                    State = "CZ",
+                    Street = "Ulice 11",
+                    StreetLine2 = "Ulice 22",
+                    ZipCode = "11100"
+                }
             };
             var person = await controller.NewPerson(newPerson);
             Assert.IsNotNull(person);
@@ -174,7 +214,17 @@ namespace TestALedgerBFFApi
                 FirstName = "First",
                 LastName = "Last",
                 Phone = "00000000",
-                SignatureUrl = "www.TEST.com"
+                SignatureUrl = "www.TEST.com",
+                Address = new BFFAddress
+                {
+                    City = "Praha",
+                    Country = "?eská republika",
+                    CountryCode = "CZ",
+                    State = "CZ",
+                    Street = "Ulice 11",
+                    StreetLine2 = "Ulice 22",
+                    ZipCode = "11100"
+                }
             };
             var person1 = await controller.NewPerson(newPerson1);
             Assert.IsNotNull(person1);
@@ -191,7 +241,17 @@ namespace TestALedgerBFFApi
                 FirstName = "First2",
                 LastName = "Last2",
                 Phone = "00000000",
-                SignatureUrl = "www.TEST2.com"
+                SignatureUrl = "www.TEST2.com",
+                Address = new BFFAddress
+                {
+                    City = "Praha",
+                    Country = "?eská republika",
+                    CountryCode = "CZ",
+                    State = "CZ",
+                    Street = "Ulice 11",
+                    StreetLine2 = "Ulice 22",
+                    ZipCode = "11100"
+                }
             };
             var person2 = await controller.NewPerson(newPerson2);
             Assert.IsNotNull(person2);

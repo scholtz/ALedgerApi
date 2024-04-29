@@ -36,7 +36,7 @@ namespace ALedgerBFFApi.Controllers
         }
 
         [HttpPost("address")]
-        public async Task<ActionResult<OpenApiClient.AddressDBBase>> NewAddress([FromBody] Model.NewAddress address)
+        public async Task<ActionResult<OpenApiClient.AddressDBBase>> NewAddress([FromBody] Model.BFFAddress address)
         {
             httpClient.PassHeaders(Request);
             var dbAddress = new OpenApiClient.Address
@@ -55,7 +55,7 @@ namespace ALedgerBFFApi.Controllers
         }
 
         [HttpPatch("address/{id}")]
-        public async Task<ActionResult<OpenApiClient.Address>> PatchAddress(string id, [FromBody] Model.NewAddress address)
+        public async Task<ActionResult<OpenApiClient.Address>> PatchAddress(string id, [FromBody] Model.BFFAddress address)
         {
             httpClient.PassHeaders(Request);
             var dbAddress = await client.AddressGetByIdAsync(id);
@@ -110,7 +110,7 @@ namespace ALedgerBFFApi.Controllers
             return addressList.Results.ToList();
         }
 
-        private async Task<List<OpenApiClient.AddressOperation>> ConvertRecord2Patch(OpenApiClient.Address original, Model.NewAddress address)
+        private async Task<List<OpenApiClient.AddressOperation>> ConvertRecord2Patch(OpenApiClient.Address original, Model.BFFAddress address)
         {
             try
             {

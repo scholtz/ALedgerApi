@@ -59,7 +59,7 @@ namespace TestALedgerBFFApi
         [Test]
         public async Task AddressCreate()
         {
-            var newAddress = new NewAddress
+            var BFFAddress = new BFFAddress
             {
                 City = "Praha",
                 Country = "Èeská republika",
@@ -69,14 +69,14 @@ namespace TestALedgerBFFApi
                 StreetLine2 = "Ulice 22",
                 ZipCode = "11100"
             };
-            var address = await controller.NewAddress(newAddress);
+            var address = await controller.NewAddress(BFFAddress);
             Assert.IsNotNull(address);
         }
 
         [Test]
         public async Task AddressPatch()
         {
-            var newAddress = new NewAddress
+            var BFFAddress = new BFFAddress
             {
                 City = "Praha",
                 Country = "Èeská republika",
@@ -86,11 +86,11 @@ namespace TestALedgerBFFApi
                 StreetLine2 = "Ulice 22",
                 ZipCode = "11100"
             };
-            var address = await controller.NewAddress(newAddress);
+            var address = await controller.NewAddress(BFFAddress);
             Assert.IsNotNull(address);
             Assert.IsNotNull(address?.Value);
-            newAddress.City = "Brno";
-            var result = await controller.PatchAddress(address.Value.Id, newAddress);
+            BFFAddress.City = "Brno";
+            var result = await controller.PatchAddress(address.Value.Id, BFFAddress);
             Assert.IsNotNull(result?.Value);
             Assert.AreEqual(result?.Value?.City, "Brno");
         }
@@ -98,7 +98,7 @@ namespace TestALedgerBFFApi
         [Test]
         public async Task AddressDelete()
         {
-            var newAddress = new NewAddress
+            var BFFAddress = new BFFAddress
             {
                 City = "Praha",
                 Country = "Èeská republika",
@@ -108,7 +108,7 @@ namespace TestALedgerBFFApi
                 StreetLine2 = "Ulice 22",
                 ZipCode = "11100"
             };
-            var address = await controller.NewAddress(newAddress);
+            var address = await controller.NewAddress(BFFAddress);
             Assert.IsNotNull(address);
             Assert.IsNotNull(address.Value);
             var addressDelete = await controller.DeleteAddress(address.Value.Id);
@@ -128,7 +128,7 @@ namespace TestALedgerBFFApi
         [Test]
         public async Task AddressGetById()
         {
-            var newAddress = new NewAddress
+            var BFFAddress = new BFFAddress
             {
                 City = "Praha",
                 Country = "Èeská republika",
@@ -138,7 +138,7 @@ namespace TestALedgerBFFApi
                 StreetLine2 = "Ulice 22",
                 ZipCode = "11100"
             };
-            var address = await controller.NewAddress(newAddress);
+            var address = await controller.NewAddress(BFFAddress);
             Assert.IsNotNull(address);
             Assert.IsNotNull(address.Value);
             var addressGet = await controller.GetAddress(address.Value.Id);
@@ -148,7 +148,7 @@ namespace TestALedgerBFFApi
         [Test]
         public async Task AddressGet()
         {
-            var newAddress1 = new NewAddress
+            var BFFAddress1 = new BFFAddress
             {
                 City = "Praha",
                 Country = "Èeská republika",
@@ -158,11 +158,11 @@ namespace TestALedgerBFFApi
                 StreetLine2 = "Ulice 22",
                 ZipCode = "11100"
             };
-            var address1 = await controller.NewAddress(newAddress1);
+            var address1 = await controller.NewAddress(BFFAddress1);
             Assert.IsNotNull(address1);
             Assert.IsNotNull(address1.Value);
 
-            var newAddress2 = new NewAddress
+            var BFFAddress2 = new BFFAddress
             {
                 City = "Praha",
                 Country = "Èeská republika",
@@ -172,7 +172,7 @@ namespace TestALedgerBFFApi
                 StreetLine2 = "Ulice 22",
                 ZipCode = "11100"
             };
-            var address2 = await controller.NewAddress(newAddress2);
+            var address2 = await controller.NewAddress(BFFAddress2);
             Assert.IsNotNull(address2);
             Assert.IsNotNull(address2.Value);
 

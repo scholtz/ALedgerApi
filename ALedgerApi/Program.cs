@@ -11,6 +11,8 @@ using RestDWH.Elastic.Extensions;
 using RestDWH.Elastic.Repository;
 using RestDWH.Base.Extensios;
 using RestDWH.Elastic.Model;
+using ALedgerApi.Events;
+using ALedgerApi.Model;
 
 namespace ALedgerApi
 {
@@ -80,17 +82,17 @@ namespace ALedgerApi
             builder.Services.AddSingleton<IElasticClient>(client);
             //Address
             builder.Services.AddSingleton<IDWHRepository<Model.Address>, RestDWHElasticSearchRepository<Model.Address>>();
-            builder.Services.AddSingleton<RestDWHEventsElastic<Model.Address>>();
+            builder.Services.AddSingleton<RestDWHEventsElastic<Model.Address>, AddressEvents>();
             builder.Services.AddSingleton<IElasticDWHRepository<Model.Address>, RestDWHElasticSearchRepositoryExtended<Model.Address>>();
             builder.Services.AddSingleton<RestDWHElasticSearchRepositoryExtended<Model.Address>>();
             //Person
             builder.Services.AddSingleton<IDWHRepository<Model.Person>, RestDWHElasticSearchRepository<Model.Person>>();
-            builder.Services.AddSingleton<RestDWHEventsElastic<Model.Person>>();
+            builder.Services.AddSingleton<RestDWHEventsElastic<Model.Person>, PersonEvents>();
             builder.Services.AddSingleton<IElasticDWHRepository<Model.Person>, RestDWHElasticSearchRepositoryExtended<Model.Person>>();
             builder.Services.AddSingleton<RestDWHElasticSearchRepositoryExtended<Model.Person>>();
             //Invoice
             builder.Services.AddSingleton<IDWHRepository<Model.Invoice>, RestDWHElasticSearchRepository<Model.Invoice>>();
-            builder.Services.AddSingleton<RestDWHEventsElastic<Model.Invoice>>();
+            builder.Services.AddSingleton<RestDWHEventsElastic<Model.Invoice>, InvoiceEvents>();
             builder.Services.AddSingleton<IElasticDWHRepository<Model.Invoice>, RestDWHElasticSearchRepositoryExtended<Model.Invoice>>();
             builder.Services.AddSingleton<RestDWHElasticSearchRepositoryExtended<Model.Invoice>>();
             //InvoiceItem
