@@ -106,6 +106,22 @@ namespace ALedgerBFFApi.Controllers
             }
         }
 
+        [HttpPut("invoice/{id}")]
+        public async Task<ActionResult<OpenApiClient.Invoice>> PutInvoice(string id, [FromBody] OpenApiClient.Invoice invoice)
+        {
+            httpClient.PassHeaders(Request);
+            var dbInvoice = await client.InvoicePutAsync(id, invoice);
+            if (dbInvoice == null || dbInvoice.Data == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var result = await client.InvoiceDeleteAsync(id);
+                return result.Data;
+            }
+        }
+
         [HttpDelete("invoice/{id}")]
         public async Task<ActionResult<OpenApiClient.Invoice>> DeleteInvoice(string id)
         {
