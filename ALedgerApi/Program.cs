@@ -105,6 +105,11 @@ namespace ALedgerApi
             builder.Services.AddSingleton<RestDWHEventsElastic<Model.PaymentMethod>>();
             builder.Services.AddSingleton<IElasticDWHRepository<Model.PaymentMethod>, RestDWHElasticSearchRepositoryExtended<Model.PaymentMethod>>();
             builder.Services.AddSingleton<RestDWHElasticSearchRepositoryExtended<Model.PaymentMethod>>();
+            //User2Person
+            builder.Services.AddSingleton<IDWHRepository<Model.User2Person>, RestDWHElasticSearchRepository<Model.User2Person>>();
+            builder.Services.AddSingleton<RestDWHEventsElastic<Model.User2Person>>();
+            builder.Services.AddSingleton<IElasticDWHRepository<Model.User2Person>, RestDWHElasticSearchRepositoryExtended<Model.User2Person>>();
+            builder.Services.AddSingleton<RestDWHElasticSearchRepositoryExtended<Model.User2Person>>();
 
             var app = builder.Build();
 
@@ -147,6 +152,11 @@ namespace ALedgerApi
             app.MapEndpoints<Model.PaymentMethod>(servicePaymentMethod);
             var servicePaymentMethodExtended = app.Services.GetService<IElasticDWHRepository<Model.PaymentMethod>>();
             app.MapElasticEndpoints<Model.PaymentMethod>(servicePaymentMethodExtended);
+
+            var serviceUser2Person = app.Services.GetService<IDWHRepository<Model.User2Person>>();
+            app.MapEndpoints<Model.User2Person>(serviceUser2Person);
+            var serviceUser2PersonExtended = app.Services.GetService<IElasticDWHRepository<Model.User2Person>>();
+            app.MapElasticEndpoints<Model.User2Person>(serviceUser2PersonExtended);
 
             app.MapControllers();
 

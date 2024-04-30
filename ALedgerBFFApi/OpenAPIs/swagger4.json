@@ -2482,12 +2482,12 @@
         ]
       }
     },
-    "/v1/payment-method": {
+    "/v1/user-2-person": {
       "get": {
         "tags": [
           "ALedgerApi"
         ],
-        "operationId": "PaymentMethodGet",
+        "operationId": "User2PersonGet",
         "parameters": [
           {
             "name": "offset",
@@ -2534,7 +2534,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentMethodPaymentMethodDBBaseDBListBase"
+                  "$ref": "#/components/schemas/User2PersonUser2PersonDBBaseDBListBase"
                 }
               }
             }
@@ -2569,12 +2569,12 @@
         "tags": [
           "ALedgerApi"
         ],
-        "operationId": "PaymentMethodPost",
+        "operationId": "User2PersonPost",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentMethod"
+                "$ref": "#/components/schemas/User2Person"
               }
             }
           },
@@ -2586,7 +2586,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentMethodDBBase"
+                  "$ref": "#/components/schemas/User2PersonDBBase"
                 }
               }
             }
@@ -2618,12 +2618,12 @@
         ]
       }
     },
-    "/v1/payment-method/{id}": {
+    "/v1/user-2-person/{id}": {
       "get": {
         "tags": [
           "ALedgerApi"
         ],
-        "operationId": "PaymentMethodGetById",
+        "operationId": "User2PersonGetById",
         "parameters": [
           {
             "name": "id",
@@ -2642,7 +2642,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentMethodDBBase"
+                  "$ref": "#/components/schemas/User2PersonDBBase"
                 }
               }
             }
@@ -2680,7 +2680,7 @@
         "tags": [
           "ALedgerApi"
         ],
-        "operationId": "PaymentMethodPut",
+        "operationId": "User2PersonPut",
         "parameters": [
           {
             "name": "id",
@@ -2696,7 +2696,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentMethod"
+                "$ref": "#/components/schemas/User2Person"
               }
             }
           },
@@ -2708,7 +2708,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentMethodDBBase"
+                  "$ref": "#/components/schemas/User2PersonDBBase"
                 }
               }
             }
@@ -2743,7 +2743,7 @@
         "tags": [
           "ALedgerApi"
         ],
-        "operationId": "PaymentMethodPatch",
+        "operationId": "User2PersonPatch",
         "parameters": [
           {
             "name": "id",
@@ -2762,7 +2762,7 @@
               "schema": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PaymentMethodOperation"
+                  "$ref": "#/components/schemas/User2PersonOperation"
                 }
               }
             }
@@ -2775,7 +2775,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentMethodDBBase"
+                  "$ref": "#/components/schemas/User2PersonDBBase"
                 }
               }
             }
@@ -2810,7 +2810,7 @@
         "tags": [
           "ALedgerApi"
         ],
-        "operationId": "PaymentMethodDelete",
+        "operationId": "User2PersonDelete",
         "parameters": [
           {
             "name": "id",
@@ -2829,7 +2829,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentMethodDBBase"
+                  "$ref": "#/components/schemas/User2PersonDBBase"
                 }
               }
             }
@@ -2861,12 +2861,12 @@
         ]
       }
     },
-    "/v1/payment-method/properties/{propertyId}": {
+    "/v1/user-2-person/properties/{propertyId}": {
       "get": {
         "tags": [
           "ALedgerApi"
         ],
-        "operationId": "PaymentMethodGetProperty",
+        "operationId": "User2PersonGetProperty",
         "parameters": [
           {
             "name": "propertyId",
@@ -2959,12 +2959,12 @@
         ]
       }
     },
-    "/v1/payment-method/query": {
+    "/v1/user-2-person/query": {
       "post": {
         "tags": [
           "ALedgerApi"
         ],
-        "operationId": "PaymentMethodElasticQuery",
+        "operationId": "User2PersonElasticQuery",
         "parameters": [
           {
             "name": "query",
@@ -2982,7 +2982,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PaymentMethodPaymentMethodDBBaseDBListBase"
+                  "$ref": "#/components/schemas/User2PersonUser2PersonDBBaseDBListBase"
                 }
               }
             }
@@ -3014,12 +3014,12 @@
         ]
       }
     },
-    "/v1/payment-method/properties/query": {
+    "/v1/user-2-person/properties/query": {
       "post": {
         "tags": [
           "ALedgerApi"
         ],
-        "operationId": "PaymentMethodElasticPropertiesQuery",
+        "operationId": "User2PersonElasticPropertiesQuery",
         "parameters": [
           {
             "name": "query",
@@ -3585,93 +3585,6 @@
         },
         "additionalProperties": false
       },
-      "PaymentMethodDBBase": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "nullable": true
-          },
-          "data": {
-            "$ref": "#/components/schemas/PaymentMethod"
-          },
-          "created": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updated": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "deleted": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "createdBy": {
-            "type": "string",
-            "nullable": true
-          },
-          "updatedBy": {
-            "type": "string",
-            "nullable": true
-          },
-          "deletedBy": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "PaymentMethodOperation": {
-        "type": "object",
-        "properties": {
-          "operationType": {
-            "$ref": "#/components/schemas/OperationType"
-          },
-          "path": {
-            "type": "string",
-            "nullable": true
-          },
-          "op": {
-            "type": "string",
-            "nullable": true
-          },
-          "from": {
-            "type": "string",
-            "nullable": true
-          },
-          "value": {
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "PaymentMethodPaymentMethodDBBaseDBListBase": {
-        "type": "object",
-        "properties": {
-          "offset": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "limit": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "totalCount": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "results": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PaymentMethodDBBase"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "Person": {
         "type": "object",
         "properties": {
@@ -3834,6 +3747,111 @@
           }
         },
         "additionalProperties": { }
+      },
+      "User2Person": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "nullable": true
+          },
+          "personId": {
+            "type": "string",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "User2PersonDBBase": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/User2Person"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deleted": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "deletedBy": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "User2PersonOperation": {
+        "type": "object",
+        "properties": {
+          "operationType": {
+            "$ref": "#/components/schemas/OperationType"
+          },
+          "path": {
+            "type": "string",
+            "nullable": true
+          },
+          "op": {
+            "type": "string",
+            "nullable": true
+          },
+          "from": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "User2PersonUser2PersonDBBaseDBListBase": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/User2PersonDBBase"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       }
     },
     "securitySchemes": {
