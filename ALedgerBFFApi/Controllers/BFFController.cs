@@ -35,19 +35,19 @@ namespace ALedgerBFFApi.Controllers
         }
 
 
-        [HttpGet("GetUser")]
+        [HttpGet("get-user")]
         public string? GetUser()
         {
             return User?.Identity?.Name;
         }
-        [HttpGet("GetTop1")]
+        [HttpGet("get-first-person")]
         public async Task<OpenApiClient.Person> GetPerson()
         {
             httpClient.PassHeaders(Request);
             var persons = await client.PersonGetAsync(0, 10, "*", "");
             return persons.Results.First().Data;
         }
-        [HttpPost("IssueInvoice")]
+        [HttpPost("issue-invoice")]
         public async Task<OpenApiClient.Person> IssueInvoice([FromBody] Model.NewInvoice newInvoice)
         {
             httpClient.PassHeaders(Request);
@@ -57,7 +57,7 @@ namespace ALedgerBFFApi.Controllers
             newDBInvoice.NoteBeforeItems = newInvoice.NoteBeforeItems;
             return receiver.Data;
         }
-        [HttpGet("PDF/{invoiceId}")]
+        [HttpGet("pdf/{invoiceId}")]
         public async Task<string> PDF([FromRoute] string invoiceId)
         {
             httpClient.PassHeaders(Request);

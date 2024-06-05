@@ -31,8 +31,8 @@ namespace TestALedgerBFFApi
             });
             IOptionsMonitor<BFF> mockOptionsBFF = GetOptionsMonitor(new BFF()
             {
-                //DataServer = "https://ledger-data-api.h2.scholtz.sk",
-                DataServer = "https://localhost:44375/",
+                DataServer = "https://ledger-data-api.h2.scholtz.sk",
+                // DataServer = "https://localhost:44375/",
             });
 
             controller = new BFFController(logger.Object, mockOptions, mockOptionsBFF);
@@ -40,9 +40,8 @@ namespace TestALedgerBFFApi
             var mockContext = new Mock<HttpContext>();
             var mockRequest = new Mock<HttpRequest>();
             mockContext.SetupGet(x => x.Request).Returns(mockRequest.Object);
-            var prodAuth = "";
-            var testAuth = "SigTx gqNzaWfEQFjSeOHx3n/9Zp52VDcN4Qu+rBWz4thcWYG9dl21C0yd0bkBNaLOc9US9NptCuM50E6juX2xe7DARBewbhAcMAijdHhuiaNmZWXNA+iiZnbOAlEc16NnZW6sdGVzdG5ldC12MS4womdoxCBIY7UYpLPITsgQ8i1PEIHLD3HwWaesIN7GL39w5Qk6IqJsds4CUSC/pG5vdGXEFkJpYXRlY0FjY291bnRpbmcjQVJDMTSjcmN2xCB57A2sF+bF3WK1mt9cRThlADlMeEdTmlEo6qhAfVAyC6NzbmTEIHnsDawX5sXdYrWa31xFOGUAOUx4R1OaUSjqqEB9UDILpHR5cGWjcGF5";
-            mockRequest.Setup(x => x.Headers.Authorization).Returns(testAuth);
+            var prodAuth = "SigTx gqNzaWfEQB41nEe/aTvM7AwEnNgnFq8895Sm4rSpsoN6p1AYd1yBoJzhXpFANU4Mphm+FdYoXN+EAI3RFOirC17IoqNXmQKjdHhuiKJmds4CSwrBo2dlbqxtYWlubmV0LXYxLjCiZ2jEIMBhxNj8Hb3e0tdgS+RWjj9tBBmHrDe95LYgtas5JIrfomx2zgJLDqmkbm90ZcQWQmlhdGVjQWNjb3VudGluZyNBUkMxNKNyY3bEIJCO5c88dczvBvE7r0xxjZ3A5BhdHU37R18ATfK92M+io3NuZMQgkI7lzzx1zO8G8TuvTHGNncDkGF0dTftHXwBN8r3Yz6KkdHlwZaNwYXk=";
+            mockRequest.Setup(x => x.Headers.Authorization).Returns(prodAuth);
 
             controller.ControllerContext = new ControllerContext()
             {
@@ -59,9 +58,8 @@ namespace TestALedgerBFFApi
         [Test]
         public async Task TestIssueInvoice()
         {
-            var prodInvoice = "65cde9fe-03db-4eeb-8ba1-b06b4270819c";
-            var testInvoice = "bc896441-6f46-4e6c-af3a-b8661efd10bb";
-            var invoice = await controller.PDF(testInvoice);
+            var prodInvoice = "86d3a962-d7aa-4472-898f-af748670a88b";
+            var invoice = await controller.PDF(prodInvoice);
             Assert.IsNotNull(invoice);
         }
     }

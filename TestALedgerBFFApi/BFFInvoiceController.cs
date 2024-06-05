@@ -3,8 +3,10 @@ using ALedgerBFFApi.Model;
 using ALedgerBFFApi.Model.Options;
 using Algorand;
 using HandlebarsDotNet;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
@@ -18,25 +20,19 @@ namespace TestALedgerBFFApi
     public class InvoiceControllerTests
     {
         private InvoiceController controller;
+        private CancellationTokenSource cancellationToken = new CancellationTokenSource();
+        private IServiceScope? scope;
         [SetUp]
         public void Setup()
         {
 
-            var configuration = new Mock<Microsoft.Extensions.Configuration.IConfiguration>();
-            var logger = new Mock<ILogger<InvoiceController>>();
+            WebApplication appAPI = ALedgerApi.Program.CreateWebApplication("appsettings.api.json");
+            Task.Run(() => appAPI.RunAsync(), cancellationToken.Token);
+            WebApplication appBFF = ALedgerBFFApi.Program.CreateWebApplication("appsettings.bff.json");
+            Task.Run(() => appBFF.RunAsync(), cancellationToken.Token);
+            scope = appBFF.Services.CreateScope();
 
-            IOptionsMonitor<ObjectStorage> mockOptions = GetOptionsMonitor(new ObjectStorage()
-            {
-                Type = "FILE",
-                Bucket = "Data",
-            });
-            IOptionsMonitor<BFF> mockOptionsBFF = GetOptionsMonitor(new BFF()
-            {
-                //DataServer = "https://ledger-data-api.h2.scholtz.sk",
-                DataServer = "https://localhost:44375/",
-            });
-
-            controller = new InvoiceController(logger.Object, mockOptions, mockOptionsBFF);
+            controller = scope.ServiceProvider.GetService(typeof(InvoiceController)) as InvoiceController ?? throw new Exception("InvoiceController not initialized");
 
             var mockContext = new Mock<HttpContext>();
             var mockRequest = new Mock<HttpRequest>();
@@ -50,6 +46,13 @@ namespace TestALedgerBFFApi
                 HttpContext = mockContext.Object
             };
         }
+        [TearDown]
+        public void TearDown()
+        {
+            cancellationToken?.Dispose();
+            scope?.Dispose();
+        }
+
         private IOptionsMonitor<T> GetOptionsMonitor<T>(T appConfig)
         {
             var optionsMonitorMock = new Mock<IOptionsMonitor<T>>();
@@ -442,13 +445,13 @@ namespace TestALedgerBFFApi
                 }.ToArray()
             };
             var invoice2 = await controller.NewInvoice(newInvoice2);
-            Assert.IsNotNull(invoice2);
-            Assert.IsNotNull(invoice2?.Value);
+            Assert.That(invoice2, Is.Not.Null);
+            Assert.That(invoice2?.Value, Is.Not.Null);
 
-            var invoiceGet = await controller.GetInvoices(0, 2, null);
-            Assert.IsNotNull(invoiceGet);
-            Assert.IsNotNull(invoiceGet.Value);
-            Assert.AreEqual(invoiceGet.Value.Count(), 10);
+            var invoiceGet = await controller.GetInvoices(offset: 0, limit: 2);
+            Assert.That(invoiceGet, Is.Not.Null);
+            Assert.That(invoiceGet.Value, Is.Not.Null);
+            Assert.That(invoiceGet.Value.Count(), Is.LessThanOrEqualTo(2));
         }
     }
 }

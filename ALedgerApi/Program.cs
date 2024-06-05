@@ -16,11 +16,35 @@ using ALedgerApi.Model;
 
 namespace ALedgerApi
 {
+    /// <summary>
+    /// Main entry point
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Main app entry point
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            var web = CreateWebApplication();
+            web.Run();
+        }
+
+        /// <summary>
+        /// Create web app for main entry point and unit tests
+        /// </summary>
+        /// <param name="configFile">Config file</param>
+        /// <returns>WebApplication</returns>
+        /// <exception cref="Exception"></exception>
+        public static WebApplication CreateWebApplication(string configFile = "appsettings.json")
+        {
+            var builder = WebApplication.CreateBuilder();
+
+            builder.Configuration
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile(configFile, true, true);
+
 
             builder.Services.AddControllers().AddNewtonsoftJson();
             builder.Services.AddEndpointsApiExplorer();
@@ -160,7 +184,7 @@ namespace ALedgerApi
 
             app.MapControllers();
 
-            app.Run();
+            return app;
         }
     }
 }

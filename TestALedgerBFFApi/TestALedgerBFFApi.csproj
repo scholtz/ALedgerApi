@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
@@ -10,10 +10,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		
-		<PackageReference Include="RestDWH" Version="1.2023.5.14" />
-		<PackageReference Include="RestDWH.Base" Version="2.2023.10.29" />
-		<PackageReference Include="RestDWH.ElasticSearch" Version="2.2023.10.29" />
 		<PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.3.0" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
 		<PackageReference Include="Moq" Version="4.18.4" />
@@ -27,7 +23,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\ALedgerApi\ALedgerApi.csproj" />
 		<ProjectReference Include="..\ALedgerBFFApi\ALedgerBFFApi.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="appsettings.api.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="appsettings.bff.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>

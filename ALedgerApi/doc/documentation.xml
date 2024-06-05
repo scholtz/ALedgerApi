@@ -4,6 +4,11 @@
         <name>ALedgerApi</name>
     </assembly>
     <members>
+        <member name="T:ALedgerApi.Events.InvoiceEvents">
+            <summary>
+            Invoice events manages the security of the invoices
+            </summary>
+        </member>
         <member name="T:ALedgerApi.Model.Address">
             <summary>
             Address object
@@ -67,6 +72,25 @@
             <summary>
             Admin, User
             </summary>
+        </member>
+        <member name="T:ALedgerApi.Program">
+            <summary>
+            Main entry point
+            </summary>
+        </member>
+        <member name="M:ALedgerApi.Program.Main(System.String[])">
+            <summary>
+            Main app entry point
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:ALedgerApi.Program.CreateWebApplication(System.String)">
+            <summary>
+            Create web app for main entry point and unit tests
+            </summary>
+            <param name="configFile">Config file</param>
+            <returns>WebApplication</returns>
+            <exception cref="T:System.Exception"></exception>
         </member>
     </members>
 </doc>

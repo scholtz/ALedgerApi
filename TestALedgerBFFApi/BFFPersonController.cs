@@ -3,14 +3,17 @@ using ALedgerBFFApi.Model;
 using ALedgerBFFApi.Model.Options;
 using Algorand;
 using HandlebarsDotNet;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
 using Nest;
 using Org.BouncyCastle.Asn1.Ocsp;
 using System.Net.Http.Headers;
+using System.Threading;
 using System.Web.Http.Controllers;
 
 namespace TestALedgerBFFApi
@@ -18,25 +21,20 @@ namespace TestALedgerBFFApi
     public class PersonControllerTests
     {
         private PersonController controller;
+        private CancellationTokenSource cancellationToken = new CancellationTokenSource();
+        private IServiceScope? scope;
         [SetUp]
         public void Setup()
         {
 
-            var configuration = new Mock<Microsoft.Extensions.Configuration.IConfiguration>();
-            var logger = new Mock<ILogger<PersonController>>();
+            WebApplication appAPI = ALedgerApi.Program.CreateWebApplication("appsettings.api.json");
+            Task.Run(() => appAPI.RunAsync(), cancellationToken.Token);
+            WebApplication appBFF = ALedgerBFFApi.Program.CreateWebApplication("appsettings.bff.json");
+            Task.Run(() => appBFF.RunAsync(), cancellationToken.Token);
+            scope = appBFF.Services.CreateScope();
 
-            IOptionsMonitor<ObjectStorage> mockOptions = GetOptionsMonitor(new ObjectStorage()
-            {
-                Type = "FILE",
-                Bucket = "Data",
-            });
-            IOptionsMonitor<BFF> mockOptionsBFF = GetOptionsMonitor(new BFF()
-            {
-                //DataServer = "https://ledger-data-api.h2.scholtz.sk",
-                DataServer = "https://localhost:44375/",
-            });
 
-            controller = new PersonController(logger.Object, mockOptions, mockOptionsBFF);
+            controller = scope.ServiceProvider.GetService(typeof(PersonController)) as PersonController ?? throw new Exception("PersonController not initialized");
 
             var mockContext = new Mock<HttpContext>();
             var mockRequest = new Mock<HttpRequest>();
@@ -205,7 +203,7 @@ namespace TestALedgerBFFApi
         {
             var newPerson1 = new NewPerson
             {
-                AddressId = "fc5a89d3-957d-4142-9aa4-24b02f9a4f18",
+                AddressId = "fc5a89d3-957d-4142-9aa4-24b02f9a4f00",
                 //CompanyId = TODO,
                 BusinessName = "Business name",
                 Email = "email@email.cz",
@@ -230,9 +228,14 @@ namespace TestALedgerBFFApi
             Assert.IsNotNull(person1);
             Assert.IsNotNull(person1.Value);
 
+            var personGet = await controller.GetPersons(0, 2, null, null);
+            Assert.IsNotNull(personGet);
+            Assert.IsNotNull(personGet.Value);
+            Assert.That(personGet.Value.Count(), Is.LessThanOrEqualTo(2));
+
             var newPerson2 = new NewPerson
             {
-                AddressId = "61ec1f86-ea7d-4eae-923b-89cd7292f567",
+                AddressId = "61ec1f86-ea7d-4eae-923b-89cd7292f501",
                 //CompanyId = TODO,
                 BusinessName = "Business name 2",
                 Email = "email2@email.cz",
@@ -257,10 +260,10 @@ namespace TestALedgerBFFApi
             Assert.IsNotNull(person2);
             Assert.IsNotNull(person2.Value);
           
-            var personGet = await controller.GetPersons(0, 2, null, null);
+            personGet = await controller.GetPersons(0, 2, null, null);
             Assert.IsNotNull(personGet);
             Assert.IsNotNull(personGet.Value);
-            Assert.AreEqual(personGet.Value.Count(), 2);
+            Assert.That(personGet.Value.Count(), Is.EqualTo(2));
         }
     }
 }

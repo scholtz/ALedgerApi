@@ -8,9 +8,26 @@ namespace ALedgerBFFApi
 {
     public class Program
     {
+        /// <summary>
+        /// BFF main entry point
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            var web = CreateWebApplication();
+            web.Run();
+        }
+        /// <summary>
+        /// Create web app for main entry point and unit tests
+        /// </summary>
+        /// <param name="configFile">Config file</param>
+        /// <returns>WebApplication</returns>
+        public static WebApplication CreateWebApplication(string configFile = "appsettings.json")
+        {
+            var builder = WebApplication.CreateBuilder();
+            builder.Configuration
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile(configFile, true, true);
 
             builder.Services.AddControllers();
 
@@ -38,6 +55,7 @@ namespace ALedgerBFFApi
 
             // Add CORS policy
             var corsConfig = builder.Configuration.GetSection("Cors").AsEnumerable().Select(k => k.Value).Where(k => !string.IsNullOrEmpty(k)).ToArray();
+            if (!(corsConfig?.Length > 0)) throw new Exception("Cors not defined");
 
             builder.Services.AddCors(options =>
             {
@@ -74,6 +92,8 @@ namespace ALedgerBFFApi
 
             builder.Services.Configure<ObjectStorage>(builder.Configuration.GetSection("ObjectStorage"));
             builder.Services.Configure<BFF>(builder.Configuration.GetSection("BFF"));
+            builder.Services.AddTransient<Controllers.InvoiceController>();
+            builder.Services.AddTransient<Controllers.PersonController>();
 
             var app = builder.Build();
 
@@ -90,7 +110,7 @@ namespace ALedgerBFFApi
 
             app.MapControllers();
 
-            app.Run();
+            return app;
         }
     }
 }
