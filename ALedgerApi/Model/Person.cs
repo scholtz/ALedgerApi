@@ -26,28 +26,40 @@ namespace ALedgerApi.Model
         public string? LastName { get; set; }
         public string Email { get; set; }
         public string? Phone { get; set; }
-        public string AddressId { get; set; }
+        public string? AddressId { get; set; }
         public Address Address { get; set; } = new Address();
         public string? SignatureUrl { get; set; }
 
-        public override bool Equals(object? obj)
+        public bool Equals(Person? obj)
         {
-            return Equals(obj as Person);
+            return obj is Person person &&
+                   BusinessName == person.BusinessName &&
+                   CompanyId == person.CompanyId &&
+                   CompanyTaxId == person.CompanyTaxId &&
+                   CompanyVATId == person.CompanyVATId &&
+                   FirstName == person.FirstName &&
+                   LastName == person.LastName &&
+                   Email == person.Email &&
+                   Phone == person.Phone &&
+                   AddressId == person.AddressId &&
+                   EqualityComparer<Address>.Default.Equals(Address, person.Address) &&
+                   SignatureUrl == person.SignatureUrl;
         }
 
-        public bool Equals(Person? other)
+        public override bool Equals(object? obj)
         {
-            return other is not null &&
-                   BusinessName == other.BusinessName &&
-                   CompanyId == other.CompanyId &&
-                   CompanyTaxId == other.CompanyTaxId &&
-                   CompanyVATId == other.CompanyVATId &&
-                   FirstName == other.FirstName &&
-                   LastName == other.LastName &&
-                   Email == other.Email &&
-                   Phone == other.Phone &&
-                   AddressId == other.AddressId &&
-                   SignatureUrl == other.SignatureUrl;
+            return obj is Person person &&
+                   BusinessName == person.BusinessName &&
+                   CompanyId == person.CompanyId &&
+                   CompanyTaxId == person.CompanyTaxId &&
+                   CompanyVATId == person.CompanyVATId &&
+                   FirstName == person.FirstName &&
+                   LastName == person.LastName &&
+                   Email == person.Email &&
+                   Phone == person.Phone &&
+                   AddressId == person.AddressId &&
+                   EqualityComparer<Address>.Default.Equals(Address, person.Address) &&
+                   SignatureUrl == person.SignatureUrl;
         }
 
         public override int GetHashCode()
@@ -62,6 +74,7 @@ namespace ALedgerApi.Model
             hash.Add(Email);
             hash.Add(Phone);
             hash.Add(AddressId);
+            hash.Add(Address);
             hash.Add(SignatureUrl);
             return hash.ToHashCode();
         }

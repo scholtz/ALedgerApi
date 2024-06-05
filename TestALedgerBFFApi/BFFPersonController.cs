@@ -203,7 +203,6 @@ namespace TestALedgerBFFApi
         {
             var newPerson1 = new NewPerson
             {
-                AddressId = "fc5a89d3-957d-4142-9aa4-24b02f9a4f00",
                 //CompanyId = TODO,
                 BusinessName = "Business name",
                 Email = "email@email.cz",
@@ -235,7 +234,6 @@ namespace TestALedgerBFFApi
 
             var newPerson2 = new NewPerson
             {
-                AddressId = "61ec1f86-ea7d-4eae-923b-89cd7292f501",
                 //CompanyId = TODO,
                 BusinessName = "Business name 2",
                 Email = "email2@email.cz",
