@@ -10,5 +10,24 @@
         public double GrossAmount { get; set; }
         public double NetAmount { get; set; }
         public string Unit { get; set; }
+        /// <summary>
+        /// Convert to openapi spec
+        /// </summary>
+        /// <returns></returns>
+        public OpenApiClient.InvoiceItem ToOpenApi()
+        {
+            return new OpenApiClient.InvoiceItem()
+            {
+                ItemText = ItemText,
+                UnitPrice = UnitPrice,
+                Quantity = Quantity,
+                TaxPercent = TaxPercent,
+                Discount = Discount,
+                GrossAmount = GrossAmount,
+                NetAmount = NetAmount,
+                Unit = Unit
+            };
+        }
+
     }
 }

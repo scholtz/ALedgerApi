@@ -73,8 +73,8 @@ namespace TestALedgerBFFApi
                 InvoiceNumberNum = 1,
                 InvoiceType = "SELL",
                 IsDraft = true,
-                Items = new List<BFFInvoiceItem> 
-                {  
+                Items = new List<BFFInvoiceItem>
+                {
                   new BFFInvoiceItem
                   {
                              Discount = 0,
@@ -85,8 +85,8 @@ namespace TestALedgerBFFApi
                              TaxPercent = 0,
                              Unit = "Piece",
                              UnitPrice = 0
-                  }                       
-                }.ToArray(),  
+                  }
+                }.ToArray(),
                 NoteAfterItems = string.Empty,
                 NoteBeforeItems = string.Empty,
                 PayableInDays = 0,
@@ -115,7 +115,7 @@ namespace TestALedgerBFFApi
                         RateNote = string.Empty,
                         TaxAmount = 0
                     }
-                }.ToArray()               
+                }.ToArray()
             };
             var invoice = await controller.NewInvoice(newInvoice);
             Assert.IsNotNull(invoice);
@@ -180,17 +180,105 @@ namespace TestALedgerBFFApi
                 }.ToArray()
             };
             var invoice = await controller.NewInvoice(newInvoice);
-            Assert.IsNotNull(invoice);
-            Assert.IsNotNull(invoice?.Value);
+            Assert.That(invoice, Is.Not.Null);
+            Assert.That(invoice?.Value, Is.Not.Null);
 
             newInvoice.Currency = "EUR";
             newInvoice.InvoiceNumber = "00000000002";
             var result = await controller.PatchInvoice(invoice.Value.Id, newInvoice);
-            Assert.IsNotNull(result?.Value);
-            Assert.AreEqual(result?.Value?.Currency, "EUR");
-            Assert.AreEqual(result?.Value?.InvoiceNumber, "00000000002");
+            Assert.That(result?.Value, Is.Not.Null);
+            Assert.That(result?.Value?.Currency, Is.EqualTo("EUR"));
+            Assert.That(result?.Value?.InvoiceNumber, Is.EqualTo("00000000002"));
+
+
+            var loadedInvoice = await controller.GetInvoice(invoice.Value.Id);
+            Assert.That(loadedInvoice?.Value, Is.Not.Null);
+            Assert.That(loadedInvoice?.Value?.Currency, Is.EqualTo("EUR"));
+            Assert.That(loadedInvoice?.Value?.InvoiceNumber, Is.EqualTo("00000000002"));
         }
 
+        [Test]
+        public async Task InvoicePut()
+        {
+            var newInvoice = new NewInvoice
+            {
+                Currency = "USD",
+                DateDelivery = DateTimeOffset.Now,
+                DateDue = DateTimeOffset.Now,
+                DateIssue = DateTimeOffset.Now,
+                InvoiceNumber = "00000000001",
+                InvoiceNumberNum = 1,
+                InvoiceType = "SELL",
+                IsDraft = true,
+                Items = new List<BFFInvoiceItem>
+                {
+                  new BFFInvoiceItem
+                  {
+                             Discount = 0,
+                             GrossAmount = 0,
+                             ItemText = string.Empty,
+                             NetAmount = 0,
+                             Quantity = 0,
+                             TaxPercent = 0,
+                             Unit = "Piece",
+                             UnitPrice = 0
+                  }
+                }.ToArray(),
+                NoteAfterItems = string.Empty,
+                NoteBeforeItems = string.Empty,
+                PayableInDays = 0,
+                PaymentMethods = new List<BFFPaymentMethod>
+                {
+                    new BFFPaymentMethod
+                    {
+                        Account = "678678678",
+                        Currency = "USD",
+                        CurrencyId = "",
+                        GrossAmount = 20,
+                        Network = string.Empty
+                    }
+                }.ToArray(),
+                PersonIdIssuer = string.Empty,
+                PersonIdReceiver = string.Empty,
+                Summary = new List<BFFInvoiceSummaryInCurrency>
+                {
+                    new BFFInvoiceSummaryInCurrency
+                    {
+                        Currency = "USD",
+                        GrossAmount= 0,
+                        NetAmount = 0,
+                        Rate = 0,
+                        RateCurrencies = "USD",
+                        RateNote = string.Empty,
+                        TaxAmount = 0
+                    }
+                }.ToArray()
+            };
+
+            var invoice = await controller.NewInvoice(newInvoice);
+            Assert.That(invoice, Is.Not.Null);
+            Assert.That(invoice?.Value, Is.Not.Null);
+
+            newInvoice.Currency = "EUR";
+            newInvoice.InvoiceNumber = "00000000002";
+            await Task.Delay(10000);
+            var loadedInvoice = await controller.GetInvoice(invoice.Value.Id);
+            Assert.That(loadedInvoice?.Value, Is.Not.Null);
+            Assert.That(loadedInvoice?.Value?.Currency, Is.EqualTo("USD"));
+            Assert.That(loadedInvoice?.Value?.InvoiceNumber, Is.EqualTo("00000000001"));
+
+
+            var result = await controller.PutInvoice(invoice.Value.Id, newInvoice.ToOpenApi());
+            Assert.That(result?.Value, Is.Not.Null);
+            Assert.That(result?.Value?.Currency, Is.EqualTo("EUR"));
+            Assert.That(result?.Value?.InvoiceNumber, Is.EqualTo("00000000002"));
+            await Task.Delay(100);
+            loadedInvoice = await controller.GetInvoice(invoice.Value.Id);
+            Assert.That(loadedInvoice?.Value, Is.Not.Null);
+            Assert.That(loadedInvoice?.Value?.Currency, Is.EqualTo("EUR"));
+            Assert.That(loadedInvoice?.Value?.InvoiceNumber, Is.EqualTo("00000000002"));
+
+        }
         [Test]
         public async Task InvoiceDelete()
         {
@@ -258,7 +346,7 @@ namespace TestALedgerBFFApi
             {
                 var invoiceGet = await controller.GetInvoice(invoice.Value.Id);
                 Assert.IsNull(invoiceGet);
-        }
+            }
             catch (OpenApiClient.ApiException ex)
             {
                 Assert.AreEqual(ex?.StatusCode, 204);

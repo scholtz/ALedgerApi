@@ -25,5 +25,20 @@
         /// Amount on invoice to be paid
         /// </summary>
         public double? GrossAmount { get; set; }
+        /// <summary>
+        /// Convert to openapi spec
+        /// </summary>
+        /// <returns></returns>
+        public OpenApiClient.PaymentMethod ToOpenApi()
+        {
+            return new OpenApiClient.PaymentMethod()
+            {
+                Account = Account,
+                Currency = Currency,
+                CurrencyId = CurrencyId,
+                GrossAmount = GrossAmount,
+                Network = Network
+            };
+        }
     }
 }

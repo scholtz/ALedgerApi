@@ -204,11 +204,12 @@
         "tags": [
           "ALedgerApi"
         ],
-        "operationId": "AddressPut",
+        "operationId": "AddressUpsert",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "The  ID.",
             "required": true,
             "style": "simple",
             "schema": {
@@ -1442,11 +1443,12 @@
         "tags": [
           "ALedgerApi"
         ],
-        "operationId": "InvoicePut",
+        "operationId": "InvoiceUpsert",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "The  ID.",
             "required": true,
             "style": "simple",
             "schema": {
@@ -2061,11 +2063,12 @@
         "tags": [
           "ALedgerApi"
         ],
-        "operationId": "InvoiceItemPut",
+        "operationId": "InvoiceItemUpsert",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "The  ID.",
             "required": true,
             "style": "simple",
             "schema": {
@@ -2680,11 +2683,12 @@
         "tags": [
           "ALedgerApi"
         ],
-        "operationId": "User2PersonPut",
+        "operationId": "User2PersonUpsert",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "The  ID.",
             "required": true,
             "style": "simple",
             "schema": {

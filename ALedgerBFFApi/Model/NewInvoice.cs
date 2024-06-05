@@ -20,5 +20,25 @@
         public long InvoiceNumberNum { get; set; }
         public BFFPaymentMethod[] PaymentMethods { get; set; }
         public BFFInvoiceSummaryInCurrency[] Summary { get; set; }
+        public OpenApiClient.Invoice ToOpenApi()
+        {
+            return new OpenApiClient.Invoice()
+            {
+                InvoiceType = InvoiceType,
+                Currency = Currency,
+                DateDelivery = DateDelivery,
+                DateIssue = DateIssue,
+                DateDue = DateDue,
+                InvoiceNumber = InvoiceNumber,
+                InvoiceNumberNum = InvoiceNumberNum,
+                NoteAfterItems = NoteAfterItems,
+                NoteBeforeItems = NoteBeforeItems,
+                PersonIdIssuer = PersonIdIssuer,
+                PersonIdReceiver = PersonIdReceiver,
+                Items = Items?.Select(i => i.ToOpenApi()).ToArray() ?? [] ,
+                PaymentMethods = PaymentMethods?.Select(i => i.ToOpenApi()).ToArray() ?? [],
+                Summary = Summary.Select(i => i.ToOpenApi()).ToArray() ?? []
+            };
+        }
     }
 }

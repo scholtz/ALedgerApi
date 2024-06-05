@@ -110,14 +110,14 @@ namespace ALedgerBFFApi.Controllers
         public async Task<ActionResult<OpenApiClient.Invoice>> PutInvoice(string id, [FromBody] OpenApiClient.Invoice invoice)
         {
             httpClient.PassHeaders(Request);
-            var dbInvoice = await client.InvoicePutAsync(id, invoice);
+            var dbInvoice = await client.InvoiceUpsertAsync(id, invoice);
             if (dbInvoice == null || dbInvoice.Data == null)
             {
                 return NotFound();
             }
             else
             {
-                var result = await client.InvoiceDeleteAsync(id);
+                var result = await client.InvoiceGetByIdAsync(id);
                 return result.Data;
             }
         }
