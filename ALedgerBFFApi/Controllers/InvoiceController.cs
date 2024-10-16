@@ -157,17 +157,18 @@ namespace ALedgerBFFApi.Controllers
         public async Task<ActionResult<IEnumerable<OpenApiClient.InvoiceDBBase>>> GetInvoices([FromQuery] int? offset = 0, [FromQuery] int? limit = 10, [FromQuery] string? sort = null)
         {
             httpClient.PassHeaders(Request);
-            var queryJson = new
-            {
-                size = limit,
-                from = offset,
-                query = new
-                {
-                    match_all = new { }
-                }
-            };
-            string query = JsonConvert.SerializeObject(queryJson);
-            var invoiceList = await client.InvoiceElasticQueryAsync(query);
+            //var queryJson = new
+            //{
+            //    size = limit,
+            //    from = offset,
+            //    query = new
+            //    {
+            //        match_all = new { }
+            //    }
+            //};
+            //string query = JsonConvert.SerializeObject(queryJson);
+            var invoiceList = await client.InvoiceGetAsync(offset, limit, "*", sort);
+            //var invoiceList = await client.InvoiceElasticQueryAsync(query);
             return invoiceList.Results.ToList();
         }
 
