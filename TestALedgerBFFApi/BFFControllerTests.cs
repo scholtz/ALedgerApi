@@ -40,7 +40,7 @@ namespace TestALedgerBFFApi
             var mockContext = new Mock<HttpContext>();
             var mockRequest = new Mock<HttpRequest>();
             mockContext.SetupGet(x => x.Request).Returns(mockRequest.Object);
-            var prodAuth = "SigTx gqNzaWfEQB41nEe/aTvM7AwEnNgnFq8895Sm4rSpsoN6p1AYd1yBoJzhXpFANU4Mphm+FdYoXN+EAI3RFOirC17IoqNXmQKjdHhuiKJmds4CSwrBo2dlbqxtYWlubmV0LXYxLjCiZ2jEIMBhxNj8Hb3e0tdgS+RWjj9tBBmHrDe95LYgtas5JIrfomx2zgJLDqmkbm90ZcQWQmlhdGVjQWNjb3VudGluZyNBUkMxNKNyY3bEIJCO5c88dczvBvE7r0xxjZ3A5BhdHU37R18ATfK92M+io3NuZMQgkI7lzzx1zO8G8TuvTHGNncDkGF0dTftHXwBN8r3Yz6KkdHlwZaNwYXk=";
+            var prodAuth = "SigTx gqNzaWfEQJvEv8ykx7ofRMjZhEM/hr/rICUKIjBCh6sdRprYbByi3aOFVjzfD8nzqGLLBLKR1LN4zMGWZ3rDNhUnMqB1Ow6jdHhuiKJmds4CdLcKo2dlbqxtYWlubmV0LXYxLjCiZ2jEIMBhxNj8Hb3e0tdgS+RWjj9tBBmHrDe95LYgtas5JIrfomx2zgJ0uvKkbm90ZcQWQmlhdGVjQWNjb3VudGluZyNBUkMxNKNyY3bEIJCO5c88dczvBvE7r0xxjZ3A5BhdHU37R18ATfK92M+io3NuZMQgkI7lzzx1zO8G8TuvTHGNncDkGF0dTftHXwBN8r3Yz6KkdHlwZaNwYXk=";
             mockRequest.Setup(x => x.Headers.Authorization).Returns(prodAuth);
 
             controller.ControllerContext = new ControllerContext()
@@ -58,7 +58,7 @@ namespace TestALedgerBFFApi
         [Test]
         public async Task TestIssueInvoice()
         {
-            var prodInvoice = "86d3a962-d7aa-4472-898f-af748670a88b";
+            var prodInvoice = "0030609c-0ece-4299-8e8b-0ec5959eac2c";
             var invoice = await controller.PDF(prodInvoice);
             Assert.IsNotNull(invoice);
         }

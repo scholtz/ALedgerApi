@@ -22,7 +22,7 @@ namespace TestALedgerBFFApi
         private InvoiceController controller;
         private CancellationTokenSource cancellationToken = new CancellationTokenSource();
         private IServiceScope? scope;
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
 
@@ -46,7 +46,7 @@ namespace TestALedgerBFFApi
                 HttpContext = mockContext.Object
             };
         }
-        [TearDown]
+        [OneTimeTearDown]
         public void TearDown()
         {
             cancellationToken?.Dispose();
@@ -540,6 +540,89 @@ namespace TestALedgerBFFApi
             Assert.That(invoiceGet, Is.Not.Null);
             Assert.That(invoiceGet.Value, Is.Not.Null);
             Assert.That(invoiceGet.Value.Count(), Is.LessThanOrEqualTo(2));
+        }
+
+
+        [Test]
+        public async Task SetPayment()
+        {
+            var newInvoice = new NewInvoice
+            {
+                Currency = "USD",
+                DateDelivery = DateTimeOffset.Now,
+                DateDue = DateTimeOffset.Now,
+                DateIssue = DateTimeOffset.Now,
+                InvoiceNumber = "00000000001",
+                InvoiceNumberNum = 1,
+                InvoiceType = "SELL",
+                IsDraft = true,
+                Items = new List<BFFInvoiceItem>
+                {
+                  new BFFInvoiceItem
+                  {
+                             Discount = 0,
+                             GrossAmount = 0,
+                             ItemText = string.Empty,
+                             NetAmount = 0,
+                             Quantity = 0,
+                             TaxPercent = 0,
+                             Unit = "Piece",
+                             UnitPrice = 0
+                  }
+                }.ToArray(),
+                NoteAfterItems = string.Empty,
+                NoteBeforeItems = string.Empty,
+                PayableInDays = 0,
+                PaymentMethods = new List<BFFPaymentMethod>
+                {
+                    new BFFPaymentMethod
+                    {
+                        Account = "678678678",
+                        Currency = "USD",
+                        CurrencyId = "123",
+                        GrossAmount = 20,
+                        Network = "mainnet-v1.0"
+                    }
+                }.ToArray(),
+                PersonIdIssuer = string.Empty,
+                PersonIdReceiver = string.Empty,
+                Summary = new List<BFFInvoiceSummaryInCurrency>
+                {
+                    new BFFInvoiceSummaryInCurrency
+                    {
+                        Currency = "USD",
+                        GrossAmount= 20,
+                        NetAmount = 20,
+                        Rate = 0,
+                        RateCurrencies = "USD",
+                        RateNote = string.Empty,
+                        TaxAmount = 0
+                    }
+                }.ToArray()
+            };
+            var invoice = await controller.NewInvoice(newInvoice);
+            Assert.That(invoice, Is.Not.Null);
+            Assert.That(invoice?.Value, Is.Not.Null);
+
+            var match = await controller.MatchPaymentWithInvoice(invoice.Value.Id, new OpenApiClient.PaymentItem()
+            {
+                Account = "678678678",
+                Currency = "USD",
+                GrossAmount = 20,
+                CurrencyId = "123",
+                BaseAmount = 20000000,
+                Network = "mainnet-v1.0",
+                Reference = "TX123"
+            });
+
+            Assert.That(match, Is.Not.Null);
+            Assert.That(match?.Value?.PaymentInfo.Status == "PAID");
+
+            var invoiceGet = await controller.GetInvoice(invoice.Value.Id);
+
+
+            Assert.That(invoiceGet, Is.Not.Null);
+            Assert.That(invoiceGet?.Value?.PaymentInfo.Status == "PAID");
         }
     }
 }

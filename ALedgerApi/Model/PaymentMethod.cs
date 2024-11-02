@@ -27,7 +27,6 @@ namespace ALedgerApi.Model
         /// ALGO | ETH | Bank SWIFT Code
         /// </summary>
         public string Network { get; set; }
-
         /// <summary>
         /// Amount on invoice to be paid
         /// </summary>

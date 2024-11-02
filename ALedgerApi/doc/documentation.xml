@@ -31,9 +31,148 @@
             Example: Prague
             </summary>
         </member>
+        <member name="T:ALedgerApi.Model.Invoice">
+            <summary>
+            Invoice object
+            </summary>
+        </member>
+        <member name="F:ALedgerApi.Model.Invoice.IsDraft">
+            <summary>
+            Indicates if payment is draft or has been sent to third party
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.Invoice.InvoiceNumber">
+            <summary>
+            Invoice number in text format
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.Invoice.InvoiceNumberNum">
+            <summary>
+            Invoice number in number format which is incremented by one each new invoice.
+            </summary>
+        </member>
         <member name="P:ALedgerApi.Model.Invoice.InvoiceType">
             <summary>
             issued | received
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.Invoice.PaymentMethods">
+            <summary>
+            Payment methods
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.Invoice.Summary">
+            <summary>
+            Summary of the invoice
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.Invoice.Items">
+            <summary>
+            Items on the invoice
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.Invoice.PersonIdIssuer">
+            <summary>
+            Referece id of the person who issued the invoice
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.Invoice.PersonIdReceiver">
+            <summary>
+            Referece id of the person who is receiver
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.Invoice.DateIssue">
+            <summary>
+            Date of the issue
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.Invoice.DateDue">
+            <summary>
+            Date when invoice should be paid
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.Invoice.DateDelivery">
+            <summary>
+            Date of the delivery of the product or service
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.Invoice.NoteBeforeItems">
+            <summary>
+            Note before the invoice items
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.Invoice.NoteAfterItems">
+            <summary>
+            Note after the invoice items
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.Invoice.Currency">
+            <summary>
+            Main currency of the invoice
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.Invoice.PaymentInfo">
+            <summary>
+            Payment details. PaymentInfo.Status indicates if invoice has been paid.
+            </summary>
+        </member>
+        <member name="T:ALedgerApi.Model.PaymentInfo">
+            <summary>
+            Payment details. If invoice has been paid, this structure is filled in. The status indicates if the invoice has been paid.
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.PaymentInfo.Status">
+            <summary>
+            Status of the payment UNPAID | PAID | PARTIALPAID
+            </summary>
+        </member>
+        <member name="T:ALedgerApi.Model.PaymentInfo.PaymentItem">
+            <summary>
+            single payment detail. One invoice can be paid in multiple txs.
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.PaymentInfo.PaymentItem.Reference">
+            <summary>
+            Reference of the transaction, usually tx id or bank tx id
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.PaymentInfo.PaymentItem.Network">
+            <summary>
+            Network 
+            
+            ALGO | ETH | Bank SWIFT Code
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.PaymentInfo.PaymentItem.Currency">
+            <summary>
+            Token name or Currency code
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.PaymentInfo.PaymentItem.CurrencyId">
+            <summary>
+            Token id or Currency code
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.PaymentInfo.PaymentItem.Account">
+            <summary>
+            Account number.
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.PaymentInfo.PaymentItem.BaseAmount">
+            <summary>
+            Amount in the base units
+            
+            Amount in base units, eg on blockchain multiplied with decimals. In fiat multiplied by 2 decimals 10^2
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.PaymentInfo.PaymentItem.GrossAmount">
+            <summary>
+            Amount in the tx
+            </summary>
+        </member>
+        <member name="P:ALedgerApi.Model.PaymentInfo.Payments">
+            <summary>
+            List of real payments
             </summary>
         </member>
         <member name="T:ALedgerApi.Model.PaymentMethod">
