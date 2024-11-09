@@ -1,4 +1,5 @@
 ﻿using ALedgerBFFApi.Extension;
+using ALedgerBFFApi.Extensions;
 using ALedgerBFFApi.Model.Options;
 using Amazon.S3;
 using Amazon.S3.Model;
@@ -48,9 +49,9 @@ namespace ALedgerBFFApi.Controllers
             var dbInvoice = new OpenApiClient.Invoice
             {
                 Currency = invoice.Currency,
-                DateDelivery = invoice.DateDelivery,
-                DateDue = invoice.DateDue,
-                DateIssue = invoice.DateIssue,
+                DateDelivery = invoice.DateDelivery.ToUtcPreservingTime(),
+                DateDue = invoice.DateDue.ToUtcPreservingTime(),
+                DateIssue = invoice.DateIssue.ToUtcPreservingTime(),
                 InvoiceNumber = invoice.InvoiceNumber,
                 InvoiceNumberNum = invoice.InvoiceNumberNum,
                 InvoiceType = invoice.InvoiceType,
@@ -110,6 +111,10 @@ namespace ALedgerBFFApi.Controllers
             }
             else
             {
+                invoice.DateDue = invoice.DateDue.ToUtcPreservingTime();
+                invoice.DateIssue = invoice.DateIssue.ToUtcPreservingTime();
+                invoice.DateDelivery = invoice.DateDelivery.ToUtcPreservingTime();
+
                 var operations = ConvertRecord2Patch(dbInvoice.Data, invoice);
                 var result = await client.InvoicePatchAsync(id, operations);
                 return result.Data;
@@ -188,6 +193,9 @@ namespace ALedgerBFFApi.Controllers
         public async Task<ActionResult<OpenApiClient.Invoice>> PutInvoice(string id, [FromBody] OpenApiClient.Invoice invoice)
         {
             httpClient.PassHeaders(Request);
+            invoice.DateDue = invoice.DateDue.ToUtcPreservingTime();
+            invoice.DateIssue = invoice.DateIssue.ToUtcPreservingTime();
+            invoice.DateDelivery = invoice.DateDelivery.ToUtcPreservingTime();
             var dbInvoice = await client.InvoiceUpsertAsync(id, invoice);
             if (dbInvoice == null || dbInvoice.Data == null)
             {
